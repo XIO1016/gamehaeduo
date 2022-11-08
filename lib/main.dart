@@ -1,7 +1,9 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
+import 'package:cau_gameduo/page/login/startPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 import 'binding/init_biinding.dart';
 
@@ -15,6 +17,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    KakaoSdk.init(nativeAppKey: '1d707f03c04129f8ed599103dcf31684');
     return GetMaterialApp(
       title: '복어',
       debugShowCheckedModeBanner: false,
@@ -26,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: const SignUpPage(),
+      home: const StartPage(),
     );
   }
 }
