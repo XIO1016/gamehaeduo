@@ -101,7 +101,7 @@ class _StartPageState extends State<StartPage> {
                   ),
                 ],
               ),
-              Sbox(0, 40),
+              Sbox(0, 70),
             ]),
       ),
     );

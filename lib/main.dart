@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: const SignUpPage(),
+      home: const StartPage(),
       getPages: [
+        GetPage(name: '/start', page: () => StartPage()),
         GetPage(name: '/signup', page: () => SignUpPage()),
         GetPage(name: '/home', page: () => homePage()),
         GetPage(name: '/becomeplayer1', page: () => BecomePlayerPage1()),
