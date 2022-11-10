@@ -68,7 +68,6 @@ class profilePage extends GetView<profileController> {
                                 '티어',
                                 style: TextStyle(fontSize: 15),
                               ),
-
                             ]),
                         Sbox(0, 10),
                         const Text(
