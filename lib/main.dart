@@ -1,4 +1,5 @@
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:cau_gameduo/page/login/startPage.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: const StartPage(),
+      home: const BecomePlayerPage1(),
     );
   }
 }

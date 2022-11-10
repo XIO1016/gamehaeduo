@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
 import 'package:flutter/material.dart';
@@ -12,21 +14,33 @@ class SignUpPage extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Obx(
       () => Scaffold(
-        bottomSheet: GestureDetector(
-          onTap: () {},
-          //TODO: validate 버튼, 라우팅 처리
-          child: Container(
-            width: Get.width,
-            height: 60,
-            color: Color(0xffE9E9E9),
-            child: Center(
-              child: Text(
-                '완료',
-                style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+        bottomSheet: (controller.checkNickDup.value == true &&
+                controller.ischeckedposition() == true)
+            ? GestureDetector(
+                onTap: () {},
+                child: Container(
+                  width: Get.width,
+                  height: 60,
+                  color: maincolor,
+                  child: Center(
+                    child: Text(
+                      '완료',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              )
+            : Container(
+                width: Get.width,
+                height: 60,
+                color: Color(0xffE9E9E9),
+                child: Center(
+                  child: Text(
+                    '완료',
+                    style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
@@ -149,5 +163,39 @@ class SignUpPage extends GetView<SignUpController> {
         )),
       ),
     );
+  }
+
+  Widget finishedButton() {
+    if (controller.checkNickDup.value == true &&
+        controller.ischeckedposition() == true) {
+      log('checked');
+      log(controller.checkNickDup.value.toString());
+      return GestureDetector(
+        onTap: () {},
+        child: Container(
+          width: Get.width,
+          height: 60,
+          color: maincolor,
+          child: Center(
+            child: Text(
+              '완료',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        width: Get.width,
+        height: 60,
+        color: Color(0xffE9E9E9),
+        child: Center(
+          child: Text(
+            '완료',
+            style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+          ),
+        ),
+      );
+    }
   }
 }
