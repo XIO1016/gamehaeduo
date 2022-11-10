@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
-import 'package:cau_gameduo/page/homePage.dart';
+import 'package:cau_gameduo/page/app.dart';
+import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,7 +20,7 @@ class SignUpPage extends GetView<SignUpController> {
                 controller.ischeckedposition() == true)
             ? GestureDetector(
                 onTap: () {
-                  Get.to(homePage());
+                  Get.to(App());
                 },
                 child: Container(
                   width: Get.width,
