@@ -9,6 +9,7 @@ class SignUpController extends GetxController {
   TextEditingController nickController = TextEditingController();
   Future checkDuplicated() async {
     checkNickDup(true);
+    print(checkNickDup);
   }
 
   Future checkposition(int i) async {
@@ -17,5 +18,15 @@ class SignUpController extends GetxController {
     } else {
       isSelected[i](true);
     }
+    print(isSelected);
+  }
+
+  ischeckedposition() {
+    for (int i = 0; i < 5; i++) {
+      if (isSelected[i] == true) {
+        return true;
+      }
+    }
+    return false;
   }
 }
