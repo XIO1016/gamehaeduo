@@ -22,6 +22,7 @@ class _StartPageState extends State<StartPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Sbox(double.infinity, 0),
+              Sbox(0, 30),
               const Image(
                 image: AssetImage('images/lol_icon.png'),
                 width: 139,
@@ -35,7 +36,7 @@ class _StartPageState extends State<StartPage> {
                     color: Color(0xFF545DAD),
                     fontWeight: FontWeight.bold),
               ),
-              Sbox(0, 280),
+              Sbox(0, MediaQuery.of(context).size.height * 0.35),
               GestureDetector(
                   child: Container(
                       width: 300,
@@ -101,7 +102,7 @@ class _StartPageState extends State<StartPage> {
                   ),
                 ],
               ),
-              Sbox(0, 70),
+              Sbox(0, MediaQuery.of(context).size.height * 0.05),
             ]),
       ),
     );
