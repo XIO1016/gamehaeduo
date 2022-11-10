@@ -22,13 +22,13 @@ class _StartPageState extends State<StartPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Sbox(double.infinity, 0),
-              Image(
+              const Image(
                 image: AssetImage('images/lol_icon.png'),
                 width: 139,
                 height: 150,
               ),
               Sbox(0, 10),
-              Text(
+              const Text(
                 '게임해듀오',
                 style: TextStyle(
                     fontSize: 30,
@@ -40,7 +40,7 @@ class _StartPageState extends State<StartPage> {
                   child: Container(
                       width: 300,
                       height: 45,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: Colors.white,
                         image: DecorationImage(
                           image:
@@ -55,12 +55,12 @@ class _StartPageState extends State<StartPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     '로그인하면 게임해듀오 ',
                     style: TextStyle(fontSize: 11),
                   ),
                   GestureDetector(
-                      child: Text("이용약관",
+                      child: const Text("이용약관",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 11,
@@ -70,7 +70,7 @@ class _StartPageState extends State<StartPage> {
                           Uri.parse('https://gamehaeduo.shop/policy'),
                         );
                       }),
-                  Text(
+                  const Text(
                     '에 동의하는 것으로 간주됩니다.',
                     style: TextStyle(fontSize: 11),
                   ),
@@ -80,12 +80,12 @@ class _StartPageState extends State<StartPage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     '게임해듀오 회원정보 처리 방식은 ',
                     style: TextStyle(fontSize: 11),
                   ),
                   GestureDetector(
-                      child: Text("개인정보취급방침",
+                      child: const Text("개인정보취급방침",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 11,
@@ -95,7 +95,7 @@ class _StartPageState extends State<StartPage> {
                           Uri.parse('https://gamehaeduo.shop/privacy'),
                         );
                       }),
-                  Text(
+                  const Text(
                     '에서 확인 가능합니다.',
                     style: TextStyle(fontSize: 11),
                   ),
