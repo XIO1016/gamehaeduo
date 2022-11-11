@@ -2,9 +2,10 @@ import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
+import 'package:cau_gameduo/page/myPage/myPage.dart';
+import 'package:cau_gameduo/page/myPage/settingPage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:cau_gameduo/page/login/startPage.dart';
-import 'package:cau_gameduo/page/myPage/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -33,14 +34,15 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: const StartPage(),
+      home: const SettingPage(),
       getPages: [
         GetPage(name: '/start', page: () => StartPage()),
         GetPage(name: '/signup', page: () => SignUpPage()),
         GetPage(name: '/home', page: () => homePage()),
         GetPage(name: '/becomeplayer1', page: () => BecomePlayerPage1()),
         GetPage(name: '/becomeplayer2', page: () => BecomePlayerPage2()),
-        GetPage(name: '/profile', page: () => profilePage()),
+        GetPage(name: '/mypage', page: () => MyPage()),
+        GetPage(name: '/mypage', page: () => SettingPage()),
       ],
     );
   }
