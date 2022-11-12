@@ -1,4 +1,5 @@
-class Profile {
+class Profile1 {
+  String image;
   String nick;
   String tier;
   List position;
@@ -7,11 +8,11 @@ class Profile {
   bool isOn;
   bool isPlayer;
   double star;
-
   List reviews;
 
-  Profile(
-      {required this.nick,
+  Profile1(
+      {required this.image,
+      required this.nick,
       required this.tier,
       required this.position,
       required this.playStyle,

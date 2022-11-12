@@ -5,6 +5,7 @@ import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController2.dart
 import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
 import 'package:cau_gameduo/controller/myPage/settingController.dart';
 import 'package:cau_gameduo/controller/myPage/profileController.dart';
+import 'package:cau_gameduo/controller/bottomNavController.dart';
 import 'package:get/get.dart';
 
 class InitBinding extends Bindings {
@@ -17,5 +18,6 @@ class InitBinding extends Bindings {
     Get.put(MyPageController(), permanent: true);
     Get.put(profileController(), permanent: true);
     Get.put(SettingController(), permanent: true);
+    Get.put(BottomNavController(), permanent: true);
   }
 }

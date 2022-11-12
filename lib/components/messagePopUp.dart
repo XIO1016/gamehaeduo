@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MessagePopup extends StatelessWidget {
-  final String? title;
   final String? message;
+  final String? okmessage;
   final Function()? okCallback;
   final Function()? cancelCallback;
 
   MessagePopup({
     Key? key,
-    required this.title,
     required this.message,
+    required this.okmessage,
     required this.okCallback,
     this.cancelCallback,
   });
@@ -23,42 +23,68 @@ class MessagePopup extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(6),
             child: Container(
               color: Colors.white,
-              width: Get.width * 0.7,
-              padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+              width: Get.width * 0.9,
+              height: 180,
               child: Column(
                 children: [
-                  Text(
-                    title!,
-                    style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
                   SizedBox(
-                    height: 7,
+                    width: Get.width * 0.9,
+                    height: 130,
+                    child: Center(
+                      child: Text(
+                        message!,
+                        style: const TextStyle(
+                            fontSize: 14, color: Color(0xff7D7D7D)),
+                      ),
+                    ),
                   ),
-                  Text(
-                    message!,
-                    style: const TextStyle(fontSize: 14, color: Colors.black),
-                  ),
-                  SizedBox(
-                    height: 15,
+                  const Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: Color(0xffD9D9D9),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton(onPressed: okCallback, child: Text('확인')),
-                      const SizedBox(
-                        width: 10,
+                      GestureDetector(
+                        onTap: cancelCallback,
+                        child: Container(
+                          height: 40,
+                          width: Get.width * 0.44,
+                          child: Center(
+                            child: Text(
+                              '취소',
+                              style: TextStyle(
+                                  color: Color(0xffAFAFAF),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
                       ),
-                      ElevatedButton(
-                        onPressed: cancelCallback,
-                        child: Text('취소'),
-                        style: ElevatedButton.styleFrom(primary: Colors.grey),
+                      Container(
+                        width: 1,
+                        height: 48,
+                        color: Color(0xffD9D9D9),
                       ),
+                      GestureDetector(
+                          onTap: okCallback,
+                          child: Container(
+                            height: 40,
+                            width: Get.width * 0.44,
+                            child: Center(
+                              child: Text(
+                                okmessage!,
+                                style: TextStyle(
+                                    color: Color(0xff545DAD),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          )),
                     ],
                   )
                 ],

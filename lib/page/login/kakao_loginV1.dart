@@ -2,11 +2,14 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:http/http.dart' as http;
+import '../../controller/login/SignUpController.dart';
 import '../../http/url.dart';
 import '../app.dart';
+import '../../model/profile.dart';
 
 String accessToken = '';
 
@@ -19,6 +22,8 @@ class KakaoLogin {
           var response = await UserApi.instance.loginWithKakaoTalk();
           accessToken = response.accessToken;
 
+          Get.dialog(Center(child: CircularProgressIndicator()),
+              barrierDismissible: false);
           var userCheck = await http.post(Uri.parse(urlBase + 'api/userCheck'),
               headers: {
                 "content-type": "application/json",
@@ -27,13 +32,34 @@ class KakaoLogin {
               body: jsonEncode(<String, String>{
                 'accessToken': accessToken,
               }));
-          log('hello');
+
+          Get.back();
           Map re = jsonDecode(userCheck.body);
 
           log(re.toString());
           if (re['code'] == 1000) {
             if (re['result']['isMember']) {
-              Get.to(App());
+              log('eeeeeeeeeeeeeee');
+              var login = await http.post(Uri.parse(urlBase + 'api/login'),
+                  headers: <String, String>{
+                    "content-type": "application/json",
+                    "accept": "application/json",
+                  },
+                  body:
+                      jsonEncode(<String, String>{'accessToken': accessToken}));
+              Map re1 = jsonDecode(login.body);
+              log(re1.toString());
+
+              if (login.statusCode == 200) {
+                profile.image = re1['result']['profilePhotoUrl'];
+                profile.isPlayer =
+                    (re1['result']['isPlayer'] == 'N') ? false : true;
+                profile.nick = re1['result']['nickname'];
+
+                log('go');
+                // Get.back();
+                Get.to(App());
+              }
             } else {
               var duologin = await http.post(Uri.parse(urlBase + 'login'),
                   body: jsonEncode(<String, String>{

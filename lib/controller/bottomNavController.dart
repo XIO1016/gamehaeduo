@@ -43,8 +43,8 @@ class BottomNavController extends GetxController {
                 okCallback: () {
                   exit(0);
                 },
+                okmessage: '종료',
                 cancelCallback: Get.back,
-                title: '게임해듀오',
               ));
       return true;
     } else {
