@@ -67,15 +67,15 @@ class MyPage extends GetView<MyPageController> {
                       ),
                       Expanded(child: Sbox(10,0)),
                       Icon(Icons.navigate_next, size: 50, color: Colors.grey),
-                      Sbox(20, 0),
+                      Sbox(10, 0),
                     ],
                   ),
                 ),
-                Sbox(0,40),
+                Sbox(0,30),
 
                 //요청 듀오
                 Container(
-                  padding: const EdgeInsets.only(bottom: 30.0, top: 10.0),
+                  padding: const EdgeInsets.only(bottom: 25.0, top: 15.0),
                   decoration: BoxDecoration(border: Border.all(color: maincolor),
                     borderRadius: BorderRadius.all(
                         Radius.circular(20.0) //                 <--- border radius here
@@ -118,27 +118,34 @@ class MyPage extends GetView<MyPageController> {
                     ],
                   ),
                 ),
-                Sbox(0,30),
-                ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  horizontalTitleGap: 0.0,
-                  leading: Icon(Icons.headphones),
-                  title: Text('플레이어 되기 (프로필 등록)',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                  trailing: Icon(Icons.navigate_next),
-                  onTap: (){
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SettingPage()));
-                  },
+                Sbox(0,10),
+                SizedBox(
+                  height: 35,
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    horizontalTitleGap: 0.0,
+                    leading: Icon(Icons.headphones),
+                    title: Text('플레이어 되기 (프로필 등록)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                    trailing: Icon(Icons.navigate_next),
+                    onTap: (){
+                      },
+                  ),
                 ),
-                    ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      horizontalTitleGap: 0.0,
-                      leading: Icon(Icons.settings),
-                      title: Text('설정',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                      trailing: Icon(Icons.navigate_next),
-                      onTap: (){},
+                    SizedBox(
+                      height: 35,
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        horizontalTitleGap: 0.0,
+                        leading: Icon(Icons.settings),
+                        title: Text('설정',
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                        trailing: Icon(Icons.navigate_next),
+                        onTap: (){
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => SettingPage()));
+                        },
+                      ),
                     ),
 
                   ],
