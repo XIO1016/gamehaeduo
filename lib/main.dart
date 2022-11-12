@@ -3,6 +3,7 @@ import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
+import 'package:cau_gameduo/page/myPage/profilePage.dart';
 import 'package:cau_gameduo/page/myPage/settingPage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:cau_gameduo/page/login/startPage.dart';
@@ -10,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
-import 'binding/init_biinding.dart';
+import 'binding/init_binding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: const SettingPage(),
+      home: StartPage(),
       getPages: [
         GetPage(name: '/start', page: () => StartPage()),
         GetPage(name: '/signup', page: () => SignUpPage()),

@@ -5,6 +5,10 @@ class Profile {
   String playStyle;
   String introduce;
   bool isOn;
+  bool isPlayer;
+  double star;
+
+  List reviews;
 
   Profile(
       {required this.nick,
@@ -12,5 +16,8 @@ class Profile {
       required this.position,
       required this.playStyle,
       required this.introduce,
-      required this.isOn});
+      required this.isOn,
+      required this.isPlayer,
+      required this.star,
+      required this.reviews});
 }
