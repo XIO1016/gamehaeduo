@@ -33,7 +33,6 @@ class KakaoLogin {
                 'accessToken': accessToken,
               }));
 
-          Get.back();
           Map re = jsonDecode(userCheck.body);
 
           log(re.toString());
@@ -54,7 +53,7 @@ class KakaoLogin {
                 var userId = re1['result']['userId'];
                 String jwtaccessToken = re1['result']['jwtAccessToken'];
                 var getprofile = await http.get(
-                    Uri.parse(urlBase + 'player/profile?userIdx=$userId'),
+                    Uri.parse(urlBase + 'player/profile?id=$userId'),
                     headers: <String, String>{
                       "content-type": "application/json",
                       "accept": "application/json",
@@ -84,7 +83,7 @@ class KakaoLogin {
                     profile.position.add('서포터');
                 }
 
-                // Get.back();
+                Get.back();
                 Get.to(App());
               }
             } else {

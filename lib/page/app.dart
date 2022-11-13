@@ -1,4 +1,5 @@
 import 'package:cau_gameduo/page/home/homePage.dart';
+import 'package:cau_gameduo/page/myPage/myPage.dart';
 import 'package:cau_gameduo/page/myPage/profilePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -28,7 +29,7 @@ class App extends GetView<BottomNavController> {
             ),
 
             //mypage 화면 여기에 넣어주세욤
-            profilePage()
+            MyPage()
           ]),
           bottomNavigationBar: Container(
             height: 64,

@@ -30,6 +30,10 @@ class profilePage extends GetView<profileController> {
             Container(
               width: Get.width,
               height: 380,
+              child: Image.network(
+                controller.myprofile.image,
+                fit: BoxFit.fitWidth,
+              ),
               color: Colors.grey,
             ),
             Positioned(
@@ -39,8 +43,8 @@ class profilePage extends GetView<profileController> {
                 decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10))),
+                        topRight: Radius.circular(20),
+                        topLeft: Radius.circular(20))),
                 child: Padding(
                     padding: const EdgeInsets.fromLTRB(50, 30, 50, 30),
                     child: Container()),
@@ -52,54 +56,56 @@ class profilePage extends GetView<profileController> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      '닉네임',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    Row(
+                      children: [
+                        (controller.myprofile.isOn)
+                            ? Container(
+                                width: 20,
+                                height: 20,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(100),
+                                    color: Colors.lightGreenAccent),
+                              )
+                            : Container(),
+                        Sbox(10, 0),
+                        Text(
+                          controller.myprofile.nick,
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                Sbox(0, 10),
                 (controller.myprofile.isPlayer)
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    ? Column(
                         children: [
-                          const Text(
-                            '닉네임',
-                            style: TextStyle(fontSize: 15),
-                          ),
                           Row(
-                            children: [
-                              (controller.myprofile.isOn)
-                                  ? Container(
-                                      width: 20,
-                                      height: 20,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          color: Colors.lightGreenAccent),
-                                    )
-                                  : Container(),
-                              Sbox(10, 0),
-                              Text(
-                                controller.myprofile.nick,
-                                style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          )
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  '티어',
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                Text(
+                                  controller.myprofile.tier,
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ]),
+                          Sbox(0, 10)
                         ],
                       )
                     : Container(),
-                Sbox(0, 10),
-                (controller.myprofile.isPlayer)
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                            const Text(
-                              '티어',
-                              style: TextStyle(fontSize: 15),
-                            ),
-                            Text(
-                              controller.myprofile.tier,
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                            )
-                          ])
-                    : Container(),
-                Sbox(0, 10),
                 const Text(
                   '포지션',
                   style: TextStyle(fontSize: 15),
