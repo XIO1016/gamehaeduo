@@ -51,12 +51,39 @@ class KakaoLogin {
               log(re1.toString());
 
               if (login.statusCode == 200) {
+                var userId = re1['result']['userId'];
+                String jwtaccessToken = re1['result']['jwtAccessToken'];
+                var getprofile = await http.get(
+                    Uri.parse(urlBase + 'player/profile?userIdx=$userId'),
+                    headers: <String, String>{
+                      "content-type": "application/json",
+                      "accept": "application/json",
+                      "jwtAccessToken": jwtaccessToken
+                    });
+                Map profileRe = jsonDecode(getprofile.body);
                 profile.image = re1['result']['profilePhotoUrl'];
                 profile.isPlayer =
                     (re1['result']['isPlayer'] == 'N') ? false : true;
                 profile.nick = re1['result']['nickname'];
+                if (profileRe['code'] == 1000) {
+                  if (profile.isPlayer) {
+                    profile.tier = profileRe['result']['tier'];
+                    profile.playStyle = profileRe['result']['playStyle'];
+                    profile.introduce = profileRe['result']['introduction'];
+                    profile.star = profileRe['result']['rating'];
+                  }
+                  if (profileRe['result']['top'] == 1)
+                    profile.position.add('탑');
+                  if (profileRe['result']['jungle'] == 1)
+                    profile.position.add('정글');
+                  if (profileRe['result']['mid'] == 1)
+                    profile.position.add('미드');
+                  if (profileRe['result']['ad'] == 1)
+                    profile.position.add('원딜');
+                  if (profileRe['result']['supporter'] == 1)
+                    profile.position.add('서포터');
+                }
 
-                log('go');
                 // Get.back();
                 Get.to(App());
               }
