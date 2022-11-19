@@ -1,11 +1,11 @@
 import 'package:cau_gameduo/components/Color.dart';
-import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController2.dart';
+import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../components/SizedBox.dart';
 
 
-class BecomePlayerPage2 extends GetView<BecomePlayerController2> {
+class BecomePlayerPage2 extends GetView<BecomePlayerController> {
   const BecomePlayerPage2 ({Key? key}) : super(key: key);
 
   @override
