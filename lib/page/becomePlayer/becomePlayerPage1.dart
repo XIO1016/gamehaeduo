@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
-import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController1.dart';
+import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../components/SizedBox.dart';
 
-class BecomePlayerPage1 extends GetView<BecomePlayerController1> {
+class BecomePlayerPage1 extends GetView<BecomePlayerController> {
   const BecomePlayerPage1({Key? key}) : super(key: key);
 
   @override
