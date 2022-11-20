@@ -6,36 +6,56 @@ import '../../http/url.dart';
 import 'dart:convert';
 import 'dart:developer';
 
-
-class BecomePlayerController extends GetxController{
-
+class BecomePlayerController extends GetxController {
   //포인트
   TextEditingController pointController = TextEditingController();
+  //자기소개
+  TextEditingController introductionController = TextEditingController();
+  //플레이스타일
+  TextEditingController playStyleController = TextEditingController();
+  RxBool writeFinish = false.obs;
 
   //프로필 사진
-  var selectedImagePath=''.obs;
+  var selectedImagePath = ''.obs;
 
-  void getImage(ImageSource imageSource) async{
-    final pickedFile=await ImagePicker().pickImage(source: imageSource);
-    if(pickedFile!=null){
-      selectedImagePath.value=pickedFile.path;
+  void getImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    if (pickedFile != null) {
+      selectedImagePath.value = pickedFile.path;
       update();
-    }
-    else{}
+    } else {}
   }
 
+  void isFinish() {
+    writeFinish(pointController.text != '' &&
+        selectedImagePath.value != '' &&
+        playStyleController.text != '' &&
+        introductionController.text != '');
+  }
 
   //---------------------------2페이지-------------------------
-
+  RxBool writeFinish2 = false.obs;
   //티어
-  final tierList=['언랭크','아이언','브론즈','실버','골드','플래티넘','다이아','마스터','그랜드 마스터','챌린저'].obs;
-  var selected = "언랭크".obs;
+  final tierList = [
+    '언랭크',
+    '아이언',
+    '브론즈',
+    '실버',
+    '골드',
+    '플래티넘',
+    '다이아',
+    '마스터',
+    '그랜드 마스터',
+    '챌린저'
+  ].obs;
+  RxString selected = "언랭크".obs;
 
   //성별
   List gender = ['남자', '여자'];
   RxList isSelectedGender = [false.obs, false.obs].obs;
 
-  Future checkGender(var i) async { //하나만 선택
+  Future checkGender(var i) async {
+    //하나만 선택
     if (isSelectedGender[i] == true) {
       isSelectedGender[i](false);
     } else {
@@ -45,30 +65,32 @@ class BecomePlayerController extends GetxController{
     }
   }
 
-  //포지션
-  List position = ['탑', '정글', '미드', '원딜', '서폿'];
-  RxList isSelectedPosition = [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
-
-  Future checkPosition(var i) async { //여러개 선택 가능
-    if (isSelectedPosition[i] == true) {
-      isSelectedPosition[i](false);
-    } else {
-      isSelectedPosition[i](true);
-    }
+  void isFinish2() {
+    writeFinish2(selected.value != '' &&
+        (isSelectedGender.value[0].value || isSelectedGender.value[1].value));
+    log(isSelectedGender.value[0].value.toString());
   }
-
-  //닉네임
-  TextEditingController nickController = TextEditingController();
-
-  RxBool checkNickDup = false.obs;
-  Future checkDuplicated() async {
-    checkNickDup(true);
-  }
-
-  var userIndex;
-  RxString introduction=''.obs;
-  RxString playStyle=''.obs;
-  RxInt price=0.obs;
+  // //포지션
+  // List position = ['탑', '정글', '미드', '원딜', '서폿'];
+  // RxList isSelectedPosition =
+  //     [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
+  //
+  // Future checkPosition(var i) async {
+  //   //여러개 선택 가능
+  //   if (isSelectedPosition[i] == true) {
+  //     isSelectedPosition[i](false);
+  //   } else {
+  //     isSelectedPosition[i](true);
+  //   }
+  // }
+  //
+  // //닉네임
+  // TextEditingController nickController = TextEditingController();
+  //
+  // RxBool checkNickDup = false.obs;
+  // Future checkDuplicated() async {
+  //   checkNickDup(true);
+  // }
 
   Future Player() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
@@ -79,12 +101,12 @@ class BecomePlayerController extends GetxController{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: jsonEncode(<String, dynamic>{
-          'userIndex': userIndex,
+          // 'userIndex': userIndex,
           'gender': gender,
-          'introduction': introduction,
-          'playStyle': playStyle,
-          'tier': position,
-          'price': price,
+          'introduction': introductionController.text,
+          'playStyle': playStyleController.text,
+          // 'tier': position,
+          'price': pointController.text,
         }));
     Map re = jsonDecode(player.body);
     log(re.toString());

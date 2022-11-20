@@ -24,7 +24,7 @@ class _StartPageState extends State<StartPage> {
               Sbox(double.infinity, 0),
               Sbox(0, 30),
               const Image(
-                image: AssetImage('images/lol_icon.png'),
+                image: AssetImage('images/logo.png'),
                 width: 139,
                 height: 150,
               ),

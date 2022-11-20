@@ -57,6 +57,10 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                         ),
                         keyboardType: TextInputType.number,
                         controller: controller.pointController,
+
+                        onChanged: (string) {
+                          controller.isFinish();
+                        },
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(RegExp('[0-9]'))
                         ], //숫자만 입력 가능
@@ -97,6 +101,10 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                   child: TextField(
                     minLines: 1,
                     maxLines: 3,
+                    controller: controller.introductionController,
+                    onChanged: (string) {
+                      controller.isFinish();
+                    },
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
@@ -115,10 +123,14 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                 Sbox(0, 10),
                 SizedBox(
                   width: Get.width,
-                  child: const TextField(
+                  child: TextField(
+                    controller: controller.playStyleController,
+                    onChanged: (string) {
+                      controller.isFinish();
+                    },
                     minLines: 1,
                     maxLines: 3,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                     ),
                   ),
@@ -129,28 +141,42 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
         ),
 
         //**언제 파랗게 될지(필수 선택) 정하기
-        bottomSheet: GestureDetector(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => BecomePlayerPage2()));
-          },
-          child: Container(
-            width: Get.width,
-            height: 60,
-            color: const Color(0xffE9E9E9),
-            child: const Center(
-              child: Text(
-                '다음',
-                style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+        bottomSheet: (controller.writeFinish.value)
+            ? GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => BecomePlayerPage2()));
+                },
+                child: Container(
+                  width: Get.width,
+                  height: 60,
+                  color: maincolor,
+                  child: const Center(
+                    child: Text(
+                      '다음',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              )
+            : Container(
+                width: Get.width,
+                height: 60,
+                color: Color(0xffE9E9E9),
+                child: const Center(
+                  child: Text(
+                    '다음',
+                    style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }
 
-  //프로필 사진 **사진 업로드 안됨...흑...
+  //프로필 사진 **사진 업로드 안됨...흑... 되는데??
   Widget picture() {
     return GestureDetector(
       onTap: () {
