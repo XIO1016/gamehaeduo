@@ -13,6 +13,7 @@ import '../../model/profile.dart';
 
 String accessToken = '';
 String jwtaccessToken = '';
+String userId = '';
 
 class KakaoLogin {
   Future<bool> login() async {
@@ -51,7 +52,7 @@ class KakaoLogin {
               log(re1.toString());
 
               if (login.statusCode == 200) {
-                var userId = re1['result']['userId'];
+                userId = re1['result']['userId'];
                 jwtaccessToken = re1['result']['jwtAccessToken'];
                 var getprofile = await http.get(
                     Uri.parse(urlBase + 'player/profile?id=$userId'),

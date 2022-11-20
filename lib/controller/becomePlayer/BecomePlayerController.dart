@@ -1,3 +1,4 @@
+import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -99,13 +100,14 @@ class BecomePlayerController extends GetxController {
     var player = await http.post(Uri.parse(urlBase + 'api/player'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          'jwtAccessToken': jwtaccessToken
         },
         body: jsonEncode(<String, dynamic>{
-          // 'userIndex': userIndex,
-          'gender': gender,
+          'userIndex': userId,
+          'gender': (isSelectedGender.value[0].value) ? 1 : 2,
           'introduction': introductionController.text,
           'playStyle': playStyleController.text,
-          // 'tier': position,
+          'tier': selected.value,
           'price': pointController.text,
         }));
     Map re = jsonDecode(player.body);
