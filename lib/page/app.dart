@@ -1,6 +1,6 @@
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
-import 'package:cau_gameduo/page/myPage/profilePage.dart';
+import 'package:cau_gameduo/page/seachDuo/searchDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
@@ -17,11 +17,7 @@ class App extends GetView<BottomNavController> {
           body: IndexedStack(index: controller.pageIndex.value, children: [
             homePage(),
             //TODO 여기에 navigation에 따른 화면들 넣기
-            Container(
-              child: Center(
-                child: Text('Duo'),
-              ),
-            ),
+            searchDuoPage(),
             Container(
               child: Center(
                 child: Text('chat'),
@@ -56,11 +52,11 @@ class App extends GetView<BottomNavController> {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.search,
+                    Icons.group,
                     size: 25,
                   ),
                   activeIcon: Icon(
-                    Icons.search,
+                    Icons.group,
                     size: 28,
                   ),
                   label: '듀오 찾기',
