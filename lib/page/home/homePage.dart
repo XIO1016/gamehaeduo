@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/home/homePageController.dart';
 import '../../components/SizedBox.dart';
 
-
 class homePage extends GetView<homePageController> {
   @override
   Widget build(BuildContext context) {
