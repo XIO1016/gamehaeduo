@@ -7,7 +7,7 @@ class Duo {
   String introduce;
   double star;
   List reviews;
-
+  int price;
   Duo(
       {required this.name,
       required this.rank,
@@ -16,5 +16,6 @@ class Duo {
       required this.playStyle,
       required this.introduce,
       required this.star,
-      required this.reviews});
+      required this.reviews,
+      required this.price});
 }

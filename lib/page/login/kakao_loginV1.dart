@@ -24,7 +24,7 @@ class KakaoLogin {
           var response = await UserApi.instance.loginWithKakaoTalk();
           accessToken = response.accessToken;
 
-          Get.dialog(Center(child: CircularProgressIndicator()),
+          Get.dialog(const Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
           var userCheck = await http.post(Uri.parse(urlBase + 'api/userCheck'),
               headers: {
@@ -55,18 +55,21 @@ class KakaoLogin {
                 userId = re1['result']['userId'];
                 jwtaccessToken = re1['result']['jwtAccessToken'];
                 var getprofile = await http.get(
-                    Uri.parse(urlBase + 'player/profile?id=$userId'),
+                    Uri.parse(urlBase + 'api/player/profile?userIdx=$userId'),
                     headers: <String, String>{
                       "content-type": "application/json",
                       "accept": "application/json",
                       "jwtAccessToken": jwtaccessToken
                     });
 
+                log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(getprofile.body);
+
                 profile.image = re1['result']['profilePhotoUrl'];
                 profile.isPlayer =
                     (re1['result']['isPlayer'] == 'N') ? false : true;
                 profile.nick = re1['result']['nickname'];
+
                 if (profileRe['code'] == 1000) {
                   if (profile.isPlayer) {
                     profile.tier = profileRe['result']['tier'];
@@ -89,13 +92,17 @@ class KakaoLogin {
                 Get.back();
                 Get.to(App());
               }
-            } else {
-              var duologin = await http.post(Uri.parse(urlBase + 'login'),
-                  body: jsonEncode(<String, String>{
-                    'accessToken': accessToken,
-                  }));
-              Get.to(SignUpPage(), arguments: duologin);
             }
+            // else {
+            //   var duologin = await http.post(Uri.parse(urlBase + 'api/login'),
+            //       headers: <String, String>{
+            //         "content-type": "application/json",
+            //         "accept": "application/json",
+            //       },
+            //       body:
+            //           jsonEncode(<String, String>{'accessToken': accessToken}));
+            //   Get.to(SignUpPage(), arguments: duologin);
+            // }
           } else if (userCheck.statusCode == 2001) {
             log('RESEND PLEASE');
           } else {

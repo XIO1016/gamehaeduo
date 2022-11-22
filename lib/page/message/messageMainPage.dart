@@ -5,14 +5,17 @@ import 'package:get/get.dart';
 import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
+import '../../model/duo.dart';
 
 class MessageMainPage extends GetView<MessageController> {
-  const MessageMainPage({Key? key}) : super(key: key);
+  Duo duo = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    controller.initial();
+    controller.getMessage(duo);
     return Obx(
-          () => Scaffold(
+      () => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
@@ -30,24 +33,27 @@ class MessageMainPage extends GetView<MessageController> {
         body: Column(
           children: [
             Container(
-            padding: const EdgeInsets.only(right: 20, left: 20, top: 10, bottom:10),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(width: 1, color: Color(0xffEEE6E6)),
-                bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),),),
+              padding: const EdgeInsets.only(
+                  right: 20, left: 20, top: 10, bottom: 10),
+              decoration: const BoxDecoration(
+                border: Border(
+                  top: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+                  bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+                ),
+              ),
               child: Row(
                 children: [
                   //프로필 사진
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
-                        width: 40,
-                        height: 40,
-                        color: Color(0xffD9D9D9),
-                      // child: Image.network(
-                      //   duo.image,
-                      //   fit: BoxFit.fitWidth,
-                      // ),
+                      width: 40,
+                      height: 40,
+                      color: Color(0xffD9D9D9),
+                      child: Image.network(
+                        duo.image,
+                        fit: BoxFit.fitWidth,
+                      ),
                     ),
                   ),
                   Sbox(15, 0),
@@ -55,12 +61,19 @@ class MessageMainPage extends GetView<MessageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('하하',
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
+                      Text(
+                        duo.name,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
                       Row(
                         children: [
-                          Text('티어',
-                          style: TextStyle(fontSize: 12,),),
+                          const Text(
+                            '티어',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                           Sbox(10, 0),
                           Image.asset(
                             "images/point.png",
@@ -68,28 +81,50 @@ class MessageMainPage extends GetView<MessageController> {
                             height: 20,
                           ),
                           Sbox(5, 0),
-                          Text('플래티넘',
-                            style: TextStyle(fontSize: 12,),),
-
+                          Text(
+                            duo.rank,
+                            style: const TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                         ],
                       ),
+                      Sbox(0, 5),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('주포지션',
-                            style: TextStyle(fontSize: 12,),),
+                          const Text(
+                            '주포지션',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
                           Sbox(5, 0),
-                          Container(
-                            padding: EdgeInsets.only(right: 5, left: 5, bottom: 2),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: maincolor, width:1.0),
-                              borderRadius: BorderRadius.circular(5),
+                          Row(
+                            children: List.generate(
+                              duo.position.length,
+                              (index) => Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        right: 5, left: 5, bottom: 2),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: maincolor, width: 1.0),
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        duo.position[index],
+                                        style: const TextStyle(fontSize: 12),
+                                      ),
+                                    ),
+                                  ),
+                                  Sbox(5, 0)
+                                ],
+                              ),
                             ),
-                            child: Center(
-                              child: Text('탑',
-                              style: TextStyle(fontSize: 12),),
-                            ),
-                          )
+                          ),
                         ],
                       ),
                     ],
@@ -107,17 +142,26 @@ class MessageMainPage extends GetView<MessageController> {
                             height: 20,
                           ),
                           Sbox(5, 0),
-                          Text('1500'),],
+                          Text(duo.price.toString()),
+                        ],
                       ),
                       Sbox(0, 13),
-                      OutlinedButton(onPressed: (){
-                        setState(){};
-                      },
+                      OutlinedButton(
+                        onPressed: () {
+                          controller.duoApplication();
+                        },
                         style: OutlinedButton.styleFrom(
-                          side: BorderSide(width: 2.0, color: maincolor),
+                          side: BorderSide(width: 1.0, color: maincolor),
                         ),
-                          child: Text('듀오 신청하기',//듀요 신청중/듀오 진행중
-                          style: TextStyle(color: Colors.black),),
+                        child: (controller.duoState.value == 0)
+                            ? const Text(
+                                '듀오 신청하기', //듀요 신청중/듀오 진행중
+                                style: TextStyle(color: Colors.black),
+                              )
+                            : const Text(
+                                '듀오 신청 중', //듀요 신청중/듀오 진행중
+                                style: TextStyle(color: Colors.black),
+                              ),
                       ),
                     ],
                   )
@@ -125,72 +169,16 @@ class MessageMainPage extends GetView<MessageController> {
               ),
             ),
             //쪽지
-            Container(
-              padding: const EdgeInsets.only(right: 20, left: 20,top: 0, bottom: 5),
-              decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),)),
-              child: ListTile(
-                contentPadding:EdgeInsets.all(0),
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Row(
-                    children: [
-                      Text('받은 쪽지',
-                      style: TextStyle(color: Color(0xff0066FF), fontSize: 13, fontWeight: FontWeight.bold),),
-                      Expanded(child: Sbox(10, 0)),
-                      Text(
-                        //message.datetime,
-                        '11/03 10:20',
-                        style: TextStyle(color: Color(0xffACA6A6), fontSize: 10),
-                      ),
-                    ],
-                  ),
-                ),
-                subtitle: Text(
-                    //message.content
-                    '지금 가능?',
-                style: TextStyle(fontSize: 13),),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.only(right: 20, left: 20,top: 0, bottom: 5),
-              decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),)),
-              child: ListTile(
-                contentPadding:EdgeInsets.all(0),
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 5.0),
-                  child: Row(
-                    children: [
-                      Text('보낸 쪽지',
-                        style: TextStyle(color: Color(0xffFFA800), fontSize: 13, fontWeight: FontWeight.bold),),
-                      Expanded(child: Sbox(10, 0)),
-                      Text(
-                        //message.datetime,
-                        '11/03 10:20',
-                        style: TextStyle(color: Color(0xffACA6A6), fontSize: 10),
-                      ),
-                    ],
-                  ),
-                ),
-                subtitle: Text(
-                  //message.content
-                  '죠아죠아',
-                  style: TextStyle(fontSize: 13),),
-              ),
-            ),
-            Text(controller.imsi=='임시'?'':''),
+            Column(
+              children: List.generate(controller.messageList.length,
+                  (index) => _MessageComponent(index)),
+            )
           ],
         ),
-
         bottomSheet: GestureDetector(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => MessagePage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => MessagePage()));
           },
           child: Container(
             width: Get.width,
@@ -208,4 +196,48 @@ class MessageMainPage extends GetView<MessageController> {
     );
   }
 
+  Widget _MessageComponent(int i) {
+    return Container(
+      padding: const EdgeInsets.only(right: 20, left: 20, top: 0, bottom: 5),
+      decoration: const BoxDecoration(
+          border: Border(
+        bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+      )),
+      child: ListTile(
+        contentPadding: EdgeInsets.all(0),
+        title: Padding(
+          padding: const EdgeInsets.only(bottom: 5.0),
+          child: Row(
+            children: [
+              (controller.messageList[i].isreceived)
+                  ? const Text(
+                      '받은 쪽지',
+                      style: TextStyle(
+                          color: Color(0xff0066FF),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : const Text(
+                      '보낸 쪽지',
+                      style: TextStyle(
+                          color: Color(0xffFFA800),
+                          fontSize: 13,
+                          fontWeight: FontWeight.bold),
+                    ),
+              Expanded(child: Sbox(10, 0)),
+              Text(
+                //message.datetime,
+                controller.messageList[i].timestamp,
+                style: TextStyle(color: const Color(0xffACA6A6), fontSize: 10),
+              ),
+            ],
+          ),
+        ),
+        subtitle: Text(
+          controller.messageList[i].content,
+          style: TextStyle(fontSize: 13),
+        ),
+      ),
+    );
+  }
 }

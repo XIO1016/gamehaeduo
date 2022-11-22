@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/page/duoProfile/duoProfilePage.dart';
+import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -19,7 +20,10 @@ class searchDuoPage extends GetView<searchDuoController> {
         color: Colors.white,
         padding: const EdgeInsets.all(20.0),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => MessageMainPage(),
+                arguments: controller.duoList[controller.index.value]);
+          },
           child: Container(
             width: Get.width,
             height: 60,
@@ -85,6 +89,7 @@ class searchDuoPage extends GetView<searchDuoController> {
                       itemHeight: 550,
                       index: 1,
                       onIndexChanged: (index) {
+                        controller.index(index);
                         log(index.toString());
                         if (index % 9 == 0) {
                           log('update');

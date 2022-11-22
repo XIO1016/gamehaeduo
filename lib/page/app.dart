@@ -23,8 +23,6 @@ class App extends GetView<BottomNavController> {
                 child: Text('chat'),
               ),
             ),
-
-            //mypage 화면 여기에 넣어주세욤
             MyPage()
           ]),
           bottomNavigationBar: Container(

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: MessageMainPage(),
+      home: StartPage(),
       getPages: [
         GetPage(name: '/', page: () => App()),
         GetPage(name: '/start', page: () => StartPage()),
