@@ -45,7 +45,7 @@ class _StartPageState extends State<StartPage> {
                         color: Colors.white,
                         image: DecorationImage(
                           image:
-                              AssetImage("images/kakao_login_medium_wide.png"),
+                              AssetImage("images/kakao_login_large_wide.png"),
                           fit: BoxFit.cover,
                         ), // button text
                       )),
