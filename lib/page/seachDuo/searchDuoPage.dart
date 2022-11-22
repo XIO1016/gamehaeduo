@@ -16,43 +16,47 @@ class searchDuoPage extends GetView<searchDuoController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.all(20.0),
-        child: GestureDetector(
-          onTap: () {
-            Get.to(() => MessageMainPage(),
-                arguments: controller.duoList[controller.index.value]);
-          },
-          child: Container(
-            width: Get.width,
-            height: 60,
-            decoration: BoxDecoration(
-                color: maincolor, borderRadius: BorderRadius.circular(15)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(
-                  Icons.mail,
-                  color: Colors.white,
-                ),
-                Sbox(10, 0),
-                const Center(
-                  child: Text(
-                    '쪽지 보내기',
-                    style: TextStyle(
+      bottomSheet: (controller.duoNum.value == 0)
+          ? SizedBox()
+          : Container(
+              color: Colors.white,
+              padding: const EdgeInsets.all(20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => MessageMainPage(),
+                      arguments: controller.duoList[controller.index.value]);
+                },
+                child: Container(
+                  width: Get.width,
+                  height: 60,
+                  decoration: BoxDecoration(
+                      color: maincolor,
+                      borderRadius: BorderRadius.circular(15)),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.mail,
                         color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                      ),
+                      Sbox(10, 0),
+                      const Center(
+                        child: Text(
+                          '쪽지 보내기',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Padding(
           padding: EdgeInsets.all(20.0),
           child: Text(
@@ -67,7 +71,7 @@ class searchDuoPage extends GetView<searchDuoController> {
         () => Column(
           children: [
             if (controller.duoNum.value == 0)
-              const Text('듀오가 없어요')
+              Center(child: const Text('듀오가 없어요'))
             else
               Container(
                 color: Colors.white,
@@ -94,7 +98,7 @@ class searchDuoPage extends GetView<searchDuoController> {
                         if (index % 9 == 0) {
                           log('update');
 
-                          controller.updateDuo();
+                          controller.getDuo();
                         }
                       },
                     );

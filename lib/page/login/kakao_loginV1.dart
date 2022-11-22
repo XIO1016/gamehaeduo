@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +49,14 @@ class KakaoLogin {
                   },
                   body:
                       jsonEncode(<String, String>{'accessToken': accessToken}));
-              Map re1 = jsonDecode(login.body);
+              Map<String, dynamic> re1 = jsonDecode(login.body);
               log(re1.toString());
 
               if (login.statusCode == 200) {
-                userId = re1['result']['userId'];
-                jwtaccessToken = re1['result']['jwtAccessToken'];
+                Map result = re1['result'];
+                userId = result['userId']!.toString();
+                jwtaccessToken = result['jwtAccessToken']!;
+
                 var getprofile = await http.get(
                     Uri.parse(urlBase + 'api/player/profile?userIdx=$userId'),
                     headers: <String, String>{
@@ -65,10 +68,9 @@ class KakaoLogin {
                 log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(getprofile.body);
 
-                profile.image = re1['result']['profilePhotoUrl'];
-                profile.isPlayer =
-                    (re1['result']['isPlayer'] == 'N') ? false : true;
-                profile.nick = re1['result']['nickname'];
+                profile.image = result['profilePhotoUrl']!;
+                profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
+                profile.nick = result['nickname']!;
 
                 if (profileRe['code'] == 1000) {
                   if (profile.isPlayer) {
@@ -87,10 +89,13 @@ class KakaoLogin {
                     profile.position.add('원딜');
                   if (profileRe['result']['supporter'] == 1)
                     profile.position.add('서포터');
-                }
 
-                Get.back();
-                Get.to(App());
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    searchDuoController.to.getDuo();
+                  });
+                  Get.back();
+                  Get.to(App());
+                }
               }
             }
             // else {
