@@ -2,7 +2,7 @@ import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:cau_gameduo/page/message/messageMainPage.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
 

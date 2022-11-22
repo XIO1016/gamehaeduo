@@ -19,7 +19,7 @@ class MessageController extends GetxController {
     messageList = [];
   }
 
-  void duoApplication() {
+  duoApplication(){
     duoState(1);
   }
 

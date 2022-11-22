@@ -7,7 +7,7 @@ import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
 
-class MessageMainPage extends GetView<MessageController> {
+class MessageListPage extends GetView<MessageController> {
   Duo duo = Get.arguments;
 
   @override
