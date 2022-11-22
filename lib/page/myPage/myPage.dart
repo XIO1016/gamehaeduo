@@ -35,9 +35,12 @@ class MyPage extends GetView<MyPageController> {
                           child: Container(
                               width: 80,
                               height: 80,
-                              color: (controller.isPicture == true)
-                                  ? Colors.grey
-                                  : Colors.red),
+                              color: Colors.grey,
+                              child: Image.network(
+                                controller.myprofile.image,
+                                fit: BoxFit.fitWidth,
+                            ),
+                          ),
                         ),
                         Sbox(20, 0),
                         Column(
