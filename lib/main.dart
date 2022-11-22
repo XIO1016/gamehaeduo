@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     KakaoSdk.init(nativeAppKey: '1d707f03c04129f8ed599103dcf31684');
     return GetMaterialApp(
-      title: '복어',
+      title: '게임해듀오',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: maincolor,

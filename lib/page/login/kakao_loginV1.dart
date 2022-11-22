@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +90,9 @@ class KakaoLogin {
                   if (profileRe['result']['supporter'] == 1)
                     profile.position.add('서포터');
 
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    searchDuoController.to.getDuo();
+                  });
                   Get.back();
                   Get.to(App());
                 }
