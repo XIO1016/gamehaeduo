@@ -103,6 +103,7 @@ class BecomePlayerController extends GetxController {
           'jwtAccessToken': jwtaccessToken
         },
         body: jsonEncode(<String, dynamic>{
+          'MultipartFile': selectedImagePath,
           'userIndex': userId,
           'gender': (isSelectedGender.value[0].value) ? 1 : 2,
           'introduction': introductionController.text,
