@@ -1,4 +1,7 @@
+import 'package:cau_gameduo/model/message.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/message/messageMainPage.dart';
+import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -16,7 +19,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => MessageMainPage(), arguments: duo);
+          Get.to(() => MessagePage(), arguments: duo);
         },
         backgroundColor: maincolor,
         child: Icon(Icons.mail),

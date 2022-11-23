@@ -177,8 +177,7 @@ class MessageListPage extends GetView<MessageController> {
         ),
         bottomSheet: GestureDetector(
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => MessagePage()));
+            Get.to(() => MessageListPage());
           },
           child: Container(
             width: Get.width,

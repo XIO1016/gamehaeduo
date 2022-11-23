@@ -22,8 +22,8 @@ class searchDuoController extends GetxController {
 
   getDuo() async {
     var getduo = await http.get(
-        Uri.parse(urlBase +
-            'api/duo/search?userIdx=$userId&size=10&page=${page.value}'),
+        Uri.parse(
+            '${urlBase}api/duo/search?userIdx=$userId&size=10&page=${page.value}'),
         headers: <String, String>{
           "content-type": "application/json",
           "accept": "application/json",

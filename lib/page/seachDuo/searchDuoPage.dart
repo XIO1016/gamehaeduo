@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/page/duoProfile/duoProfilePage.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -23,7 +24,7 @@ class searchDuoPage extends GetView<searchDuoController> {
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => MessageMainPage(),
+                  Get.to(() => MessageListPage(),
                       arguments: controller.duoList[controller.index.value]);
                 },
                 child: Container(
@@ -198,7 +199,7 @@ class CardView extends StatelessWidget {
                         children: [
                           Text(
                             duo.price.toString(),
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 18,
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:cau_gameduo/page/home/homePage.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
 import 'package:cau_gameduo/page/seachDuo/searchDuoPage.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
 import '../controller/bottomNavController.dart';
+import 'message/messageMainPage.dart';
 
 class App extends GetView<BottomNavController> {
   @override
@@ -16,13 +18,8 @@ class App extends GetView<BottomNavController> {
         () => Scaffold(
           body: IndexedStack(index: controller.pageIndex.value, children: [
             homePage(),
-            //TODO 여기에 navigation에 따른 화면들 넣기
             searchDuoPage(),
-            Container(
-              child: Center(
-                child: Text('chat'),
-              ),
-            ),
+            MessageMainPage(),
             MyPage()
           ]),
           bottomNavigationBar: Container(
