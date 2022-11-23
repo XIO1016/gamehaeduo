@@ -66,7 +66,7 @@ class KakaoLogin {
                     });
 
                 log(getprofile.statusCode.toString());
-                Map profileRe = jsonDecode(getprofile.body);
+                Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
 
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
