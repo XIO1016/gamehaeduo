@@ -9,6 +9,7 @@ class Profile1 {
   bool isPlayer;
   double star;
   List reviews;
+  int price;
 
   Profile1(
       {required this.image,
@@ -20,5 +21,6 @@ class Profile1 {
       required this.isOn,
       required this.isPlayer,
       required this.star,
-      required this.reviews});
+      required this.reviews,
+      required this.price});
 }

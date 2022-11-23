@@ -4,6 +4,8 @@ import '../../model/profile.dart';
 import '../login/SignUpController.dart';
 
 class profileController extends GetxController {
+  static profileController get to => Get.find<profileController>();
+
   late Profile1 myprofile;
   @override
   void onInit() {

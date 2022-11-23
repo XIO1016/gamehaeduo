@@ -79,6 +79,7 @@ class KakaoLogin {
                     profile.introduce = profileRe['result']['introduction'];
                     profile.star = profileRe['result']['rating'];
                   }
+
                   if (profileRe['result']['top'] == 1)
                     profile.position.add('탑');
                   if (profileRe['result']['jungle'] == 1)

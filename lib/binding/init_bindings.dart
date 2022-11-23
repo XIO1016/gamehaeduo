@@ -15,8 +15,9 @@ class InitBinding extends Bindings {
     Get.put(SignUpController(), permanent: true);
     Get.put(BecomePlayerController(), permanent: true);
     Get.put(homePageController(), permanent: true);
-    Get.put(MyPageController(), permanent: true);
     Get.put(profileController(), permanent: true);
+
+    Get.put(MyPageController(), permanent: true);
     Get.put(SettingController(), permanent: true);
     Get.put(BottomNavController(), permanent: true);
     Get.put(searchDuoController(), permanent: true);

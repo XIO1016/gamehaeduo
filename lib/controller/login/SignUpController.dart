@@ -21,7 +21,8 @@ Profile1 profile = Profile1(
     isOn: true,
     isPlayer: false,
     star: 0,
-    reviews: []);
+    reviews: [],
+    price: -1);
 
 class SignUpController extends GetxController {
   RxBool checkNickDup = false.obs;
@@ -98,6 +99,7 @@ class SignUpController extends GetxController {
     log(re.toString());
     if (signup.statusCode == 200) {
       profile = Profile1(
+          price: 0,
           image: re['profilePhotoUrl'],
           isPlayer: re['isPlayer'],
           nick: re['nickname'],
