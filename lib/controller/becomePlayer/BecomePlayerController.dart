@@ -1,11 +1,16 @@
+import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import '../../http/url.dart';
 import 'dart:convert';
 import 'dart:developer';
+
+import '../login/SignUpController.dart';
 
 class BecomePlayerController extends GetxController {
   //포인트
@@ -22,7 +27,7 @@ class BecomePlayerController extends GetxController {
   void getImage(ImageSource imageSource) async {
     final pickedFile = await ImagePicker().pickImage(source: imageSource);
     if (pickedFile != null) {
-      selectedImagePath.value = pickedFile.path;
+      selectedImagePath(pickedFile.path);
       update();
     } else {}
   }
@@ -93,39 +98,65 @@ class BecomePlayerController extends GetxController {
   //   checkNickDup(true);
   // }
 
-  Future Player() async {
+  Future postPlayer() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
+    log('진행중');
+    log(selectedImagePath.toString());
 
-    var player = await http.post(Uri.parse(urlBase + 'api/player'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'jwtAccessToken': jwtaccessToken
-        },
-        body: jsonEncode(<String, dynamic>{
-          'MultipartFile': selectedImagePath,
-          'userIndex': userId,
+    var player = await http.MultipartRequest(
+      'POST',
+      Uri.parse(urlBase + 'api/player'),
+    );
+
+    player.headers.addAll({
+      "Accept": "application/json",
+      'Content-Type': 'application/json; charset=UTF-8',
+      'jwtAccessToken': jwtaccessToken
+    });
+    var f = await http.MultipartFile.fromPath('mFile', selectedImagePath.value);
+    player.files.add(f);
+
+    player.files.add(
+      http.MultipartFile.fromBytes(
+        'playerDto',
+        utf8.encode(jsonEncode({
+          'userIdx': int.parse(userId),
           'gender': (isSelectedGender.value[0].value) ? 1 : 2,
           'introduction': introductionController.text,
           'playStyle': playStyleController.text,
           'tier': selected.value,
-          'price': pointController.text,
-        }));
-    Map re = jsonDecode(player.body);
-    log(re.toString());
-    if (player.statusCode == 1000) {
-      // player = Player1(
-      //     image: re['profilePhotoUrl'],
-      //     isPlayer: re['isPlayer'],
-      //     nick: re['nickname'],
-      //     tier: '',
-      //     position: [],
-      //     playStyle: '',
-      //     introduce: '',
-      //     isOn: true,
-      //     star: 0,
-      //     reviews: []);
-      Get.back();
-    }
+          'price': int.parse(pointController.text),
+        })),
+        contentType: MediaType(
+          'application',
+          'json',
+          {'charset': 'utf-8'},
+        ),
+      ),
+    );
+
+    var response = await player.send();
+    log(response.statusCode.toString());
+    // log(player.fields.values.toString());
+    log(player.files.toString());
+    await response.stream.bytesToString().then((value) {
+      print(value);
+      var re = jsonDecode(value);
+
+      log(response.toString());
+      if (response.statusCode == 1000) {
+        profile.image = re['result']['profile_photo_url'];
+        profile.isPlayer = true;
+        profile.playStyle = playStyleController.text;
+        profile.introduce = introductionController.text;
+
+        profile.tier = selected.value;
+        profile.price = int.parse(pointController.text);
+
+        Get.back();
+        Get.to(() => App());
+      }
+    });
   }
 }

@@ -28,11 +28,11 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Padding(
-          //**나중에 FORM으로 감싸기
-          padding: EdgeInsets.all(20),
-          child: ListView(children: [
-            Column(
+        body: ListView(children: [
+          Padding(
+            //**나중에 FORM으로 감싸기
+            padding: EdgeInsets.all(20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Text(
@@ -137,8 +137,9 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                 ),
               ],
             ),
-          ]),
-        ),
+          ),
+          Sbox(0, 50),
+        ]),
 
         //**언제 파랗게 될지(필수 선택) 정하기
         bottomSheet: (controller.writeFinish.value)

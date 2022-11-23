@@ -137,7 +137,9 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
         ),
         bottomSheet: (controller.writeFinish2.value)
             ? GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  controller.postPlayer();
+                },
                 child: Container(
                   width: Get.width,
                   height: 60,
