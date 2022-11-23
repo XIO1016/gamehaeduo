@@ -29,18 +29,19 @@ class searchDuoController extends GetxController {
           "accept": "application/json",
           "jwtAccessToken": jwtaccessToken
         });
-    Map response = jsonDecode(getduo.body);
+    Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
     log(response.toString());
     if (response['isSuccess']) {
-      Map result = response['result'];
-      List homePartnerDTO = result['homePartnerDTO'];
-      duoNum(duoNum.value + homePartnerDTO.length);
+      List result = jsonDecode(jsonEncode(response['result']));
+
+      duoNum(duoNum.value + result.length);
       log('duoNum' + duoNum.value.toString());
-      for (int i = 0; i < homePartnerDTO.length; i++) {
-        Map j = homePartnerDTO[i];
+      for (int i = 0; i < result.length; i++) {
+        Map j = result[i];
+        String nick = j['nickname'];
 
         Duo a = Duo(
-            name: j['nickname'].toString(),
+            name: nick,
             rank: j['tier'],
             position: [],
             image: j['profilePhotoUrl'],

@@ -95,7 +95,7 @@ class searchDuoPage extends GetView<searchDuoController> {
                       onIndexChanged: (index) {
                         controller.index(index);
                         log(index.toString());
-                        if (index % 9 == 0) {
+                        if (index % 8 == 0) {
                           log('update');
 
                           controller.getDuo();
@@ -142,49 +142,73 @@ class CardView extends StatelessWidget {
                             fontSize: 20.0,
                             fontWeight: FontWeight.w700)),
                   ),
-                  Sbox(0, 14),
+                  Sbox(0, 16),
                   Row(
                     children: [
                       Text("티어      ",
                           textAlign: TextAlign.start,
-                          style: TextStyle(color: blackcolor)),
+                          style: TextStyle(fontSize: 18, color: blackcolor)),
                       Text(duo.rank,
                           style: TextStyle(
-                              color: blackcolor, fontWeight: FontWeight.bold))
+                              fontSize: 18,
+                              color: blackcolor,
+                              fontWeight: FontWeight.bold))
                     ],
                   ),
                   Sbox(0, 10),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("포지션   ",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: blackcolor)),
                       Row(
-                        children: List<Widget>.generate(
-                          duo.position.length,
-                          (index) {
-                            return Row(
-                              children: [
-                                Container(
-                                    width: 50,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color: maincolor,
-                                        ),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Center(
-                                        child: Text(
-                                      duo.position[index],
-                                      style: TextStyle(
-                                          color: maincolor, fontSize: 15),
-                                    ))),
-                                Sbox(10, 0)
-                              ],
-                            );
-                          },
-                        ),
+                        children: [
+                          Text("포지션   ",
+                              textAlign: TextAlign.start,
+                              style:
+                                  TextStyle(fontSize: 18, color: blackcolor)),
+                          Row(
+                            children: List<Widget>.generate(
+                              duo.position.length,
+                              (index) {
+                                return Row(
+                                  children: [
+                                    Container(
+                                        width: 50,
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: maincolor,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: Center(
+                                            child: Text(
+                                          duo.position[index],
+                                          style: TextStyle(
+                                              color: maincolor, fontSize: 15),
+                                        ))),
+                                    Sbox(10, 0)
+                                  ],
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
+                      Row(
+                        children: [
+                          Text(
+                            duo.price.toString(),
+                            style: TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                          Sbox(5, 0),
+                          SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Image.asset('images/point.png'))
+                        ],
+                      )
                     ],
                   ),
                 ],
