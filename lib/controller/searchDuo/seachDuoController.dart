@@ -30,12 +30,12 @@ class searchDuoController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         });
     Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
-    log(response.toString());
+    // log(response.toString());
     if (response['isSuccess']) {
       List result = jsonDecode(jsonEncode(response['result']));
 
       duoNum(duoNum.value + result.length);
-      log('duoNum' + duoNum.value.toString());
+      // log('duoNum' + duoNum.value.toString());
       for (int i = 0; i < result.length; i++) {
         Map j = result[i];
         String nick = j['nickname'];
@@ -56,7 +56,7 @@ class searchDuoController extends GetxController {
         if (j['ad'] == 1) a.position.add('원딜');
         if (j['supporter'] == 1) a.position.add('서포터');
         duoList.add(a);
-        log(duoList[i].name.toString());
+        // log(duoList[i].name.toString());
       }
       page.value += 1;
     }
