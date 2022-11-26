@@ -4,7 +4,6 @@ import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
-import 'package:cau_gameduo/page/home/homePage_temp.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
 import 'package:cau_gameduo/page/myPage/settingPage.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
@@ -14,6 +13,7 @@ import 'package:cau_gameduo/page/duoProfile/duoProfilePage.dart';
 import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/message/messagePage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestingDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: StartPage(),
+      home: RequestingDuoPage(),
       getPages: [
         GetPage(name: '/', page: () => App()),
         GetPage(name: '/start', page: () => StartPage()),
@@ -55,6 +55,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/message', page: () => MessageMainPage()),
         GetPage(name: '/message', page: () => MessageListPage()),
         GetPage(name: '/message', page: () => MessagePage()),
+        GetPage(name: '/requestingDuo', page: () => RequestingDuoPage()),
       ],
     );
   }
