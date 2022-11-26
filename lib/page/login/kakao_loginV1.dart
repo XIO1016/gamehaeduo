@@ -41,7 +41,6 @@ class KakaoLogin {
           log(re.toString());
           if (re['code'] == 1000) {
             if (re['result']['isMember']) {
-              log('eeeeeeeeeeeeeee');
               var login = await http.post(Uri.parse(urlBase + 'api/login'),
                   headers: <String, String>{
                     "content-type": "application/json",
@@ -67,6 +66,7 @@ class KakaoLogin {
 
                 log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
+                profile.isOn = (result['status'] == 'Active') ? true : false;
 
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
