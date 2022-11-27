@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,14 +8,15 @@ import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
+import '../../model/message.dart';
 
 class MessageListPage extends GetView<MessageController> {
-  Duo duo = Get.arguments;
+  Duo duo = Get.arguments[0];
+  int roomid= Get.arguments[1];
 
   @override
   Widget build(BuildContext context) {
-    controller.initial();
-    controller.getMessage(duo);
+    controller.initial(duo);
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,
@@ -47,8 +50,8 @@ class MessageListPage extends GetView<MessageController> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(50),
                     child: Container(
-                      width: 40,
-                      height: 40,
+                      width: 50,
+                      height: 50,
                       color: Color(0xffD9D9D9),
                       child: Image.network(
                         duo.image,
@@ -66,6 +69,7 @@ class MessageListPage extends GetView<MessageController> {
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
+                      Sbox(0, 5),
                       Row(
                         children: [
                           const Text(
@@ -91,7 +95,7 @@ class MessageListPage extends GetView<MessageController> {
                       ),
                       Sbox(0, 5),
                       Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Text(
                             '주포지션',
@@ -104,10 +108,10 @@ class MessageListPage extends GetView<MessageController> {
                             children: List.generate(
                               duo.position.length,
                               (index) => Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    padding: const EdgeInsets.only(
-                                        right: 5, left: 5, bottom: 2),
+                                    padding: const EdgeInsets.all(3),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           color: maincolor, width: 1.0),
@@ -146,23 +150,13 @@ class MessageListPage extends GetView<MessageController> {
                         ],
                       ),
                       Sbox(0, 13),
-                      OutlinedButton(
-                        onPressed: () {
-                          controller.duoApplication();
-                        },
-                        style: OutlinedButton.styleFrom(
-                          side: BorderSide(width: 1.0, color: maincolor),
-                        ),
-                        child: (controller.duoState.value == 0)
-                            ? const Text(
-                                '듀오 신청하기', //듀요 신청중/듀오 진행중
-                                style: TextStyle(color: Colors.black),
-                              )
-                            : const Text(
-                                '듀오 신청 중', //듀요 신청중/듀오 진행중
-                                style: TextStyle(color: Colors.black),
-                              ),
-                      ),
+                      if (controller.duoState.value == -1)
+                        applyButton('듀오 신청하기')
+                      else if (controller.duoState.value == 0)
+                        applyButton(
+                          '신청 수락 대기중',
+                        )
+
                     ],
                   )
                 ],
@@ -170,7 +164,8 @@ class MessageListPage extends GetView<MessageController> {
             ),
             //쪽지
             Column(
-              children: List.generate(controller.messageList.length,
+              children: List.generate(
+                  controller.DuomessagList[duo.duoId]!.length,
                   (index) => _MessageComponent(index)),
             )
           ],
@@ -195,7 +190,24 @@ class MessageListPage extends GetView<MessageController> {
     );
   }
 
+  Widget applyButton(String text) {
+    return OutlinedButton(
+      onPressed: () {
+        controller.applyDuo(roomid,duo);
+      },
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(width: 1.0, color: maincolor),
+      ),
+      child: Text(
+        text, //듀요 신청중/듀오 진행중
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
   Widget _MessageComponent(int i) {
+    List messageList = controller.DuomessagList[duo.duoId]!;
+    log(messageList[i].content);
     return Container(
       padding: const EdgeInsets.only(right: 20, left: 20, top: 0, bottom: 5),
       decoration: const BoxDecoration(
@@ -208,7 +220,7 @@ class MessageListPage extends GetView<MessageController> {
           padding: const EdgeInsets.only(bottom: 5.0),
           child: Row(
             children: [
-              (controller.messageList[i].isreceived)
+              (messageList[i].isreceived)
                   ? const Text(
                       '받은 쪽지',
                       style: TextStyle(
@@ -226,14 +238,14 @@ class MessageListPage extends GetView<MessageController> {
               Expanded(child: Sbox(10, 0)),
               Text(
                 //message.datetime,
-                controller.messageList[i].timestamp,
+                messageList[i].timestamp,
                 style: TextStyle(color: const Color(0xffACA6A6), fontSize: 10),
               ),
             ],
           ),
         ),
         subtitle: Text(
-          controller.messageList[i].content,
+          messageList[i].content,
           style: TextStyle(fontSize: 13),
         ),
       ),

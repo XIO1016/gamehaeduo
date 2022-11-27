@@ -72,6 +72,7 @@ class KakaoLogin {
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
                 profile.nick = result['nickname']!;
+                profile.price= result['point'];
 
                 if (profileRe['code'] == 1000) {
                   if (profile.isPlayer) {

@@ -1,5 +1,6 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/model/messageRoom.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -13,17 +14,13 @@ class MessageMainPage extends GetView<MessageController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.initial();
-    controller.getMessage(duo);
+
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-          leading: IconButton(
-            icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
-            onPressed: () => Get.back(),
-          ),
+         automaticallyImplyLeading: false,
           shape: Border(
             bottom: BorderSide(color: Color(0xffEEE6E6), width: 1),
           ),
@@ -44,7 +41,7 @@ class MessageMainPage extends GetView<MessageController> {
                     children: List.generate(
                       controller.messageRoomNum.value,
                       (index) =>
-                          MessageListProfile(controller.messageRoomList[index]),
+                          MessageListProfile(controller.messageRoomList.values.toList()[index]),
                     ),
                   ),
                 ],
@@ -56,6 +53,9 @@ class MessageMainPage extends GetView<MessageController> {
   Widget MessageListProfile(MessageRoom room) {
     return GestureDetector(
       onTap: () {
+
+        controller.getAllMessages(room.roomId,room.duo);
+
         //messageListPage로 이동
       },
       child: Container(
@@ -76,7 +76,7 @@ class MessageMainPage extends GetView<MessageController> {
                 height: 50,
                 color: Color(0xffD9D9D9),
                 child: Image.network(
-                  room.image,
+                  room.duo.image,
                   fit: BoxFit.fitWidth,
                 ),
               ),
@@ -91,7 +91,7 @@ class MessageMainPage extends GetView<MessageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        room.duoName,
+                        room.duo.name,
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
