@@ -156,6 +156,20 @@ class MessageListPage extends GetView<MessageController> {
                         applyButton(
                           '신청 수락 대기중',
                         )
+                      else if (controller.duoState.value == 1)
+                          applyButton(
+                            '신청 수락됨',
+                          )
+                        else if (controller.duoState.value == 2)
+                            applyButton(
+                              '신청 취소됨',
+                            )
+                          else if (controller.duoState.value == 3)
+                              applyButton(
+                                '듀오 완료',
+                              )
+
+
 
                     ],
                   )
@@ -193,7 +207,8 @@ class MessageListPage extends GetView<MessageController> {
   Widget applyButton(String text) {
     return OutlinedButton(
       onPressed: () {
-        controller.applyDuo(roomid,duo);
+        if(duo.status==-1){
+        controller.applyDuo(roomid,duo);}
       },
       style: OutlinedButton.styleFrom(
         side: BorderSide(width: 1.0, color: maincolor),

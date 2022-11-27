@@ -199,4 +199,119 @@ class MessageController extends GetxController {
           ));
     }
   }
+  acceptDuo(int roomid,Duo duo) async{
+    var acceptDuoRequest = await http.post(
+      Uri.parse('${urlBase}api/duo/accept'),
+      headers: <String, String>{
+        "content-type": "application/json",
+        "accept": "application/json",
+        "jwtAccessToken": jwtaccessToken
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'userIdx': userId,
+          'duoIdx': duo.duoId,
+        },
+      ),
+    );
+    Map acceptDuoResponse = jsonDecode(utf8.decode(acceptDuoRequest.bodyBytes));
+    if(acceptDuoResponse['code']==1000){
+      Map result= acceptDuoResponse['result'];
+      log(result.toString());
+      messageRoomList[roomid]!.duo.status=1;
+      duoState(1);
+
+    }else{
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+            message: '듀오 신청받은 사람만 수락을 할 수 있습니다.',
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
+    }
+  }
+
+  cancelDuo(int roomid,Duo duo) async{
+    var cancelDuoRequest = await http.post(
+      Uri.parse('${urlBase}api/duo/cancel'),
+      headers: <String, String>{
+        "content-type": "application/json",
+        "accept": "application/json",
+        "jwtAccessToken": jwtaccessToken
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'userIdx': userId,
+          'duoIdx': duo.duoId,
+        },
+      ),
+    );
+    Map cancelDuoResponse = jsonDecode(utf8.decode(cancelDuoRequest.bodyBytes));
+    if(cancelDuoResponse['code']==1000){
+      Map result= cancelDuoResponse['result'];
+      log(result.toString());
+      messageRoomList[roomid]!.duo.status=2;
+      duoState(2);
+
+    }else{
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+            message: cancelDuoResponse['message'],
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
+    }
+  }
+  finishDuo(int roomid,Duo duo) async{
+    var finishDuoRequest = await http.post(
+      Uri.parse('${urlBase}api/duo/finish'),
+      headers: <String, String>{
+        "content-type": "application/json",
+        "accept": "application/json",
+        "jwtAccessToken": jwtaccessToken
+      },
+      body: jsonEncode(
+        <String, dynamic>{
+          'userIdx': userId,
+          'duoIdx': duo.duoId,
+        },
+      ),
+    );
+    Map finishDuoResponse = jsonDecode(utf8.decode(finishDuoRequest.bodyBytes));
+    if(finishDuoResponse['code']==1000){
+      Map result= finishDuoResponse['result'];
+      log(result.toString());
+      messageRoomList[roomid]!.duo.status=3;
+      duoState(3);
+
+    }else{
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+            message: finishDuoResponse['message'],
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
+    }
+  }
 }
