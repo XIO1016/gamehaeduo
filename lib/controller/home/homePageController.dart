@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cau_gameduo/components/messagePopUp.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -73,6 +75,7 @@ class homePageController extends GetxController {
         String nick = j['userNickname'];
 
         Duo a = Duo(
+          status: -1,
           duoId: j['playerId'],
             name: nick,
             rank: j['tier'],
@@ -115,6 +118,7 @@ class homePageController extends GetxController {
           String nick = j['userNickname'];
 
           Duo a = Duo(
+            status: -1,
             duoId: j['playerId'],
               name: nick,
               rank: j['tier'],
@@ -144,6 +148,7 @@ class homePageController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         });
     Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
+    log(response.toString());
     if(response['code']==4000){
       showDialog(
           context: Get.context!,

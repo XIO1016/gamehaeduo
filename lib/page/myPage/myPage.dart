@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/myPage/profilePage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestedDuoPage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestingDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -104,31 +106,45 @@ class MyPage extends GetView<MyPageController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "3",
-                            style: TextStyle(fontSize: 50),
+                      GestureDetector(
+                        onTap:()=>Get.to(()=>RequestedDuoPage()),
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "3",
+                                style: TextStyle(fontSize: 50),
+                              ),
+                              const Text(
+                                "요청받은 듀오",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500),
+                              ),
+                            ],
                           ),
-                          const Text(
-                            "요청받은 듀오",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w500),
-                          ),
-                        ],
+                        ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Text(
-                            "4",
-                            style: TextStyle(fontSize: 50),
+                      GestureDetector(
+                        onTap: ()=>Get.to(()=>RequestingDuoPage()),
+                        child: Container(
+                          width: 120,
+                          height: 120,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "4",
+                                style: TextStyle(fontSize: 50),
+                              ),
+                              const Text("요청한 듀오",
+                                  style: TextStyle(
+                                      fontSize: 16, fontWeight: FontWeight.w500)),
+                            ],
                           ),
-                          const Text("요청한 듀오",
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w500)),
-                        ],
+                        ),
                       ),
                     ],
                   ),

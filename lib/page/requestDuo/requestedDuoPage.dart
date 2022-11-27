@@ -7,8 +7,8 @@ import 'package:cau_gameduo/controller/requestingDuo/requestingDuoController.dar
 import '../../components/requestDuoPopUp.dart';
 import '../../components/SizedBox.dart';
 
-class RequestingDuoPage extends GetView<RequestingDuoController> {
-  const RequestingDuoPage ({Key? key}) : super(key: key);
+class RequestedDuoPage extends GetView<RequestingDuoController> {
+  const RequestedDuoPage ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

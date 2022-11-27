@@ -9,6 +9,7 @@ class Duo {
   // List reviews;
   int price;
   int duoId;
+  int status;
   Duo(
       {required this.duoId,
         required this.name,
@@ -19,5 +20,6 @@ class Duo {
       required this.introduce,
       required this.star,
       // required this.reviews,
-      required this.price});
+      required this.price,
+      required this.status});
 }
