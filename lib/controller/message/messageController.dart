@@ -20,7 +20,6 @@ class MessageController extends GetxController {
   RxInt messageRoomNum = 0.obs;
   RxList messageRoomList = [].obs;
 
-  RxInt noteRoomIdx = 0.obs;
   void initial() {
     duoState(0);
     messageList = [];
@@ -47,9 +46,10 @@ class MessageController extends GetxController {
           "accept": "application/json",
           "jwtAccessToken": jwtaccessToken
         });
-    Map response = jsonDecode(getAllRoomsRe.body);
-    List result = response['result'];
+    Map response = jsonDecode(utf8.decode(getAllRoomsRe.bodyBytes));
+    List result=response['result'];
     messageRoomNum(result.length);
+
     for (int i = 0; i < result.length; i++) {
       var r = result[i];
 
@@ -64,7 +64,7 @@ class MessageController extends GetxController {
     }
   }
 
-  sendMessge(Duo duo) async {
+  sendMessage(Duo duo) async {
     var sendMessage = await http.post(Uri.parse('${urlBase}api/note/send'),
         headers: <String, String>{
           "content-type": "application/json",
@@ -72,10 +72,17 @@ class MessageController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         },
         body: jsonEncode(<String, dynamic>{
-          'noteRoomIdx': noteRoomIdx.value,
+          'noteRoomIdx':0,
           'noteMessage': contentController.text,
           'senderIdx': userId,
-          'receiverIdx': 23,
+          'receiverIdx': duo.duoId,
         }));
+
+
+    Map response = jsonDecode(utf8.decode(sendMessage.bodyBytes));
+    Map result=response['result'];
+    log(result.toString());
+    getAllRooms();
+
   }
 }

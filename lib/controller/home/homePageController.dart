@@ -1,14 +1,12 @@
+import 'package:cau_gameduo/components/messagePopUp.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../http/url.dart';
 import 'dart:convert';
-import 'dart:developer';
 import '../../model/duo.dart';
-import '../../model/profile.dart';
 import '../../page/duoProfile/duoProfilePage.dart';
 import '../../page/login/kakao_loginV1.dart';
-import '../login/SignUpController.dart';
 
 class homePageController extends GetxController {
   static homePageController get to => Get.find<homePageController>();
@@ -66,7 +64,6 @@ class homePageController extends GetxController {
 
     Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
 
-    log(response.toString());
     if (response['isSuccess']) {
       List result =
           jsonDecode(jsonEncode(response['result']))['homePartnerDTO'];
@@ -93,6 +90,7 @@ class homePageController extends GetxController {
   }
 
   gethomePageduoProfileVertical() async {
+
     var getduo = await http.get(
         Uri.parse(
             '${urlBase}api/player/profiles/column?userIdx=$userId&size=10&page=${page.value}'),
@@ -145,27 +143,42 @@ class homePageController extends GetxController {
           "accept": "application/json",
           "jwtAccessToken": jwtaccessToken
         });
-
     Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
-    Map result=response['result'];
+    if(response['code']==4000){
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+            message: '프로필이 공개되지 않은 유저입니다.',
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+              Get.back();
+            },
+          ));
+    }else {
+      Map result = response['result'];
 
 
-    list[i].playStyle= result['playStyle'];
-    list[i].introduce= result['introduction'];
-    list[i].position=[];
-    if (result['top'] == 1)
-      list[i].position.add('탑');
-    if (result['jungle'] == 1)
-      list[i].position.add('정글');
-    if (result['mid'] == 1)
-      list[i].position.add('미드');
-    if (result['ad'] == 1)
-      list[i].position.add('원딜');
-    if (result['supporter'] == 1)
-      list[i].position.add('서포터');
-    Get.back();
-    Get.to(()=>duoProfilePage(),arguments:list[i]);
-
+      list[i].playStyle = result['playStyle'];
+      list[i].introduce = result['introduction'];
+      list[i].position = [];
+      if (result['top'] == 1)
+        list[i].position.add('탑');
+      if (result['jungle'] == 1)
+        list[i].position.add('정글');
+      if (result['mid'] == 1)
+        list[i].position.add('미드');
+      if (result['ad'] == 1)
+        list[i].position.add('원딜');
+      if (result['supporter'] == 1)
+        list[i].position.add('서포터');
+      Get.back();
+      Get.to(() => duoProfilePage(), arguments: list[i]);
+    }
 
   }
 }
