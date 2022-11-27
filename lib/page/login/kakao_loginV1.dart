@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:cau_gameduo/controller/message/messageController.dart';
+import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/controller/home/homePageController.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
@@ -97,6 +98,7 @@ class KakaoLogin {
                     searchDuoController.to.getDuo();
                   });
                   MessageController.to.getAllRooms();
+                  MyPageController.to.getRequestDuoNum();
                   await homePageController.to.gethomePageduoProfile();
                   await homePageController.to.gethomePageduoProfileVertical();
                   Get.back();

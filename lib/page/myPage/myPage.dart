@@ -114,8 +114,8 @@ class MyPage extends GetView<MyPageController> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "3",
+                               Text(
+                                controller.requestedDuoNum.toString(),
                                 style: TextStyle(fontSize: 50),
                               ),
                               const Text(
@@ -135,8 +135,8 @@ class MyPage extends GetView<MyPageController> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              const Text(
-                                "4",
+                               Text(
+                                 controller.requestDuoNum.toString(),
                                 style: TextStyle(fontSize: 50),
                               ),
                               const Text("요청한 듀오",
