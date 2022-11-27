@@ -8,8 +8,10 @@ class Duo {
   double star;
   // List reviews;
   int price;
+  int duoId;
   Duo(
-      {required this.name,
+      {required this.duoId,
+        required this.name,
       required this.rank,
       required this.position,
       required this.image,

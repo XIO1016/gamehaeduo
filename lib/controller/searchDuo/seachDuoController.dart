@@ -41,6 +41,7 @@ class searchDuoController extends GetxController {
         String nick = j['nickname'];
 
         Duo a = Duo(
+          duoId: 0,
             name: nick,
             rank: j['tier'],
             position: [],

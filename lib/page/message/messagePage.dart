@@ -5,10 +5,10 @@ import 'package:get/get.dart';
 import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
+import '../../model/duo.dart';
 
 class MessagePage extends GetView<MessageController> {
-  const MessagePage({Key? key}) : super(key: key);
-
+  Duo duo = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Obx(

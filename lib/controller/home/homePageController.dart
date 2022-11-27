@@ -6,6 +6,7 @@ import 'dart:convert';
 import 'dart:developer';
 import '../../model/duo.dart';
 import '../../model/profile.dart';
+import '../../page/duoProfile/duoProfilePage.dart';
 import '../../page/login/kakao_loginV1.dart';
 import '../login/SignUpController.dart';
 
@@ -75,6 +76,7 @@ class homePageController extends GetxController {
         String nick = j['userNickname'];
 
         Duo a = Duo(
+          duoId: j['playerId'],
             name: nick,
             rank: j['tier'],
             position: [],
@@ -115,6 +117,7 @@ class homePageController extends GetxController {
           String nick = j['userNickname'];
 
           Duo a = Duo(
+            duoId: j['playerId'],
               name: nick,
               rank: j['tier'],
               position: [],
@@ -129,5 +132,40 @@ class homePageController extends GetxController {
         }
       }
     }
+  }
+  getDetailProfile(List list,int i) async {
+
+    Get.dialog(const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    var getduo = await http.get(
+        Uri.parse(
+            '${urlBase}api/player/profile?userIdx=$userId&otherIdx=${list[i].duoId}'),
+        headers: <String, String>{
+          "content-type": "application/json",
+          "accept": "application/json",
+          "jwtAccessToken": jwtaccessToken
+        });
+
+    Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
+    Map result=response['result'];
+
+
+    list[i].playStyle= result['playStyle'];
+    list[i].introduce= result['introduction'];
+    list[i].position=[];
+    if (result['top'] == 1)
+      list[i].position.add('탑');
+    if (result['jungle'] == 1)
+      list[i].position.add('정글');
+    if (result['mid'] == 1)
+      list[i].position.add('미드');
+    if (result['ad'] == 1)
+      list[i].position.add('원딜');
+    if (result['supporter'] == 1)
+      list[i].position.add('서포터');
+    Get.back();
+    Get.to(()=>duoProfilePage(),arguments:list[i]);
+
+
   }
 }

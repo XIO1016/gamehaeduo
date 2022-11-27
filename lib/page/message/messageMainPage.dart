@@ -1,4 +1,5 @@
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/model/messageRoom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -24,10 +25,7 @@ class MessageMainPage extends GetView<MessageController> {
             onPressed: () => Get.back(),
           ),
           shape: Border(
-              bottom: BorderSide(
-                  color: Color(0xffEEE6E6),
-                  width: 1
-              ),
+            bottom: BorderSide(color: Color(0xffEEE6E6), width: 1),
           ),
           titleSpacing: 0,
           elevation: 0,
@@ -36,78 +34,85 @@ class MessageMainPage extends GetView<MessageController> {
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Column(
-          children: [
-            Column(
-              children: List.generate(2,
-                  (index) =>  MessageListProfile(index),),
-            ),
-            // Column(
-            //   children: List.generate(2,
-            //         (index) =>  _MessageComponent(),),
-            // )
-          ],
-        ),
+        body: (controller.messageRoomNum.value == 0)
+            ? const Center(
+                child: Text('쪽지 방이 없습니다.'),
+              )
+            : Column(
+                children: [
+                  Column(
+                    children: List.generate(
+                      controller.messageRoomNum.value,
+                      (index) =>
+                          MessageListProfile(controller.messageRoomList[index]),
+                    ),
+                  ),
+                ],
+              ),
       ),
     );
   }
 
-  Widget MessageListProfile(int i) {
+  Widget MessageListProfile(MessageRoom room) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         //messageListPage로 이동
       },
-        child: Container(
-        padding: const EdgeInsets.only(
-          right: 20, left: 20, top: 10, bottom: 10),
-      decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+      child: Container(
+        padding:
+            const EdgeInsets.only(right: 20, left: 20, top: 10, bottom: 10),
+        decoration: const BoxDecoration(
+          border: Border(
+            bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+          ),
+        ),
+        child: Row(
+          children: [
+            //프로필 사진
+            ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: Container(
+                width: 50,
+                height: 50,
+                color: Color(0xffD9D9D9),
+                child: Image.network(
+                  room.image,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            ),
+            Sbox(15, 0),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        room.duoName,
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                      Text(
+                        room.currentMessageTime,
+                        style: TextStyle(
+                            color: const Color(0xffACA6A6), fontSize: 10),
+                      ),
+                    ],
+                  ),
+                  Sbox(0, 8),
+                  Text(
+                    room.currentMessage,
+                    style: TextStyle(fontSize: 13),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      child: Row(
-        children: [
-          //프로필 사진
-          ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Container(
-              width: controller.iswritten.value?50:50,
-              height: 50,
-              color: Color(0xffD9D9D9),
-              // child: Image.network(
-              //   duo.image,
-              //   fit: BoxFit.fitWidth,
-              // ),
-            ),
-          ),
-          Sbox(15, 0),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('duo.name',
-                      style: const TextStyle(
-                          fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                    Text('controller.messageList[i].timestamp',
-                      style: TextStyle(color: const Color(0xffACA6A6), fontSize: 10),),
-                  ],
-                ),
-                Sbox(0, 8),
-                Text('controller.messageList[i].content',
-                  style: TextStyle(fontSize: 13),
-                ),
-                //Text('텍스트')
-              ],
-            ),
-          ),
-        ],
-      ),
-        ),
     );
   }
 }

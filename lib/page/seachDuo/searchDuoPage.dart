@@ -12,6 +12,7 @@ import 'package:get/get.dart';
 import '../../components/Color.dart';
 import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
+import '../message/messagePage.dart';
 
 class searchDuoPage extends GetView<searchDuoController> {
   @override
@@ -24,7 +25,7 @@ class searchDuoPage extends GetView<searchDuoController> {
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => MessageListPage(),
+                  Get.to(() => MessagePage(),
                       arguments: controller.duoList[controller.index.value]);
                 },
                 child: Container(
