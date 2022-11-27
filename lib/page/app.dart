@@ -1,6 +1,7 @@
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestingDuoPage.dart';
 import 'package:cau_gameduo/page/seachDuo/searchDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -19,6 +20,7 @@ class App extends GetView<BottomNavController> {
             homePage(),
             searchDuoPage(),
             MessageMainPage(),
+            RequestingDuoPage(),
             MyPage()
           ]),
           bottomNavigationBar: Container(
@@ -65,6 +67,16 @@ class App extends GetView<BottomNavController> {
                     size: 28,
                   ),
                   label: '채팅',
+                ),BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.view_list_rounded,
+                    size: 25,
+                  ),
+                  activeIcon: Icon(
+                    Icons.view_list_rounded,
+                    size: 28,
+                  ),
+                  label: '듀오 현황',
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(

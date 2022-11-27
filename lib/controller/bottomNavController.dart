@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 import '../components/messagePopUp.dart';
 
-enum PageName { HOME, FIND, CHAT, USER }
+enum PageName { HOME, FIND, CHAT,LIST, USER }
 
 class BottomNavController extends GetxController {
   RxInt pageIndex = 0.obs;
@@ -19,6 +19,7 @@ class BottomNavController extends GetxController {
       // break;
       case PageName.FIND:
       case PageName.CHAT:
+      case PageName.LIST:
       case PageName.USER:
         _changePage(value, hasGesture: hasGesture);
         break;
