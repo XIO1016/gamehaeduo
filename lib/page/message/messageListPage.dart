@@ -154,7 +154,7 @@ class MessageListPage extends GetView<MessageController> {
                         applyButton('듀오 신청하기')
                       else if (controller.duoState.value == 0)
                         applyButton(
-                          '신청 수락 대기중',
+                          '신청 수락 대기중',//신청 수락하기
                         )
                       else if (controller.duoState.value == 1)
                           applyButton(
