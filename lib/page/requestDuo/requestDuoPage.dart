@@ -3,13 +3,12 @@ import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
-import 'package:cau_gameduo/controller/requestingDuo/requestingDuoController.dart';
+import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import '../../components/requestDuoPopUp.dart';
 import '../../components/SizedBox.dart';
 
-class RequestingDuoPage extends GetView<RequestingDuoController> {
-  const RequestingDuoPage ({Key? key}) : super(key: key);
+class RequestDuoPage extends GetView<RequestDuoController> {
+  const RequestDuoPage ({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +25,7 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                     onPressed: () => Get.back(),
                   ),
                   titleSpacing: 0,
-                  elevation: (controller.temp==0)?0:0,
+                  elevation: 0,
                   title: const Text(
                     '요청한 듀오',
                     style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
@@ -40,14 +39,27 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                         insets: EdgeInsets.symmetric(horizontal:30.0),
                       ),
                       tabs: [
-                        Tab(text: '전체',),
-                        Tab(text: '진행중',),
-                        Tab(text: '과거',)]
+                        Tab(text: '요청한 듀오',),
+                        Tab(text: '요청 받은 듀오',),
+                        DropdownButtonHideUnderline(
+                            child: DropdownButton<RxString>(
+                                onChanged: (newValue) {
+                                  controller.requestingSelected(newValue.toString());
+                                },
+                                value: controller.requestingSelected,
+                                items: [
+                                  for (var value in controller.requestingType)
+                                    DropdownMenuItem(
+                                      child: Text(value),
+                                      value: value.obs,
+                                    ),
+                                ]),)
+                      ]
                   )
               ),
               body: TabBarView(
                 children: [
-                  //전체
+                  //요청한 듀오
                   SingleChildScrollView(
                     child: Padding(
                         padding: EdgeInsets.all(12),
@@ -59,23 +71,13 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                         )
                     ),
                   ),
-                  //진행중
+                  //요청받은 듀오
                   SingleChildScrollView(
                     child: Padding(
                         padding: EdgeInsets.all(12),
                         child: Column(
                             children:[
                               requestBox(context),
-                            ]
-                        )
-                    ),
-                  ),
-                  //과거
-                  SingleChildScrollView(
-                    child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                            children:[
                               requestBox(context),
                             ]
                         )
@@ -129,6 +131,12 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
           //       fontSize: 12,
           //     )),
           // Text('취소',
+          //     style: TextStyle(
+          //       color: Color(0xff5A5A5A),
+          //       fontWeight: FontWeight.bold,
+          //       fontSize: 12,
+          //     )),
+          // Text('거절',
           //     style: TextStyle(
           //       color: Color(0xff5A5A5A),
           //       fontWeight: FontWeight.bold,
@@ -220,29 +228,6 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                                   )),
                             ],
                           )),
-                          OutlinedButton(
-                            onPressed:(){CancelRequestPopUp(context);},
-                            child: Text('취소',
-                            style: TextStyle(
-                              color: Colors.black,
-                            ),),
-                              style: OutlinedButton.styleFrom(
-                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                                side: BorderSide(color: Colors.black, width: 0.2),
-                                padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-                              ),),
-                          // OutlinedButton(
-                          //   onPressed:(){},
-                          //   child: Text('리뷰 작성',
-                          //     style: TextStyle(
-                          //       color: Colors.black,
-                          //     ),),
-                          //   style: OutlinedButton.styleFrom(
-                          //       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                          //       side: BorderSide(color: Colors.black, width: 0.2),
-                          //       padding: EdgeInsets.only(bottom: 5, left: 10, right: 10)
-                          //   ),)
-
                         ],
                       ),
                     ],
@@ -259,8 +244,8 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               OutlinedButton(
-                onPressed:(){CancelOngoingPopUp(context);},
-                child: Text('취소',
+                onPressed:(){RejectRequestPopUp(context);},
+                child: Text('거절',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
@@ -271,8 +256,8 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                     padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
                 ),),
               ElevatedButton(
-                onPressed:(){FinishOngoingPopUp(context);},
-                child: Text('완료',
+                onPressed:(){AcceptRequestPopUp(context);},
+                child: Text('수락',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -283,13 +268,40 @@ class RequestingDuoPage extends GetView<RequestingDuoController> {
                     padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
                 ),),
             ],
-          )
+          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          //   children: [
+          //     OutlinedButton(
+          //       onPressed:(){CancelOngoingPopUp(context);},
+          //       child: Text('취소',
+          //         style: TextStyle(
+          //           color: Colors.black,
+          //           fontSize: 16,
+          //         ),),
+          //       style: OutlinedButton.styleFrom(
+          //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+          //           side: BorderSide(color: Colors.black, width: 0.2),
+          //           padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
+          //       ),),
+          //     ElevatedButton(
+          //       onPressed:(){FinishOngoingPopUp(context);},
+          //       child: Text('완료',
+          //         style: TextStyle(
+          //           color: Colors.white,
+          //           fontSize: 16,
+          //         ),),
+          //       style: OutlinedButton.styleFrom(
+          //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+          //           backgroundColor: maincolor,
+          //           padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
+          //       ),),
+          //   ],
+          // )
         ],
 
       ),
     );
   }
-
-
 
 }

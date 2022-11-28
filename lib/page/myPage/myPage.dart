@@ -2,8 +2,7 @@ import 'dart:io';
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/myPage/profilePage.dart';
-import 'package:cau_gameduo/page/requestDuo/requestedDuoPage.dart';
-import 'package:cau_gameduo/page/requestDuo/requestingDuoPage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -107,7 +106,7 @@ class MyPage extends GetView<MyPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap:()=>Get.to(()=>RequestedDuoPage()),
+                        onTap:()=>Get.to(()=>RequestDuoPage()),
                         child: Container(
                           width: 120,
                           height: 120,
@@ -128,7 +127,7 @@ class MyPage extends GetView<MyPageController> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: ()=>Get.to(()=>RequestingDuoPage()),
+                        onTap: ()=>Get.to(()=>RequestDuoPage()),
                         child: Container(
                           width: 120,
                           height: 120,

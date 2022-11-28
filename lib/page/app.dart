@@ -1,7 +1,7 @@
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
-import 'package:cau_gameduo/page/requestDuo/requestingDuoPage.dart';
+import 'package:cau_gameduo/page/requestDuo/requestDuoPage.dart';
 import 'package:cau_gameduo/page/seachDuo/searchDuoPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -20,7 +20,7 @@ class App extends GetView<BottomNavController> {
             homePage(),
             searchDuoPage(),
             MessageMainPage(),
-            RequestingDuoPage(),
+            RequestDuoPage(),
             MyPage()
           ]),
           bottomNavigationBar: Container(
