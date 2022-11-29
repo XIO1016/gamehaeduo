@@ -8,6 +8,8 @@ import 'package:cau_gameduo/controller/bottomNavController.dart';
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
+import 'package:cau_gameduo/controller/review/reviewController.dart';
+
 import 'package:get/get.dart';
 
 class InitBinding extends Bindings {
@@ -24,5 +26,6 @@ class InitBinding extends Bindings {
     Get.put(searchDuoController(), permanent: true);
     Get.put(MessageController(), permanent: true);
     Get.put(RequestDuoController(), permanent: true);
+    Get.put(ReviewController(), permanent: true);
   }
 }

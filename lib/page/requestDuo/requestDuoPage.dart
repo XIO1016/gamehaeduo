@@ -38,13 +38,23 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                         borderSide: BorderSide(width: 2.0, color: maincolor),
                         insets: EdgeInsets.symmetric(horizontal:30.0),
                       ),
+                      onTap: (index) {
+                        switch (index){
+                          case 0:
+                            return controller.requestingType.insert(1,'수락대기');
+                          case 1:
+                            controller.requestingType.removeWhere((element) => element == '수락대기');
+                        }
+                      },
                       tabs: [
                         Tab(text: '요청한 듀오',),
                         Tab(text: '요청 받은 듀오',),
                         DropdownButtonHideUnderline(
                             child: DropdownButton<RxString>(
                                 onChanged: (newValue) {
-                                  controller.requestingSelected(newValue.toString());
+                                  // setState((){
+                                  //   controller.requestingSelected(newValue.toString());
+                                  // });
                                 },
                                 value: controller.requestingSelected,
                                 items: [
