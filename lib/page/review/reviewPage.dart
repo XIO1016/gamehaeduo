@@ -64,12 +64,13 @@ class ReviewPage extends GetView<ReviewController> {
                   ),
                   Sbox(0, 20),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children:[
                       for(var i=0;i<5;i++)
                         Image.asset(
                           "images/star_grey.png",
-                          width: 18,
-                          height: 18,
+                          width: 45,
+                          height: 45,
                         ),
                     ],
                   ),
