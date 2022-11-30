@@ -240,7 +240,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                           Expanded(child: Row(
                             children: [
                               Image.asset(
-                                "images/point.png",
+                                "images/ranked_emblems/Emblem_Platinum.png",
                                 width: 18,
                                 height: 18,
                               ),

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: ReviewPage(),
+      home: RequestDuoPage(),
       getPages: [
         GetPage(name: '/', page: () => App()),
         GetPage(name: '/start', page: () => StartPage()),
