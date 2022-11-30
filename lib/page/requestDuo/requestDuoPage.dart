@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -19,21 +18,10 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             child: Scaffold(
               backgroundColor: Color(0xff0F9F9F9),
               appBar: AppBar(
-                  leading: IconButton(
-                    icon: Icon(
-                        Icons.keyboard_arrow_left_rounded, color: blackcolor),
-                    onPressed: () => Get.back(),
-                  ),
-                  titleSpacing: 0,
-                  elevation: 0,
-                  title: const Text(
-                    '요청한 듀오',
-                    style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                  ),
                   bottom: TabBar(
                       labelColor: Colors.black,
                       labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                      unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal),
+                      unselectedLabelColor: Colors.grey,
                       indicator: UnderlineTabIndicator(
                         borderSide: BorderSide(width: 2.0, color: maincolor),
                         insets: EdgeInsets.symmetric(horizontal:30.0),
@@ -41,29 +29,56 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                       onTap: (index) {
                         switch (index){
                           case 0:
-                            return controller.requestingType.insert(1,'수락대기');
+                            return controller.requestingType.removeWhere((element) => element == '수락대기');
+
                           case 1:
-                            controller.requestingType.removeWhere((element) => element == '수락대기');
+                            controller.requestingType.insert(1,'수락대기');
                         }
                       },
                       tabs: [
-                        Tab(text: '요청한 듀오',),
-                        Tab(text: '요청 받은 듀오',),
+                        Tab(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("요청한 듀오",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold
+                            ),),
+                          ),
+                        ),
+                        Tab(
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text("요청 받은 듀오",
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold
+                              ),),
+                          ),
+                        ),
                         DropdownButtonHideUnderline(
-                            child: DropdownButton<RxString>(
-                                onChanged: (newValue) {
-                                  // setState((){
-                                  //   controller.requestingSelected(newValue.toString());
-                                  // });
-                                },
-                                value: controller.requestingSelected,
-                                items: [
-                                  for (var value in controller.requestingType)
-                                    DropdownMenuItem(
-                                      child: Text(value),
-                                      value: value.obs,
-                                    ),
-                                ]),)
+                            child: Container(
+                              width: 60,
+                              child: DropdownButton<RxString>(
+                                  isExpanded: true,
+                                  onChanged: (newValue) {
+                                    // setState((){
+                                    //   controller.requestingSelected(newValue.toString());
+                                    // });
+                                  },
+                                  value: controller.requestingSelected,
+                                  items: [
+                                    for (var value in controller.requestingType)
+                                      DropdownMenuItem(
+                                        child: Text(value,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold
+                                        ),),
+                                        value: value.obs,
+                                      ),
+                                  ]),
+                            ),)
                       ]
                   )
               ),
