@@ -46,12 +46,10 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                       width: 70,
                       child: TextFormField(
                         maxLength: 5, //**최대 99999원
-                        // ->maxLength 대신 input>x이면 빨간 경고 주고 입력 막기?
-                        // ->maxLength는 5로 두고 x를 99999 이하로?
                         cursorColor: maincolor,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: maincolor),
+                            borderSide: BorderSide(color: maincolor, width: 2,),
                           ),
                           counterText: '',
                         ),
@@ -101,6 +99,7 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                   child: TextField(
                     minLines: 1,
                     maxLines: 3,
+                    cursorColor: maincolor,
                     controller: controller.introductionController,
                     onChanged: (string) {
                       controller.isFinish();
@@ -108,8 +107,8 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                     decoration: InputDecoration(
                       border: const OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: maincolor),
-                      ), //선택했을 때 색 파랗게 해봄...
+                        borderSide: BorderSide(color: maincolor, width: 2,),
+                      ),
                     ),
                   ),
                 ),
@@ -130,8 +129,12 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                     },
                     minLines: 1,
                     maxLines: 3,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
+                    cursorColor: maincolor,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: maincolor, width: 2,),
+                      ),
                     ),
                   ),
                 ),

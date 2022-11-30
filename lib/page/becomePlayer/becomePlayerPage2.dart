@@ -36,6 +36,7 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
               ),
               Sbox(0, 10),
               DropdownButton<RxString>(
+                  dropdownColor: Colors.white,
                   onChanged: (newValue) {
                     controller.selected(newValue.toString());
                     controller.isFinish2();
