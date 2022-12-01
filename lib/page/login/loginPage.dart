@@ -3,6 +3,7 @@ import 'package:cau_gameduo/controller/login/SignUpController.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 
 import '../../components/SizedBox.dart';
@@ -173,36 +174,64 @@ class LoginPage extends GetView<SignUpController> {
                         ),
                       ],
                     ),
+                    Sbox(0, 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          '로그인하면 게임해듀오 ',
+                          style: TextStyle(fontSize: 9,color: Colors.grey),
+                        ),
+                        GestureDetector(
+                            child: const Text("이용약관",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                    color:Color(0xff636363))),
+                            onTap: () {
+                              launchUrl(
+                                Uri.parse('https://gamehaeduo.shop/policy'),
+                              );
+                            }),
+                        const Text(
+                          '에 동의하는 것으로 간주됩니다.',
+                          style: TextStyle(fontSize: 9,color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Sbox(0, 2),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text(
+                          '게임해듀오 회원정보 처리 방식은',
+                          style: TextStyle(fontSize: 9, color: Colors.grey),
+                        ),
+                        GestureDetector(
+                            child: const Text("개인정보취급방침",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 9,
+                                    fontWeight: FontWeight.bold,
+                                color: Color(0xff636363))),
+                            onTap: () {
+                              launchUrl(
+                                Uri.parse('https://gamehaeduo.shop/privacy'),
+                              );
+                            }),
+                        const Text(
+                          '에서 확인 가능합니다.',
+                          style: TextStyle(fontSize: 9,color: Colors.grey),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
 
               ]),
             ),
           ),
-    );
-  }
-
-  Widget nonSelected(int i) {
-    return GestureDetector(
-      onTap: () => controller.checkposition(i),
-      child: Container(
-        width: Get.width / 2 - 30,
-        height: 50,
-        decoration: (controller.isSelected[i] == true)
-            ? BoxDecoration(
-            color: Colors.white, border: Border.all(color: maincolor))
-            : const BoxDecoration(color: Color(0xffF4F4F4)),
-        child: Center(
-            child: Text(
-              controller.position[i],
-              style: TextStyle(
-                fontSize: 16,
-                color: (controller.isSelected[i] == true)
-                    ? maincolor
-                    : const Color(0xffB4B4B4),
-              ),
-            )),
-      ),
     );
   }
 }
