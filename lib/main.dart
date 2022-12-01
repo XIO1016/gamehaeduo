@@ -6,6 +6,7 @@ import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage2.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:cau_gameduo/page/myPage/myPage.dart';
 import 'package:cau_gameduo/page/myPage/settingPage.dart';
+import 'package:cau_gameduo/page/login/signUpPage1.dart';
 import 'package:cau_gameduo/page/login/signUpPage.dart';
 import 'package:cau_gameduo/page/login/loginPage.dart';
 import 'package:cau_gameduo/page/login/startPage.dart';
@@ -42,11 +43,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialBinding: InitBinding(),
-      home: LoginPage(),
+      home: SignUpPage1(),
       getPages: [
         GetPage(name: '/', page: () => App()),
         GetPage(name: '/start', page: () => StartPage()),
         GetPage(name: '/signup', page: () => SignUpPage()),
+        GetPage(name: '/signup', page: () => SignUpPage1()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/home', page: () => homePage()),
         GetPage(name: '/becomeplayer1', page: () => BecomePlayerPage1()),
