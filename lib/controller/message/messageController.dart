@@ -332,7 +332,7 @@ class MessageController extends GetxController {
       duoState(2);
       return 2;//듀오 진행중
     } else if (r == 'COMPLETE') {
-      //듀오 완료됨
+      //듀오 완료됨ee
       duoState(-1);
       return -1;
     } else if (r == 'CANCEL') {

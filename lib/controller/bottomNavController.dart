@@ -23,7 +23,7 @@ class BottomNavController extends GetxController {
         break;
       case PageName.CHAT:
         Get.dialog(const Center(child: CircularProgressIndicator()),
-          barrierDismissible: false);
+          barrierDismissible: false);//dd
         await MessageController.to.getAllRooms();
         Get.back();
         _changePage(value, hasGesture: hasGesture);

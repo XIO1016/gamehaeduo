@@ -17,7 +17,7 @@ class MessagePage extends GetView<MessageController> {
       () => Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          centerTitle: true,
+          centerTitle: true,//dd
           leading: IconButton(
             icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
             onPressed: () =>Get.offAll(MessageListPage()),

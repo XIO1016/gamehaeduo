@@ -103,7 +103,7 @@ class RequestDuoController extends GetxController {
     }
     else if(r=='P'){
       return 1;
-    }else if(r=='신청 수락됨'){//듀오중
+    }else if(r=='신청 수락됨'){//듀오중ddd
       return 2;
     }else if(r=='듀오 취소'){
       return 3;

@@ -246,7 +246,7 @@ class MessageListPage extends GetView<MessageController> {
                           fontWeight: FontWeight.bold),
                     )
                   : const Text(
-                      '보낸 쪽지',
+                      '보낸 쪽지',//dd
                       style: TextStyle(
                           color: Color(0xffFFA800),
                           fontSize: 13,
