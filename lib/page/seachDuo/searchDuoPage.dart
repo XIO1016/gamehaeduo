@@ -26,7 +26,7 @@ class searchDuoPage extends GetView<searchDuoController> {
               child: GestureDetector(
                 onTap: () {
                   Get.to(() => MessagePage(),
-                      arguments: controller.duoList[controller.index.value]);
+                      arguments:[ controller.duoList[controller.index.value],null]);
                 },
                 child: Container(
                   width: Get.width,
