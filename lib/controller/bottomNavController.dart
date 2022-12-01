@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cau_gameduo/controller/message/messageController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,14 +12,22 @@ class BottomNavController extends GetxController {
   RxInt pageIndex = 0.obs;
   List<int> bottomHistory = [0];
 
-  void changeBottomNav(int value, {bool hasGesture = true}) {
+  Future<void> changeBottomNav(int value, {bool hasGesture = true}) async {
     var page = PageName.values[value];
     switch (page) {
       case PageName.HOME:
-      // Get.to(() => const MainHome());
-      // break;
+        _changePage(value, hasGesture: hasGesture);
+        break;
       case PageName.FIND:
+        _changePage(value, hasGesture: hasGesture);
+        break;
       case PageName.CHAT:
+        Get.dialog(const Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+        await MessageController.to.getAllRooms();
+        Get.back();
+        _changePage(value, hasGesture: hasGesture);
+        break;
       case PageName.LIST:
       case PageName.USER:
         _changePage(value, hasGesture: hasGesture);

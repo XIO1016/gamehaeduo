@@ -101,7 +101,7 @@ class RequestDuoController extends GetxController {
     if (r=='WAITING'){
       return 0;
     }
-    else if(r=='듀오 수락하기'){
+    else if(r=='P'){
       return 1;
     }else if(r=='신청 수락됨'){//듀오중
       return 2;

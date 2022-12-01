@@ -10,18 +10,18 @@ import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
 
 class MessageMainPage extends GetView<MessageController> {
-  Duo duo = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
-
+    // controller.getAllRooms();
     return Obx(
       () => Scaffold(
+
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
          automaticallyImplyLeading: false,
-          shape: Border(
+          shape: const Border(
             bottom: BorderSide(color: Color(0xffEEE6E6), width: 1),
           ),
           titleSpacing: 0,

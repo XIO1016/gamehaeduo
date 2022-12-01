@@ -1,13 +1,18 @@
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../model/duo.dart';
 
 class MessagePage extends GetView<MessageController> {
-  Duo duo = Get.arguments;
+  Duo duo = Get.arguments[0];
+  dynamic roomid = Get.arguments[1];
+
   @override
   Widget build(BuildContext context) {
+    controller.iswritten(false);
+    controller.contentController.text='';
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,
@@ -15,7 +20,7 @@ class MessagePage extends GetView<MessageController> {
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
-            onPressed: () => Get.back(),
+            onPressed: () =>Get.offAll(MessageListPage()),
           ),
           titleSpacing: 0,
           elevation: 0,
@@ -49,8 +54,8 @@ class MessagePage extends GetView<MessageController> {
             )),
         bottomSheet: GestureDetector(
           onTap: () {
-            controller.sendMessage(duo);
-            Get.back();
+            controller.sendMessage(duo,roomid);
+
           },
           child: (controller.iswritten.value)
               ? Container(

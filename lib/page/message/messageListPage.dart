@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,7 @@ import '../../model/message.dart';
 
 class MessageListPage extends GetView<MessageController> {
   Duo duo = Get.arguments[0];
-  int roomid= Get.arguments[1];
+  int roomid = Get.arguments[1];
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,8 @@ class MessageListPage extends GetView<MessageController> {
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
-            onPressed: () => Get.back(),
+            onPressed: () {
+              Get.offAll(MessageMainPage());},
           ),
           titleSpacing: 0,
           elevation: 0,
@@ -33,7 +35,7 @@ class MessageListPage extends GetView<MessageController> {
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
         ),
-        body: Column(
+        body: ListView(
           children: [
             Container(
               padding: const EdgeInsets.only(
@@ -150,27 +152,22 @@ class MessageListPage extends GetView<MessageController> {
                         ],
                       ),
                       Sbox(0, 13),
-                      if (controller.duoState.value == -1)
-                        applyButton('듀오 신청하기')
-                      else if (controller.duoState.value == 0)
+                      if (controller.duoState.value == 0)
                         applyButton(
-                          '신청 수락 대기중',//신청 수락하기
+                          '신청 요청중', //신청 수락하기
                         )
                       else if (controller.duoState.value == 1)
-                          applyButton(
-                            '신청 수락됨',
-                          )
-                        else if (controller.duoState.value == 2)
-                            applyButton(
-                              '신청 취소됨',
-                            )
-                          else if (controller.duoState.value == 3)
-                              applyButton(
-                                '듀오 완료',
-                              )
-
-
-
+                        applyButton(
+                          '신청 수락하기',
+                        )
+                      else if (controller.duoState.value == 2)
+                        applyButton(
+                          '신청 진행중',
+                        )
+                      else
+                        applyButton(
+                          '듀오 신청하기',
+                        )
                     ],
                   )
                 ],
@@ -181,12 +178,13 @@ class MessageListPage extends GetView<MessageController> {
               children: List.generate(
                   controller.DuomessagList[duo.duoId]!.length,
                   (index) => _MessageComponent(index)),
-            )
+            ),
+            const SizedBox(height: 50,)
           ],
         ),
         bottomSheet: GestureDetector(
           onTap: () {
-            Get.to(() => MessageListPage());
+            Get.to(() => MessagePage(), arguments: [duo, roomid]);
           },
           child: Container(
             width: Get.width,
@@ -207,8 +205,12 @@ class MessageListPage extends GetView<MessageController> {
   Widget applyButton(String text) {
     return OutlinedButton(
       onPressed: () {
-        if(duo.status==-1){
-        controller.applyDuo(roomid,duo);}
+        if (duo.status == -1) {
+          controller.applyDuo(roomid, duo);
+        }
+        if (duo.status == 1) {
+          controller.acceptDuo(roomid, duo);
+        }
       },
       style: OutlinedButton.styleFrom(
         side: BorderSide(width: 1.0, color: maincolor),
