@@ -68,12 +68,7 @@ class LoginPage extends GetView<SignUpController> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(width: 2, color: maincolor)),
-                              suffixIcon: (controller.checkNickDup.value)
-                                  ? Icon(
-                                Icons.check,
-                                color: maincolor,
-                              )
-                                  : null,
+                              prefixIcon: Icon(Icons.person_rounded,),
                               hintText: "아이디",
                               hintStyle: const TextStyle(
                                   fontSize: 15, color: Color(0xff727272)),
@@ -96,12 +91,12 @@ class LoginPage extends GetView<SignUpController> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(width: 2, color: maincolor)),
-                              suffixIcon: (controller.checkNickDup.value)
+                              prefixIcon: (controller.checkNickDup.value)
                                   ? Icon(
                                 Icons.check,
                                 color: maincolor,
                               )
-                                  : null,
+                                  : Icon(Icons.https,),
                               hintText: "비밀번호",
                               hintStyle: const TextStyle(
                                   fontSize: 15, color: Color(0xff727272)),
