@@ -130,7 +130,7 @@ class homePageController extends GetxController {
               price: j['price']);
 
           duoList2.add(a);
-          // log(duoList2[i].name.toString());
+          log(duoList2[i].name.toString());
         }
       }
     }
