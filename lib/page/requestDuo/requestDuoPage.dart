@@ -7,116 +7,167 @@ import '../../components/requestDuoPopUp.dart';
 import '../../components/SizedBox.dart';
 
 class RequestDuoPage extends GetView<RequestDuoController> {
-  const RequestDuoPage ({Key? key}) : super(key: key);
+  const RequestDuoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () =>
-          DefaultTabController(
-            length: 3,
-            child: Scaffold(
-              backgroundColor: Color(0xff0F9F9F9),
-              appBar: AppBar(
-                  bottom: TabBar(
-                      labelColor: Colors.black,
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                      unselectedLabelColor: Colors.grey,
-                      indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(width: 2.0, color: maincolor),
-                        insets: EdgeInsets.symmetric(horizontal:30.0),
-                      ),
-                      onTap: (index) {
-                        switch (index){
-                          case 0:
-                            return controller.requestingType.removeWhere((element) => element == '수락대기');
+      () => DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          appBar: PreferredSize(
+            preferredSize:  Size.fromHeight(60.0),
+            child: AppBar(
+              elevation: 0.5,
 
-                          case 1:
-                            controller.requestingType.insert(1,'수락대기');
-                        }
-                      },
-                      tabs: [
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("요청한 듀오",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold
-                            ),),
-                          ),
-                        ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text("요청 받은 듀오",
-                              style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold
-                              ),),
-                          ),
-                        ),
-                        DropdownButtonHideUnderline(
-                            child: Container(
-                              width: 60,
-                              child: DropdownButton<RxString>(
-                                  isExpanded: true,
-                                  onChanged: (newValue) {
-                                    // setState((){
-                                    //   controller.requestingSelected(newValue.toString());
-                                    // });
-                                  },
-                                  value: controller.requestingSelected,
-                                  items: [
-                                    for (var value in controller.requestingType)
-                                      DropdownMenuItem(
-                                        child: Text(value,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold
-                                        ),),
-                                        value: value.obs,
-                                      ),
-                                  ]),
-                            ),)
-                      ]
-                  )
-              ),
-              body: TabBarView(
-                children: [
-                  //요청한 듀오
-                  SingleChildScrollView(
-                    child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                            children:[
-                              requestBox(context),
-                              requestBox(context),
-                            ]
-                        )
-                    ),
+              bottom: TabBar(
+                  labelColor: Colors.black,
+                  labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                  unselectedLabelColor: Colors.grey,
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(width: 2.0, color: maincolor),
+                    insets: const EdgeInsets.symmetric(horizontal: 50.0),
                   ),
-                  //요청받은 듀오
-                  SingleChildScrollView(
-                    child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                            children:[
-                              requestBox(context),
-                              requestBox(context),
-                            ]
-                        )
+                  onTap: (index) {
+                    switch (index) {
+                      case 0:
+                        return controller.requestingType
+                            .removeWhere((element) => element == '수락대기');
+
+                      case 1:
+                        controller.requestingType.insert(1, '수락대기');
+                    }
+                  },
+                  tabs: const [
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "요청한 듀오",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "요청 받은 듀오",
+                          style: TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ]),
             ),
           ),
+          body:
+          TabBarView(
+                  children: [
+                    //요청한 듀오
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10,right: 10.0,),
+                      child: ListView(
+                        children: [
+                          Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: DropdownButtonHideUnderline(
+
+                                  child: SizedBox(
+                                    width: 85,
+                                    height: 40,
+                                    child: DropdownButton<RxString>(
+                                        onChanged: (newValue) {
+                                          controller.requestingSelected(newValue.toString());
+                                        },
+                                        value: controller.requestingSelected,
+                                        items: [
+                                          for (var value in controller.requestingType)
+                                            DropdownMenuItem(
+                                              value: value.obs,
+                                              child: Text(
+                                                value,
+                                                style: const TextStyle(
+                                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                        ]),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(12),
+                                child: Column(children: [
+                                  requestBox(context),
+                                  requestBox(context),
+                                ]),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    //요청받은 듀오
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10,right: 10.0,),
+                      child: ListView(
+                        children: [
+                          Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: DropdownButtonHideUnderline(
+                                  child: Container(
+                                    width: 85,
+                                    child: DropdownButton<RxString>(
+                                        onChanged: (newValue) {
+                                          controller.requestedSelected(newValue.toString());
+                                        },
+                                        value: controller.requestedSelected,
+                                        items: [
+                                          for (var value in controller.requestedType)
+                                            DropdownMenuItem(
+                                              value: value.obs,
+                                              child: Text(
+                                                value,
+                                                style: const TextStyle(
+                                                    fontSize: 16, fontWeight: FontWeight.bold),
+                                              ),
+                                            ),
+                                        ]),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.all(12),
+                                  child: Column(children: [
+                                    requestBox(context),
+                                    requestBox(context),
+                                  ])),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+
+
+
+        ),
+      ),
     );
   }
 
-  Widget requestBox(BuildContext context){
+  Widget requestBox(BuildContext context) {
     return Container(
+      width: Get.width - 20,
+      height: 200,
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -131,18 +182,17 @@ class RequestDuoPage extends GetView<RequestDuoController> {
           ),
         ],
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
-        children:[
+        children: [
           Text('신청 수락 대기중',
-          style: TextStyle(
-            color: Color(0xff14BC57),
-            fontWeight: FontWeight.bold,
-            fontSize: 12,
-          )),
+              style: TextStyle(
+                color: Color(0xff14BC57),
+                fontWeight: FontWeight.bold,
+                fontSize: 12,
+              )),
           // Text('진행중',
           //     style: TextStyle(
           //       color: maincolor,
@@ -173,7 +223,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
           ),
           Container(
             child: Row(
-              children:[
+              children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(50),
                   child: Container(
@@ -185,22 +235,23 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                 Sbox(10, 0),
                 Expanded(
                   child: Column(
-                    children:[
+                    children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children:[
+                        children: [
                           Expanded(
                             child: Row(
                               children: [
                                 Text('전주비빔밥',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
-                                )),
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
                               ],
                             ),
                           ),
-                          Container(child: Row(
+                          Container(
+                              child: Row(
                             children: [
                               Image.asset(
                                 "images/point.png",
@@ -208,11 +259,13 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                 height: 18,
                               ),
                               Sbox(3, 0),
-                              Text('1500',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              ),),
+                              Text(
+                                '1500',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
                             ],
                           )),
                         ],
@@ -220,24 +273,25 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                       Row(
                         children: [
                           RichText(
-                            text: TextSpan(
-                                children: const<TextSpan>[
-                                  TextSpan(text: '요청 시간: ',
-                                   style: TextStyle(
-                                     color: Color(0xff727272),
-                                     fontSize: 10,
-                                   )),
-                                  TextSpan(text: '2022-11-03',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        color: Colors.black                                      )),
-                                ]),
+                            text: TextSpan(children: const <TextSpan>[
+                              TextSpan(
+                                  text: '요청 시간: ',
+                                  style: TextStyle(
+                                    color: Color(0xff727272),
+                                    fontSize: 10,
+                                  )),
+                              TextSpan(
+                                  text: '2022-11-03',
+                                  style: TextStyle(
+                                      fontSize: 10, color: Colors.black)),
+                            ]),
                           ),
                         ],
                       ),
                       Row(
-                        children:[
-                          Expanded(child: Row(
+                        children: [
+                          Expanded(
+                              child: Row(
                             children: [
                               Image.asset(
                                 "images/ranked_emblems/Emblem_Platinum.png",
@@ -269,29 +323,39 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               OutlinedButton(
-                onPressed:(){RejectRequestPopUp(context);},
-                child: Text('거절',
+                onPressed: () {
+                  RejectRequestPopUp(context);
+                },
+                child: Text(
+                  '거절',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16,
-                  ),),
+                  ),
+                ),
                 style: OutlinedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     side: BorderSide(color: Colors.black, width: 0.2),
-                    padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-                ),),
+                    padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)),
+              ),
               ElevatedButton(
-                onPressed:(){AcceptRequestPopUp(context);},
-                child: Text('수락',
+                onPressed: () {
+                  AcceptRequestPopUp(context);
+                },
+                child: Text(
+                  '수락',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
-                  ),),
+                  ),
+                ),
                 style: OutlinedButton.styleFrom(
-                    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10))),
                     backgroundColor: maincolor,
-                    padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-                ),),
+                    padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)),
+              ),
             ],
           ),
           // Row(
@@ -324,9 +388,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
           //   ],
           // )
         ],
-
       ),
     );
   }
-
 }
