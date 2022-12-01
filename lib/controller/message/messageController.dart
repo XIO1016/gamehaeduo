@@ -18,21 +18,19 @@ class MessageController extends GetxController {
   RxBool iswritten = false.obs;
   RxInt duoState = (-1).obs;
   List<Message> messageList = [];
+  RxBool loading=false.obs;
 
   RxInt messageRoomNum = 0.obs;
   Map<int, MessageRoom> messageRoomList = {};
 
   Map<int, List> DuomessagList = {};
 
-  void initial(Duo duo) {
-    duoState(duo.status);
-    messageList = [];
-  }
+
+
 
   getAllRooms() async {
-
-
-    messageRoomList = {};
+    loading(true);
+    messageRoomList={};
     var getAllRoomsRe = await http.get(
         Uri.parse('${urlBase}api/room?userIdx=$userId'),
         headers: <String, String>{
@@ -45,10 +43,9 @@ class MessageController extends GetxController {
     messageRoomNum(result.length);
     // log('messageRoomList');
 
-    for (int i = 0; i <result.length; i++) {
+    for (int i = 0; i < result.length; i++) {
       var r = result[i];
       DateTime date = DateTime.parse(r["currentMessageTime"]);
-
       String sendDate = DateFormat('yy/MM/dd - HH:mm').format(date);
 
       MessageRoom room = MessageRoom(
@@ -66,13 +63,13 @@ class MessageController extends GetxController {
               name: r['duoName'],
               star: -1),
           roomId: r['roomId'],
+
           currentMessage: r['currentMessage'],
           currentMessageTime: sendDate);
-      messageRoomList[room.roomId] = room;
-    }
-    // messageRoomList.from(map, (a, b) => a.compareTo(b));
-    // messageRoomList.sort((a,b) => a['currentMessageTime'].compareTo(b));
+      messageRoomList[room.roomId]=room;
 
+    }
+    loading(false);
   }
 
   sendMessage(Duo duo,int roomid) async {
@@ -98,17 +95,29 @@ class MessageController extends GetxController {
     Map response = jsonDecode(utf8.decode(sendMessage.bodyBytes));
     Map result = response['result'];
     // log(result.toString());
-
     await getAllRooms();
     await getAllMessages(roomid, duo);
 
 
   }
 
+  doloading(){
+    if(loading.value){
+      Get.dialog(const Center(child: CircularProgressIndicator()),
+          barrierDismissible: false);
+
+    }
+  }
   getAllMessages(int roomid, Duo duo) async {
+    //
+    //
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   loading(true);
+    // });
     Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
 
+messageList = [];
     var getAllMessage = await http.get(
         Uri.parse(
             '${urlBase}api/note/room?roomId=${roomid}&userIdx=$userId&duoIdx=${duo.duoId}'),
@@ -123,12 +132,13 @@ class MessageController extends GetxController {
     Map duoProfileRe = result['duoProfile'];
     List message = result['message'];
     List messages = [];
-  log(result['duoStatus']);
+  // log(result['duoStatus']??'null');
+  // log(result['requestUser'].toString());
     duo = Duo(
         duoId: duo.duoId,
         status: result['duoStatus'] == null
             ? -1
-            : duoStatus(duoProfileRe['duoStatus'], duoProfileRe['requestUser']),
+            : duoStatus(result['duoStatus'], result['requestUser']),
         name: duo.name,
         rank: duoProfileRe['tier'],
         position: [],
@@ -160,9 +170,9 @@ class MessageController extends GetxController {
       messages.add(m);
     }
     DuomessagList[duo.duoId] = messages;
-
-    // Get.back();
-    Get.to(() => MessageListPage(), arguments: [duo, roomid]);
+    loading(false);
+    Get.back();
+Get.to(() => MessageListPage(), arguments: [duo, roomid]);
   }
 
   applyDuo(int roomid, Duo duo) async {
@@ -203,8 +213,7 @@ class MessageController extends GetxController {
               ));
     }
   }
-
-  acceptDuo(int roomid, Duo duo) async {
+  acceptDuo(int roomid,Duo duo) async{
     var acceptDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/accept'),
       headers: <String, String>{
@@ -220,29 +229,30 @@ class MessageController extends GetxController {
       ),
     );
     Map acceptDuoResponse = jsonDecode(utf8.decode(acceptDuoRequest.bodyBytes));
-    if (acceptDuoResponse['code'] == 1000) {
-      Map result = acceptDuoResponse['result'];
+    if(acceptDuoResponse['code']==1000){
+      Map result= acceptDuoResponse['result'];
       log(result.toString());
-      messageRoomList[roomid]!.duo.status = 1;
+      messageRoomList[roomid]!.duo.status=1;
       duoState(1);
-    } else {
+
+    }else{
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-                message: '듀오 신청받은 사람만 수락을 할 수 있습니다.',
-                okCallback: () {
-                  Get.back();
-                  Get.back();
-                },
-                okmessage: '확인',
-                cancelCallback: () {
-                  Get.back();
-                },
-              ));
+            message: '듀오 신청받은 사람만 수락을 할 수 있습니다.',
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
     }
   }
 
-  cancelDuo(int roomid, Duo duo) async {
+  cancelDuo(int roomid,Duo duo) async{
     var cancelDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/cancel'),
       headers: <String, String>{
@@ -258,29 +268,29 @@ class MessageController extends GetxController {
       ),
     );
     Map cancelDuoResponse = jsonDecode(utf8.decode(cancelDuoRequest.bodyBytes));
-    if (cancelDuoResponse['code'] == 1000) {
-      Map result = cancelDuoResponse['result'];
+    if(cancelDuoResponse['code']==1000){
+      Map result= cancelDuoResponse['result'];
       log(result.toString());
-      messageRoomList[roomid]!.duo.status = 2;
+      messageRoomList[roomid]!.duo.status=2;
       duoState(2);
-    } else {
+
+    }else{
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-                message: cancelDuoResponse['message'],
-                okCallback: () {
-                  Get.back();
-                  Get.back();
-                },
-                okmessage: '확인',
-                cancelCallback: () {
-                  Get.back();
-                },
-              ));
+            message: cancelDuoResponse['message'],
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
     }
   }
-
-  finishDuo(int roomid, Duo duo) async {
+  finishDuo(int roomid,Duo duo) async{
     var finishDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/finish'),
       headers: <String, String>{
@@ -296,32 +306,36 @@ class MessageController extends GetxController {
       ),
     );
     Map finishDuoResponse = jsonDecode(utf8.decode(finishDuoRequest.bodyBytes));
-    if (finishDuoResponse['code'] == 1000) {
-      Map result = finishDuoResponse['result'];
+    if(finishDuoResponse['code']==1000){
+      Map result= finishDuoResponse['result'];
       log(result.toString());
-      messageRoomList[roomid]!.duo.status = 3;
+      messageRoomList[roomid]!.duo.status=3;
       duoState(3);
-    } else {
+
+    }else{
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-                message: finishDuoResponse['message'],
-                okCallback: () {
-                  Get.back();
-                  Get.back();
-                },
-                okmessage: '확인',
-                cancelCallback: () {
-                  Get.back();
-                },
-              ));
+            message: finishDuoResponse['message'],
+            okCallback: () {
+              Get.back();
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback:() {
+              Get.back();
+            },
+          ));
     }
   }
 
   int duoStatus(String r, bool requestUser) {
+    log(r);
     if (r == 'WAITING') {
+      log(r);
       if (requestUser==true){//신청 요청중
         duoState(0);
+        log(duoState.value.toString());
 
         return 0;
 

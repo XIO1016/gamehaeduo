@@ -10,23 +10,27 @@ import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
 import '../../model/message.dart';
+import '../app.dart';
 
 class MessageListPage extends GetView<MessageController> {
   Duo duo = Get.arguments[0];
   int roomid = Get.arguments[1];
 
+
   @override
   Widget build(BuildContext context) {
-    controller.initial(duo);
-    return Obx(
-      () => Scaffold(
+
+    return Obx(() {
+
+     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
             onPressed: () {
-              Get.offAll(MessageMainPage());},
+              Get.offAll(App());
+            },
           ),
           titleSpacing: 0,
           elevation: 0,
@@ -179,7 +183,9 @@ class MessageListPage extends GetView<MessageController> {
                   controller.DuomessagList[duo.duoId]!.length,
                   (index) => _MessageComponent(index)),
             ),
-            const SizedBox(height: 50,)
+            const SizedBox(
+              height: 50,
+            )
           ],
         ),
         bottomSheet: GestureDetector(
@@ -198,8 +204,8 @@ class MessageListPage extends GetView<MessageController> {
             ),
           ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Widget applyButton(String text) {
@@ -246,7 +252,7 @@ class MessageListPage extends GetView<MessageController> {
                           fontWeight: FontWeight.bold),
                     )
                   : const Text(
-                      '보낸 쪽지',//dd
+                      '보낸 쪽지',
                       style: TextStyle(
                           color: Color(0xffFFA800),
                           fontSize: 13,

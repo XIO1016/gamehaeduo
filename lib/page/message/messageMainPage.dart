@@ -10,17 +10,19 @@ import '../../components/SizedBox.dart';
 import '../../model/duo.dart';
 
 class MessageMainPage extends GetView<MessageController> {
-
   @override
   Widget build(BuildContext context) {
     // controller.getAllRooms();
-    return Obx(
-      () => Scaffold(
-
+    return Obx(() {
+      if (controller.loading.value){
+       Get.dialog(const Center(child: CircularProgressIndicator()),
+            barrierDismissible: false);
+      }
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
-         automaticallyImplyLeading: false,
+          automaticallyImplyLeading: false,
           shape: const Border(
             bottom: BorderSide(color: Color(0xffEEE6E6), width: 1),
           ),
@@ -40,22 +42,22 @@ class MessageMainPage extends GetView<MessageController> {
                   Column(
                     children: List.generate(
                       controller.messageRoomNum.value,
-                      (index) =>
-                          MessageListProfile(controller.messageRoomList.values.toList()[index]),
+                      (index) => MessageListProfile(
+                          controller.messageRoomList.values.toList()[index]),
                     ),
                   ),
                 ],
               ),
-      ),
-    );
+      );
+    });
   }
 
   Widget MessageListProfile(MessageRoom room) {
     return GestureDetector(
       onTap: () {
-
-        controller.getAllMessages(room.roomId,room.duo);
-
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          controller.getAllMessages(room.roomId, room.duo);
+        });
         //messageListPage로 이동
       },
       child: Container(
