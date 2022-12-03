@@ -26,12 +26,14 @@ Profile1 profile = Profile1(
 
 class SignUpController extends GetxController {
   RxBool checkNickDup = false.obs;
+  RxBool checkIdDup = false.obs;
   List position = ['탑', '정글', '미드', '원딜', '서폿'];
   RxList isSelected =
       [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
   TextEditingController nickController = TextEditingController();
-  TextEditingController nickController2 = TextEditingController();
-  TextEditingController nickController3 = TextEditingController();
+  TextEditingController idController = TextEditingController();
+  TextEditingController pwController = TextEditingController();
+  TextEditingController pwCheckController = TextEditingController();
 
   Future checkDuplicated() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
@@ -114,6 +116,35 @@ class SignUpController extends GetxController {
           reviews: []);
       Get.back();
       Get.to(App());
+    }
+  }
+
+  Future checkIdDuplicated() async {
+    Get.dialog(Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    var checkdup = await http.get(
+        Uri.parse(
+            urlBase + '/api/id/dupli?id=${idController.text}'),
+        headers: {
+          "content-type": "application/json",
+          "accept": "application/json",
+        });
+    Map re = jsonDecode(checkdup.body);
+    if (re['isSuccess'] == false) {
+      checkIdDup(false);
+      showDialog(
+          context: Get.context!,
+          builder: (context) => MessagePopup(
+            message: '이미 사용중인 아이디입니다.',
+            okCallback: () {
+              Get.back();
+            },
+            okmessage: '확인',
+            cancelCallback: Get.back,
+          ));
+    } else {
+      checkIdDup(true);
+      Get.back();
     }
   }
 }

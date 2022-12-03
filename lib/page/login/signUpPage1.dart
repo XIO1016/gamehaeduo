@@ -19,13 +19,13 @@ class SignUpPage1 extends GetView<SignUpController> {
           () => Scaffold(
         // bottomSheet: (controller.checkNickDup.value == true &&
         //     controller.ischeckedposition() == true)
-            bottomSheet: (controller.nickController.text.length > 0 &&
-                controller.nickController2.text.length > 0 &&
-                controller.nickController3.text.length > 0)
+            bottomSheet: (controller.pwCheckController.text.length > 0 &&
+                controller.idController.text.length > 0 &&
+                controller.pwController.text.length > 0)
             //bottomSheet: (true)
               ? GestureDetector(
           onTap: () {
-            if(controller.nickController2.text != controller.nickController3.text){
+            if(controller.pwCheckController.text != controller.pwCheckController.text){
               showDialog(
               context: context,
               builder: (BuildContext context) {
@@ -101,7 +101,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                     Expanded(
                       child: TextFormField(
                         cursorColor: maincolor,
-                        controller: controller.nickController,
+                        controller: controller.idController,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
@@ -147,7 +147,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                       child: TextFormField(
                         obscureText: true,
                         cursorColor: maincolor,
-                        controller: controller.nickController2,
+                        controller: controller.pwController,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
@@ -177,7 +177,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                       child: TextFormField(
                         obscureText: true,
                         cursorColor: maincolor,
-                        controller: controller.nickController3,
+                        controller: controller.pwCheckController,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
