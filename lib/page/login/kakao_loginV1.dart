@@ -5,7 +5,7 @@ import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
 import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/controller/home/homePageController.dart';
-import 'package:cau_gameduo/page/login/signUpPage.dart';
+import 'package:cau_gameduo/page/login/signUpPage2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';

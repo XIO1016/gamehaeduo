@@ -30,6 +30,8 @@ class SignUpController extends GetxController {
   RxList isSelected =
       [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
   TextEditingController nickController = TextEditingController();
+  TextEditingController nickController2 = TextEditingController();
+  TextEditingController nickController3 = TextEditingController();
 
   Future checkDuplicated() async {
     Get.dialog(Center(child: CircularProgressIndicator()),

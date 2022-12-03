@@ -4,6 +4,7 @@ import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
 import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
+import 'package:cau_gameduo/page/login/signUpPage2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,11 +17,37 @@ class SignUpPage1 extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Obx(
           () => Scaffold(
-        bottomSheet: (controller.checkNickDup.value == true &&
-            controller.ischeckedposition() == true)
-            ? GestureDetector(
+        // bottomSheet: (controller.checkNickDup.value == true &&
+        //     controller.ischeckedposition() == true)
+            bottomSheet: (controller.nickController.text.length > 0 &&
+                controller.nickController2.text.length > 0 &&
+                controller.nickController3.text.length > 0)
+            //bottomSheet: (true)
+              ? GestureDetector(
           onTap: () {
-            controller.SignUp();
+            if(controller.nickController2.text != controller.nickController3.text){
+              showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                    title: Text('Warning!'),
+                    content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('비밀번호를 다시 확인해주세요.'),
+
+                          ],
+                        ),
+                    ),
+              );});
+            }else{
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SignUpPage2()));
+
+            }
           },
           child: Container(
             width: Get.width,
@@ -28,7 +55,7 @@ class SignUpPage1 extends GetView<SignUpController> {
             color: maincolor,
             child: const Center(
               child: Text(
-                '완료',
+                '다음',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ),
@@ -40,7 +67,7 @@ class SignUpPage1 extends GetView<SignUpController> {
           color: const Color(0xffE9E9E9),
           child: const Center(
             child: Text(
-              '완료',
+              '다음',
               style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
             ),
           ),
@@ -118,8 +145,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        obscureText: true,
                         cursorColor: maincolor,
-                        controller: controller.nickController,
+                        controller: controller.nickController2,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
@@ -147,8 +175,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        obscureText: true,
                         cursorColor: maincolor,
-                        controller: controller.nickController,
+                        controller: controller.nickController3,
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),

@@ -9,8 +9,8 @@ import 'package:get/get.dart';
 
 import '../../components/SizedBox.dart';
 
-class SignUpPage extends GetView<SignUpController> {
-  const SignUpPage({Key? key}) : super(key: key);
+class SignUpPage2 extends GetView<SignUpController> {
+  const SignUpPage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
