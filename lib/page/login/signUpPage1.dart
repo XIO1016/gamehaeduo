@@ -105,7 +105,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
-                          suffixIcon: (controller.checkNickDup.value)
+                          suffixIcon: (controller.checkIdDup.value)
                               ? Icon(
                             Icons.check,
                             color: maincolor,
@@ -115,6 +115,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                           hintStyle: const TextStyle(
                               fontSize: 15, color: Color(0xff727272)),
                         ),
+                        validator: (value) {
+                          return controller.validateId(value!);
+                        },
                       ),
                     ),
                     Sbox(10, 0),
@@ -128,7 +131,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                         decoration: BoxDecoration(
                             border: Border.all(
                                 width: 1.5,
-                                color: (controller.checkNickDup.value)
+                                color: (controller.checkIdDup.value)
                                     ? maincolor
                                     : const Color(0xffAFAFAF))),
                         child: const Center(child: Text('중복확인')),
@@ -151,16 +154,13 @@ class SignUpPage1 extends GetView<SignUpController> {
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
-                          suffixIcon: (controller.checkNickDup.value)
-                              ? Icon(
-                            Icons.check,
-                            color: maincolor,
-                          )
-                              : null,
                           hintText: "영어, 숫자 조합 6-10자리",
                           hintStyle: const TextStyle(
                               fontSize: 15, color: Color(0xff727272)),
                         ),
+                        validator: (value) {
+                          return controller.validatePassword(value!);
+                        },
                       ),
                     ),
                     Sbox(10, 0),
@@ -181,7 +181,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                         decoration: InputDecoration(
                           focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(color: maincolor)),
-                          suffixIcon: (controller.checkNickDup.value)
+                          suffixIcon: (controller.pwCheck.value)
                               ? Icon(
                             Icons.check,
                             color: maincolor,

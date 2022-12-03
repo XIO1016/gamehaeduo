@@ -27,6 +27,7 @@ Profile1 profile = Profile1(
 class SignUpController extends GetxController {
   RxBool checkNickDup = false.obs;
   RxBool checkIdDup = false.obs;
+  RxBool pwCheck=false.obs;
   List position = ['탑', '정글', '미드', '원딜', '서폿'];
   RxList isSelected =
       [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
@@ -145,6 +146,52 @@ class SignUpController extends GetxController {
     } else {
       checkIdDup(true);
       Get.back();
+    }
+  }
+
+  String? validateId(String value) {
+    RegExp regex =
+    RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$"
+
+    );
+    if (value.isEmpty) {
+      return '아이디를 입력해주세요';
+    } else {
+      if (!regex.hasMatch(value)) {
+        return '영어, 숫자를 포함한 6~10자를 입력해주세요';
+      } else {
+        return null;
+      }
+    }
+  }
+
+  String? validatePassword(String value) {
+    RegExp regex =
+    RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$"
+
+    );
+    if (value.isEmpty) {
+      return '비밀번호를 입력해주세요';
+    } else {
+      if (!regex.hasMatch(value)) {
+        return '영어, 숫자를 포함한 6~10자를 입력해주세요';
+      } else {
+        return null;
+      }
+    }
+  }
+
+  String? validatePasswordCheck(String value) {
+
+    if (value.isEmpty) {
+      return '비밀번호를 입력해주세요';
+    } else {
+      if (value!=pwController.text) {
+        return '비밀번호가 일치하지 않습니다!';
+      } else {
+        pwCheck(true);
+        return null;
+      }
     }
   }
 }
