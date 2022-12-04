@@ -13,8 +13,10 @@ import '../../model/duo.dart';
 
 class duoProfilePage extends GetView<duoProfilePageController> {
   Duo duo = Get.arguments;
+
   @override
   Widget build(BuildContext context) {
+    controller.initial(duo.duoId);
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
@@ -210,64 +212,98 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                             direction: Axis.horizontal,
                           ),
                           Sbox(0, 40),
-                          // Column(
-                          //   children: List<Widget>.generate(
-                          //     duo.reviews.length,
-                          //     (index) => Column(
-                          //       children: [
-                          //         Row(
-                          //           children: [
-                          //             Container(
-                          //               color: Colors.grey,
-                          //               width: 32,
-                          //               height: 32,
-                          //             ),
-                          //             Sbox(10, 0),
-                          //             Column(
-                          //               crossAxisAlignment:
-                          //                   CrossAxisAlignment.start,
-                          //               children: [
-                          //                 Text(
-                          //                   duo.reviews[index]['name'],
-                          //                   style: TextStyle(fontSize: 13),
-                          //                 ),
-                          //                 Row(
-                          //                   children: [
-                          //                     RatingBarIndicator(
-                          //                       rating: duo.star,
-                          //                       itemBuilder: (context, index) =>
-                          //                           const Icon(
-                          //                         Icons.star,
-                          //                         color: Colors.amber,
-                          //                       ),
-                          //                       itemCount: 5,
-                          //                       itemSize: 16.0,
-                          //                     ),
-                          //                     Sbox(10, 0),
-                          //                     Text(
-                          //                       duo.reviews[index]['date'],
-                          //                       style: const TextStyle(
-                          //                           fontSize: 10,
-                          //                           color: Color(0xff9E9E9E)),
-                          //                     )
-                          //                   ],
-                          //                 ),
-                          //               ],
-                          //             )
-                          //           ],
-                          //         ),
-                          //         Sbox(0, 10),
-                          //         RichText(
-                          //             text: TextSpan(
-                          //                 text: duo.reviews[index]['review'],
-                          //                 style: const TextStyle(
-                          //                     fontSize: 13,
-                          //                     color: Colors.black))),
-                          //         Sbox(0, 30)
-                          //       ],
-                          //     ),
-                          //   ),
-                          // ),
+                          Obx(
+                            () => ListView.builder(
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: controller.reviewList.length + 1,
+                                itemBuilder: (_, index) {
+                                  if (index < controller.reviewList.length) {
+                                    return Container(
+                                      height: 100,
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                color: Colors.grey,
+                                                width: 32,
+                                                height: 32,
+                                              ),
+                                              Sbox(10, 0),
+                                              Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    controller
+                                                        .reviewList[index].nick,
+                                                    style:
+                                                        TextStyle(fontSize: 13),
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      RatingBarIndicator(
+                                                        rating: controller
+                                                            .reviewList[index]
+                                                            .rating,
+                                                        itemBuilder:
+                                                            (context, index) =>
+                                                                Icon(
+                                                          Icons.star,
+                                                          color: Colors.amber,
+                                                        ),
+                                                        itemCount: 5,
+                                                        itemSize: 16.0,
+                                                      ),
+                                                      Sbox(10, 0),
+                                                      Text(
+                                                        controller
+                                                            .reviewList[index]
+                                                            .reviewTime,
+                                                        style: TextStyle(
+                                                            fontSize: 10,
+                                                            color: Color(
+                                                                0xff9E9E9E)),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Sbox(0, 10),
+                                          RichText(
+                                              text: TextSpan(
+                                                  text: controller
+                                                      .reviewList[index]
+                                                      .content,
+                                                  style: TextStyle(
+                                                      fontSize: 13,
+                                                      color: Colors.black))),
+                                          Sbox(0, 30)
+                                        ],
+                                      ),
+                                    );
+                                  }
+                                  if (controller.isRequesting.value ||
+                                      controller.isLoading.value) {
+                                    return const Center(
+                                        child: RefreshProgressIndicator());
+                                  }
+                                  return Container(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Center(
+                                      child: Column(
+                                        children: const [
+                                          Text('데이터의 마지막 입니다'),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          )
                         ],
                       ),
                     ),
