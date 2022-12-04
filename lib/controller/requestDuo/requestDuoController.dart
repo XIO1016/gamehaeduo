@@ -11,10 +11,23 @@ import '../../page/login/kakao_loginV1.dart';
 
 class RequestDuoController extends GetxController {
   static RequestDuoController get to => Get.find<RequestDuoController>();
-  Map<int, Request> requestedDuo = {};
-  Map<int, Request> requestDuo = {};
-  RxInt temp = 0.obs;
+  RxMap requestedDuo = {}.obs;
+  RxMap requested1Duo = {}.obs;
+  RxMap requested2Duo = {}.obs;
+  RxMap requested3Duo = {}.obs;
+  RxMap requested4Duo = {}.obs;
 
+
+
+  RxMap requestDuo = {}.obs;
+  RxMap request1Duo = {}.obs;
+  RxMap request2Duo = {}.obs;
+  RxMap request3Duo = {}.obs;
+
+  RxInt requestedDuoNum = 0.obs;
+  RxInt requestDuoNum = 0.obs;
+  RxInt temp = 0.obs;
+  RxInt duoState = (-1).obs;
   RxInt whichTab = 1.obs; //1은 요청한 듀오, 2는 요청 받은 듀오
 
   final requestingType = ['전체', '진행중', '과거'].obs;
@@ -24,7 +37,7 @@ class RequestDuoController extends GetxController {
   RxString requestedSelected = "전체".obs;
 
   getRequestedDuo() async {
-    requestedDuo = {};
+    requestedDuo({});
     var getRequestedDuo = await http.get(
         Uri.parse('${urlBase}api/duo/requested?userIdx=$userId'),
         headers: <String, String>{
@@ -38,13 +51,13 @@ class RequestDuoController extends GetxController {
 
     for (int i = 0; i < result.length; i++) {
       var r = result[i];
-      DateTime date = DateTime.parse(r["currentMessageTime"]);
+      DateTime date = DateTime.parse(r["requestTime"]);
       String requestTime = DateFormat('yy/MM/dd - HH:mm').format(date);
 
       Request request = Request(
         duo: Duo(
-            image: r['profileImageUrl'],
-            status: duoStatus(r['duoStatus']),
+            image: r['image'],
+            status: duoStatus(r['duoStatus'], false),
             introduce: '',
             rank: r['tier'],
             price: r['price'],
@@ -56,13 +69,22 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestedDuo[i] = request;
-      log(request.duo.name);
-    }
+      if(request.duo.status==1){
+        requested2Duo[i]= request;
+      }if(request.duo.status==2){
+        requested3Duo[i]= request;
+      }
+      else{
+        requested4Duo[i]=request;
+      }
 
+    }
+    requested1Duo(requestedDuo);
+    requestedDuoNum(result.length);
   }
 
   getRequestDuo() async {
-    requestDuo = {};
+    requestDuo({});
     var getRequestDuo = await http.get(
         Uri.parse('${urlBase}api/duo/request?userIdx=$userId'),
         headers: <String, String>{
@@ -76,13 +98,13 @@ class RequestDuoController extends GetxController {
 
     for (int i = 0; i < result.length; i++) {
       var r = result[i];
-      DateTime date = DateTime.parse(r["currentMessageTime"]);
+      DateTime date = DateTime.parse(r["requestTime"]);
       String requestTime = DateFormat('yy/MM/dd - HH:mm').format(date);
 
       Request request = Request(
         duo: Duo(
-            image: r['profileImageUrl'],
-            status: duoStatus(r['duoStatus']),
+            image: r['image'],
+            status: duoStatus(r['duoStatus'], true),
             introduce: '',
             rank: r['tier'],
             price: r['price'],
@@ -94,23 +116,44 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestDuo[i] = request;
-      log(request.duo.name);
+      if(request.duo.status==0|| request.duo.status==2){
+        request2Duo[i]= request;
+      }
+      else{
+        request3Duo[i]=request;
+      }
     }
+    request1Duo(requestDuo);
+    log(request1Duo.toString());
+    requestDuoNum(result.length);
   }
-  int duoStatus(String r){
-    if (r=='WAITING'){
-      return 0;
-    }
-    else if(r=='P'){
-      return 1;
-    }else if(r=='신청 수락됨'){//듀오중ddd
-      return 2;
-    }else if(r=='듀오 취소'){
-      return 3;
-    }
-    else{
-      return 4;//듀오 완료
-    }
 
+  int duoStatus(String r, bool requestUser) {
+    log(r);
+    if (r == 'WAITING') {
+      log(r);
+      if (requestUser == true) {
+        //신청 요청중
+        duoState(0);
+        log(duoState.value.toString());
+
+        return 0;
+      }
+      duoState(1);
+      return 1; //수락하기
+    } else if (r == 'PROCEEDING') {
+      duoState(2);
+      return 2; //듀오 진행중
+    } else if (r == 'COMPLETE') {
+      //듀오 완료됨ee
+      duoState(-1);
+      return 3;
+    } else if (r == 'CANCEL') {
+      duoState(-1);
+      return 4;
+    } else {
+      duoState(-1);
+      return 5; //듀오 거절
+    }
   }
 }
