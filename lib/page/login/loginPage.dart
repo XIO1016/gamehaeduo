@@ -1,5 +1,5 @@
 import 'package:cau_gameduo/components/Color.dart';
-import 'package:cau_gameduo/controller/login/SignUpController.dart';
+import 'package:cau_gameduo/controller/login/LoginController.dart';
 import 'package:cau_gameduo/page/login/signUpPage1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,7 @@ import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import '../../components/SizedBox.dart';
 
 
-class LoginPage extends GetView<SignUpController> {
+class LoginPage extends GetView<LoginController> {
 
   final kakaoLogin = KakaoLogin();
   @override
@@ -43,7 +43,7 @@ class LoginPage extends GetView<SignUpController> {
                           Expanded(
                             child: TextFormField(
                               cursorColor: maincolor,
-                              controller: controller.nickController,
+                              controller: controller.idController,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -66,7 +66,7 @@ class LoginPage extends GetView<SignUpController> {
                           Expanded(
                             child: TextFormField(
                               cursorColor: maincolor,
-                              controller: controller.nickController,
+                              controller: controller.idController,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -74,7 +74,7 @@ class LoginPage extends GetView<SignUpController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(width: 2, color: maincolor)),
-                                prefixIcon: (controller.checkNickDup.value)
+                                prefixIcon: (controller.checkNickDup.value) //이거 빼면 오류남...!
                                     ? Icon(
                                   Icons.check,
                                   color: maincolor,

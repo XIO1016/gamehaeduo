@@ -1,5 +1,6 @@
 import 'package:cau_gameduo/controller/home/homePageController.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
+import 'package:cau_gameduo/controller/login/LoginController.dart';
 import 'package:cau_gameduo/controller/becomePlayer/BecomePlayerController.dart';
 import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
 import 'package:cau_gameduo/controller/myPage/settingController.dart';
@@ -16,6 +17,7 @@ class InitBinding extends Bindings {
   @override
   void dependencies() {
     Get.put(SignUpController(), permanent: true);
+    Get.put(LoginController(), permanent: true);
     Get.put(BecomePlayerController(), permanent: true);
     Get.put(homePageController(), permanent: true);
     Get.put(profileController(), permanent: true);
