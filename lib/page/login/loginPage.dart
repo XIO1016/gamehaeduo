@@ -17,41 +17,26 @@ class LoginPage extends GetView<SignUpController> {
     return Obx(
           () => Scaffold(
             backgroundColor: Colors.white,
-            appBar: AppBar(
-                titleSpacing: 20,
-                elevation: 0,
-
-
-                ),
-
             body: Padding(
               padding: const EdgeInsets.all(20),
-              child: ListView(children: [
-                Center(
-                  child: Column(
-                    children: [
-
-                          Image.asset(
-                            "images/logo.png",
-                            width: 100,
-                            height: 100,
-                          ),
-
-                          Text('게임해듀오',
-                              style: TextStyle(
-                                color: maincolor,
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ],
-                  )
-                ),
-                Sbox(0, 20),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+              child: Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Sbox(0, 10),
-                    Sbox(0, 10),
+                        Image.asset(
+                          "images/logo.png",
+                          width: 100,
+                          height: 100,
+                        ),
+
+                        Text('게임해듀오',
+                            style: TextStyle(
+                              color: maincolor,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            )),
+                    Sbox(0, 20),
                     Row(
                       children: [
                         Expanded(
@@ -107,22 +92,22 @@ class LoginPage extends GetView<SignUpController> {
                     Row(
                       children: [Expanded(
                         child:
-                          ElevatedButton(
-                              onPressed:(){},
-                              child: Text('로그인',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),),
-                            style: OutlinedButton.styleFrom(
-                                minimumSize: Size(0,60),
-                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
-                                backgroundColor: maincolor,
-                                padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-                            ),
+                        ElevatedButton(
+                          onPressed:(){},
+                          child: Text('로그인',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),),
+                          style: OutlinedButton.styleFrom(
+                              minimumSize: Size(0,60),
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5))),
+                              backgroundColor: maincolor,
+                              padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
                           ),
+                        ),
                       ),
-                        ],
+                      ],
                     ),
                     Sbox(0, 20),
                     Row(
@@ -133,7 +118,7 @@ class LoginPage extends GetView<SignUpController> {
                       ],
                     ),
                     Sbox(0, 30),
-                      Stack(
+                    Stack(
                         alignment: Alignment.center,
                         children:[
                           Divider(color: Color(0xffF4F4F4), thickness: 1.0),
@@ -143,27 +128,38 @@ class LoginPage extends GetView<SignUpController> {
                             color: Colors.white,
                           ),
                           Text('또는',
-                          style: TextStyle(
-                            color: Color(0xffC4C4C4))
+                              style: TextStyle(
+                                  color: Color(0xffC4C4C4))
                           ),
                         ]
-                      ),
+                    ),
                     Sbox(0, 30),
                     Row(
                       children: [
                         Expanded(child:
                         GestureDetector(
                             child: Container(
-                                width: 300,
-                                height: 45,
+                              padding: EdgeInsets.all(10.0),
+                                // width: 300,
+                                 height: 45,
                                 decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  image: DecorationImage(
-                                    image:
-                                    AssetImage("images/kakao_login_large_wide.png"),
-                                    fit: BoxFit.cover,
-                                  ), // button text
-                                )),
+                                  color: Color(0xffFEE500),
+                                   // button text
+                                ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Image.asset(
+                                      "images/kakao_logo.png",
+                                    ),
+                                  ),
+                                  Text('카카오로 시작하기',
+                                  style: TextStyle(fontSize: 15,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xff191600)))
+                                ],
+                              ),
+                            ),
                             onTap: () {
                               kakaoLogin.login();
                             }),
@@ -210,7 +206,7 @@ class LoginPage extends GetView<SignUpController> {
                                     decoration: TextDecoration.underline,
                                     fontSize: 9,
                                     fontWeight: FontWeight.bold,
-                                color: Color(0xff636363))),
+                                    color: Color(0xff636363))),
                             onTap: () {
                               launchUrl(
                                 Uri.parse('https://gamehaeduo.shop/privacy'),
@@ -222,10 +218,9 @@ class LoginPage extends GetView<SignUpController> {
                         ),
                       ],
                     ),
-                  ],
+                      ],
                 ),
-
-              ]),
+              ),
             ),
           ),
     );
