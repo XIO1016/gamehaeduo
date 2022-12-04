@@ -114,8 +114,10 @@ class LoginPage extends GetView<SignUpController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('회원가입',
+                          Text('아직 계정이 없으신가요? ',
                               style:TextStyle(color: Colors.grey)),
+                          Text('회원가입',
+                              style:TextStyle(color: maincolor, fontWeight: FontWeight.bold)),
                         ],
                       ),
                       Sbox(0, 10),
