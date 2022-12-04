@@ -1,11 +1,11 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
-import 'package:cau_gameduo/page/home/homePage.dart';
+import 'package:cau_gameduo/page/login/signUpPage1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
-import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
+
 import '../../components/SizedBox.dart';
 
 
@@ -116,9 +116,15 @@ class LoginPage extends GetView<SignUpController> {
                         children: [
                           Text('아직 계정이 없으신가요? ',
                               style:TextStyle(color: Colors.grey)),
-                          Text('회원가입',
+                          TextButton(child: Text('회원가입',
                               style:TextStyle(color: maincolor, fontWeight: FontWeight.bold)),
-                        ],
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SignUpPage1()));
+                            },
+                          )],
                       ),
                       Sbox(0, 10),
                       Stack(
@@ -173,7 +179,7 @@ class LoginPage extends GetView<SignUpController> {
                         ],
                       ),
                       Sbox(0, 30),
-                      Column(
+                      Column( //텍스트 밑으로 넘어갈 때 디자인용
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Wrap(
