@@ -11,8 +11,12 @@ class MessagePage extends GetView<MessageController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.iswritten(false);
-    controller.contentController.text='';
+    WidgetsBinding.instance.addPostFrameCallback((_){
+
+      controller.iswritten(false);
+      controller.contentController.text='';
+    });
+
     return Obx(
       () => Scaffold(
         backgroundColor: Colors.white,

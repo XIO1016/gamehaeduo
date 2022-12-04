@@ -95,8 +95,10 @@ class MessageController extends GetxController {
     Map response = jsonDecode(utf8.decode(sendMessage.bodyBytes));
     Map result = response['result'];
     // log(result.toString());
+    Get.back();    Get.back();
     await getAllRooms();
     await getAllMessages(roomid, duo);
+
 
 
   }
