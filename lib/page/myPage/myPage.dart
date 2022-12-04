@@ -86,7 +86,7 @@ class MyPage extends GetView<MyPageController> {
 
                 //요청 듀오
                 Container(
-                  padding: const EdgeInsets.only(bottom: 25.0, top: 15.0),
+                  padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
                   decoration: BoxDecoration(
                     border: Border.all(color: maincolor),
                     borderRadius: BorderRadius.all(Radius.circular(
@@ -107,42 +107,34 @@ class MyPage extends GetView<MyPageController> {
                     children: [
                       GestureDetector(
                         onTap:()=>Get.to(()=>RequestDuoPage()),
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                               Text(
-                                controller.requestedDuoNum.toString(),
-                                style: TextStyle(fontSize: 50),
-                              ),
-                              const Text(
-                                "요청받은 듀오",
-                                style: TextStyle(
-                                    fontSize: 16, fontWeight: FontWeight.w500),
-                              ),
-                            ],
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             Text(
+                              controller.requestedDuoNum.toString(),
+                              style: TextStyle(fontSize: 50),
+                            ),
+                            const Text(
+                              "요청받은 듀오",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                          ],
                         ),
                       ),
                       GestureDetector(
                         onTap: ()=>Get.to(()=>RequestDuoPage()),
-                        child: Container(
-                          width: 120,
-                          height: 120,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                               Text(
-                                 controller.requestDuoNum.toString(),
-                                style: TextStyle(fontSize: 50),
-                              ),
-                              const Text("요청한 듀오",
-                                  style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.w500)),
-                            ],
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                             Text(
+                               controller.requestDuoNum.toString(),
+                              style: TextStyle(fontSize: 50),
+                            ),
+                            const Text("요청한 듀오",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.w500)),
+                          ],
                         ),
                       ),
                     ],
