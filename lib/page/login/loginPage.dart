@@ -20,14 +20,10 @@ class LoginPage extends GetView<SignUpController> {
             appBar: AppBar(
                 titleSpacing: 20,
                 elevation: 0,
-                title: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => homePage()));
-                  },
 
-                )
-            ),
+
+                ),
+
             body: Padding(
               padding: const EdgeInsets.all(20),
               child: ListView(children: [
