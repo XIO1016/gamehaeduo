@@ -57,16 +57,16 @@ class SignUpPage1 extends GetView<SignUpController> {
           ),
         )
             : Container(
-          width: Get.width,
-          height: 60,
-          color: const Color(0xffE9E9E9),
-          child: const Center(
-            child: Text(
-              '다음',
-              style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
-            ),
-          ),
-        ),
+                width: Get.width,
+                height: 60,
+                color: const Color(0xffE9E9E9),
+                child: const Center(
+                  child: Text(
+                    '다음',
+                    style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
+                  ),
+                ),
+              ),
         backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
@@ -102,9 +102,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                               borderSide: BorderSide(color: maincolor)),
                           suffixIcon: (controller.checkIdDup.value)
                               ? Icon(
-                            Icons.check,
-                            color: maincolor,
-                          )
+                                  Icons.check,
+                                  color: maincolor,
+                                )
                               : null,
                           hintText: "영어, 숫자 조합 6-10자리",
                           hintStyle: const TextStyle(
@@ -178,9 +178,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                               borderSide: BorderSide(color: maincolor)),
                           suffixIcon: (controller.pwCheck.value)
                               ? Icon(
-                            Icons.check,
-                            color: maincolor,
-                          )
+                                  Icons.check,
+                                  color: maincolor,
+                                )
                               : null,
                           hintText: "비밀번호 확인",
                           hintStyle: const TextStyle(

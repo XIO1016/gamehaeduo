@@ -1,34 +1,38 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/review/reviewController.dart';
 import '../../components/SizedBox.dart';
+import '../../model/duo.dart';
 
 class ReviewPage extends GetView<ReviewController> {
-  const ReviewPage ({Key? key}) : super(key: key);
-
+  Duo duo = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    controller.writeFinish(false);
+    controller.rating(0.0);
+    controller.reviewController.text = '';
     return Obx(
-          () =>
-          Scaffold(
-            backgroundColor: Colors.white,
-            appBar: AppBar(
-                leading: IconButton(
-                  icon: Icon(
-                      Icons.keyboard_arrow_left_rounded, color: blackcolor),
-                  onPressed: () => Get.back(),
-                ),
-                titleSpacing: 0,
-                elevation: 0,
-                title: const Text(
-                  '후기작성',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                ),
-            ),
-            body: Padding(
+      () => Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
+            onPressed: () => Get.back(),
+          ),
+          titleSpacing: 0,
+          elevation: 0,
+          title: const Text(
+            '후기작성',
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+        ),
+        body: ListView(
+          children: [
+            Padding(
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
@@ -37,94 +41,91 @@ class ReviewPage extends GetView<ReviewController> {
                     // Image border
                     child: SizedBox.fromSize(
                       size: const Size.fromRadius(70),
-                      child: Container(
-                        color: Colors.grey,
-                      )
-                      // child: Image.network(
-                      //   //프로필 사진
-                      //   controller.duoList2[index].image,
-                      // ),
+                      child: Image.network(
+                        //프로필 사진
+                        duo.image,
+                      ),
                     ),
                   ),
                   Sbox(0, 20),
                   RichText(
-                    text: TextSpan(
-                        children: const<TextSpan>[
-                          TextSpan(text: '전주비빔밥',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15,
-                              )),
-                          TextSpan(text: '님과의 듀오 후기를 남겨주세요!',
-                              style: TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.black                                      )),
-                        ]),
+                    text: TextSpan(children: <TextSpan>[
+                      TextSpan(
+                          text: duo.name,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          )),
+                      TextSpan(
+                          text: '님과의 듀오 후기를 남겨주세요!',
+                          style: TextStyle(fontSize: 15, color: Colors.black)),
+                    ]),
                   ),
                   Sbox(0, 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children:[
-                      for(var i=0;i<5;i++)
-                        Image.asset(
-                          "images/star_grey.png",
-                          width: 45,
-                          height: 45,
-                        ),
-                    ],
+                  RatingBar.builder(
+                    initialRating: 0,
+                    minRating: 1,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (rating) {
+                      controller.rating(rating);
+                      controller.isFinish();
+                    },
                   ),
                   Sbox(0, 20),
                   SizedBox(
                     width: Get.width,
-                    child: Container(
-                      child: TextField(
-                        maxLines: 10,
-                        //controller: controller.,
-                        // onChanged: (string) {
-                        //   controller.isFinish();
-                        // },
-                        decoration: InputDecoration(
-                            border: const OutlineInputBorder(),
-                            hintText: '후기를 남겨주세요'
-                        ),
-                      ),
+                    child: TextField(
+                      maxLines: 10,
+                      controller: controller.reviewController,
+                      onChanged: (string) {
+                        controller.isFinish();
+                      },
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(), hintText: '후기를 남겨주세요'),
                     ),
                   ),
                 ],
               ),
             ),
-            bottomSheet: (controller.writeFinish.value)
-                ? GestureDetector(
-              onTap: () {
-                //작성하기
-              },
-              child: Container(
+          ],
+        ),
+        bottomSheet: (controller.writeFinish.value)
+            ? GestureDetector(
+                onTap: () {
+                  controller.writeReview(duo);
+                },
+                child: Container(
+                  width: Get.width,
+                  height: 60,
+                  color: maincolor,
+                  child: const Center(
+                    child: Text(
+                      '작성하기',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              )
+            : Container(
                 width: Get.width,
                 height: 60,
-                color: maincolor,
+                color: Color(0xffE9E9E9),
                 child: const Center(
                   child: Text(
                     '작성하기',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
                   ),
                 ),
               ),
-            )
-                : Container(
-              width: Get.width,
-              height: 60,
-              color: Color(0xffE9E9E9),
-              child: const Center(
-                child: Text(
-                  '다음',
-                  style: TextStyle(color: Color(0xffB0B0B0), fontSize: 16),
-                ),
-              ),
-            ),
-
-          ),
+      ),
     );
   }
-
 }
