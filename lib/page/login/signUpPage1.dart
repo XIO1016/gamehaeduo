@@ -17,29 +17,24 @@ class SignUpPage1 extends GetView<SignUpController> {
   Widget build(BuildContext context) {
     return Obx(
           () => Scaffold(
-        // bottomSheet: (controller.checkNickDup.value == true &&
-        //     controller.ischeckedposition() == true)
             bottomSheet: (controller.pwCheckController.text.length > 0 &&
                 controller.idController.text.length > 0 &&
                 controller.pwController.text.length > 0)
-            //bottomSheet: (true)
               ? GestureDetector(
-          onTap: () {
+              onTap: () {
             if(controller.pwCheckController.text != controller.pwCheckController.text){
               showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                    title: Text('Warning!'),
-                    content: SingleChildScrollView(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
                             Text('비밀번호를 다시 확인해주세요.'),
-
                           ],
                         ),
-                    ),
-              );});
+                      ),
+                    );});
             }else{
 
               Navigator.push(
@@ -123,7 +118,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                     Sbox(10, 0),
                     GestureDetector(
                       onTap: () {
-                        controller.checkDuplicated();
+                        controller.checkIdDuplicated();
                       },
                       child: Container(
                         width: 80,
@@ -191,6 +186,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                           hintStyle: const TextStyle(
                               fontSize: 15, color: Color(0xff727272)),
                         ),
+                        validator: (value) {
+                          return controller.validatePasswordCheck(value!);
+                        },
                       ),
                     ),
                     Sbox(10, 0),
