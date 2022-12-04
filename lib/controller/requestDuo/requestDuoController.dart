@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -17,8 +18,6 @@ class RequestDuoController extends GetxController {
   RxMap requested3Duo = {}.obs;
   RxMap requested4Duo = {}.obs;
 
-
-
   RxMap requestDuo = {}.obs;
   RxMap request1Duo = {}.obs;
   RxMap request2Duo = {}.obs;
@@ -26,7 +25,7 @@ class RequestDuoController extends GetxController {
 
   RxInt requestedDuoNum = 0.obs;
   RxInt requestDuoNum = 0.obs;
-  RxInt temp = 0.obs;
+
   RxInt duoState = (-1).obs;
   RxInt whichTab = 1.obs; //1은 요청한 듀오, 2는 요청 받은 듀오
 
@@ -35,6 +34,34 @@ class RequestDuoController extends GetxController {
 
   final requestedType = ['전체', '수락 대기', '진행중', '과거'].obs;
   RxString requestedSelected = "전체".obs;
+
+  getRequestDuoRefresh() async {
+    Get.dialog(const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    requestDuo({});
+    request1Duo({});
+    request2Duo({});
+    request3Duo({});
+
+    requestDuoNum(0);
+
+    await getRequestDuo();
+    Get.back();
+  }
+  getRequestedDuoRefresh() async {
+    Get.dialog(const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    requestedDuo({});
+    requested1Duo({});
+    requested2Duo({});
+    requested3Duo({});
+    requested4Duo({});
+
+    requestedDuoNum(0);
+
+    await getRequestedDuo();
+    Get.back();
+  }
 
   getRequestedDuo() async {
     requestedDuo({});
@@ -69,15 +96,14 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestedDuo[i] = request;
-      if(request.duo.status==1){
-        requested2Duo[i]= request;
-      }if(request.duo.status==2){
-        requested3Duo[i]= request;
+      if (request.duo.status == 1) {
+        requested2Duo[i] = request;
       }
-      else{
-        requested4Duo[i]=request;
+      if (request.duo.status == 2) {
+        requested3Duo[i] = request;
+      } else {
+        requested4Duo[i] = request;
       }
-
     }
     requested1Duo(requestedDuo);
     requestedDuoNum(result.length);
@@ -116,11 +142,10 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestDuo[i] = request;
-      if(request.duo.status==0|| request.duo.status==2){
-        request2Duo[i]= request;
-      }
-      else{
-        request3Duo[i]=request;
+      if (request.duo.status == 0 || request.duo.status == 2) {
+        request2Duo[i] = request;
+      } else {
+        request3Duo[i] = request;
       }
     }
     request1Duo(requestDuo);
