@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
-
+import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import '../../components/SizedBox.dart';
 
 
 class LoginPage extends GetView<SignUpController> {
-  const LoginPage({Key? key}) : super(key: key);
 
+  final kakaoLogin = KakaoLogin();
   @override
   Widget build(BuildContext context) {
     return Obx(
@@ -169,7 +169,7 @@ class LoginPage extends GetView<SignUpController> {
                                   ), // button text
                                 )),
                             onTap: () {
-                              //kakaoLogin.login();
+                              kakaoLogin.login();
                             }),
                         ),
                       ],
