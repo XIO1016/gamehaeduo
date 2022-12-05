@@ -66,7 +66,7 @@ class LoginPage extends GetView<LoginController> {
                           Expanded(
                             child: TextFormField(
                               cursorColor: maincolor,
-                              controller: controller.idController,
+                              controller: controller.pwController,
                               decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
@@ -74,7 +74,7 @@ class LoginPage extends GetView<LoginController> {
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(width: 2, color: maincolor)),
-                                prefixIcon: (controller.checkNickDup.value) //이거 빼면 오류남...!
+                                prefixIcon: (controller.checkIdPw.value) //이거 빼면 오류남...!
                                     ? Icon(
                                   Icons.check,
                                   color: maincolor,
@@ -94,7 +94,9 @@ class LoginPage extends GetView<LoginController> {
                         children: [Expanded(
                           child:
                           ElevatedButton(
-                            onPressed:(){},
+                            onPressed:(){
+                              controller.Login();
+                            },
                             child: Text('로그인',
                               style: TextStyle(
                                 color: Colors.white,
