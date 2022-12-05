@@ -79,7 +79,7 @@ class profileController extends GetxController {
         for (int i = 0; i < result.length; i++) {
           Map j = result[i];
           String nick = j['nickname'];
-          DateTime date = DateTime.parse(j["requestTime"]);
+          DateTime date = DateTime.parse(j["reviewTime"]);
           String reviewTime = DateFormat('yy/MM/dd - HH:mm').format(date);
 
           Review a = Review(
