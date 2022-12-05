@@ -20,7 +20,7 @@ class SignUpPage2 extends GetView<SignUpController> {
                 controller.ischeckedposition() == true)
             ? GestureDetector(
                 onTap: () {
-                  controller.SignUp();
+                  controller.SignUpId();
                 },
                 child: Container(
                   width: Get.width,
