@@ -52,7 +52,7 @@ class KakaoLogin {
                   },
                   body:
                       jsonEncode(<String, String>{'accessToken': accessToken}));
-              Map<String, dynamic> re1 = jsonDecode(login.body);
+              Map<String, dynamic> re1 = jsonDecode(utf8.decode(login.bodyBytes));
               log(re1.toString());
 
               if (login.statusCode == 200) {
@@ -74,7 +74,7 @@ class KakaoLogin {
 
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
-                profile.nick = result['nickname']!;
+                profile.nick = result['nickname'];
                 profile.price= result['point'];
 
                 if (profileRe['code'] == 1000) {

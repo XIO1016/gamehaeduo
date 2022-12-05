@@ -206,7 +206,8 @@ class SignUpController extends GetxController {
           star: 0,
           reviews: []);
       Get.back();
-      Get.to(App());
+      Get.back();
+      Get.back();
     }
   }
 

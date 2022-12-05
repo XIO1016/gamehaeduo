@@ -200,7 +200,7 @@ class homePage extends GetView<homePageController> {
                                                     ),
                                                     Sbox(0, 15),
                                                     SizedBox(
-                                                      width: 220,
+                                                      width: 200,
                                                       child: Row(
                                                         mainAxisAlignment:
                                                         MainAxisAlignment

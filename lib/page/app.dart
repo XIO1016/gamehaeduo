@@ -38,7 +38,7 @@ class App extends GetView<BottomNavController> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    size: 25,
+                    size: 24,
                   ),
                   activeIcon: Icon(
                     Icons.home,
@@ -49,7 +49,7 @@ class App extends GetView<BottomNavController> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.group,
-                    size: 25,
+                    size: 24,
                   ),
                   activeIcon: Icon(
                     Icons.group,
@@ -60,7 +60,7 @@ class App extends GetView<BottomNavController> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.chat,
-                    size: 25,
+                    size: 24,
                   ),
                   activeIcon: Icon(
                     Icons.chat,
@@ -70,7 +70,7 @@ class App extends GetView<BottomNavController> {
                 ),BottomNavigationBarItem(
                   icon: Icon(
                     Icons.view_list_rounded,
-                    size: 25,
+                    size: 24,
                   ),
                   activeIcon: Icon(
                     Icons.view_list_rounded,
@@ -81,7 +81,7 @@ class App extends GetView<BottomNavController> {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.person,
-                    size: 25,
+                    size: 24,
                   ),
                   activeIcon: Icon(
                     Icons.person,
