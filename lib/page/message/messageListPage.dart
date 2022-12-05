@@ -17,13 +17,10 @@ class MessageListPage extends GetView<MessageController> {
   Duo duo = Get.arguments[0];
   int roomid = Get.arguments[1];
 
-
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
-
-     return Scaffold(
+      return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
@@ -77,28 +74,27 @@ class MessageListPage extends GetView<MessageController> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Sbox(0, 5),
-                      (duo.rank=='')?
-                      SizedBox():
-                      Row(
-                        children: [
-                          const Text(
-                            '티어',
-                            style: TextStyle(
-                              fontSize: 12,
+                      (duo.rank == '')
+                          ? SizedBox()
+                          : Row(
+                              children: [
+                                const Text(
+                                  '티어',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                                Sbox(10, 0),
+                                tierImage(duo.rank),
+                                Sbox(5, 0),
+                                Text(
+                                  duo.rank,
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ),
-                          Sbox(10, 0),
-                          tierImage(duo.rank),
-                          Sbox(5, 0),
-
-                          Text(
-                            duo.rank,
-                            style: const TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
                       Sbox(0, 5),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -144,37 +140,37 @@ class MessageListPage extends GetView<MessageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      (duo.price==-1)?SizedBox():
-                      Row(
-                        children: [
-                          Image.asset(
-                            "images/point.png",
-                            width: 20,
-                            height: 20,
-                          ),
-                          Sbox(5, 0),
-
-                          Text(duo.price.toString())
-                          ,
-                        ],
-                      ),
+                      (duo.price == -1)
+                          ? SizedBox()
+                          : Row(
+                              children: [
+                                Image.asset(
+                                  "images/point.png",
+                                  width: 20,
+                                  height: 20,
+                                ),
+                                Sbox(5, 0),
+                                Text(duo.price.toString()),
+                              ],
+                            ),
                       Sbox(0, 13),
-                      if (controller.duoState.value == 0)
-                        applyButton(
-                          '신청 요청중', //신청 수락하기
-                        )
-                      else if (controller.duoState.value == 1)
-                        applyButton(
-                          '신청 수락하기',
-                        )
-                      else if (controller.duoState.value == 2)
-                        applyButton(
-                          '신청 진행중',
-                        )
-                      else
-                        applyButton(
-                          '듀오 신청하기',
-                        )
+                      if (controller.isPlayer.value)
+                        if (controller.duoState.value == 0)
+                          applyButton(
+                            '신청 요청중', //신청 수락하기
+                          )
+                        else if (controller.duoState.value == 1)
+                          applyButton(
+                            '신청 수락하기',
+                          )
+                        else if (controller.duoState.value == 2)
+                          applyButton(
+                            '신청 진행중',
+                          )
+                        else
+                          applyButton(
+                            '듀오 신청하기',
+                          )
                     ],
                   )
                 ],
