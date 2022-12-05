@@ -19,7 +19,6 @@ class homePageController extends GetxController {
   RxBool closeTopContainer = false.obs; //임시
   Rx<ScrollController> scrollController = ScrollController().obs;
 
-  var data = [].obs; //데이터
   var isLoading = false.obs; //로딩중
   var hasMore = false.obs;
   var isRequesting = true.obs; //다음 데이터 유무
@@ -50,7 +49,6 @@ class homePageController extends GetxController {
 
   reload() async {
     isLoading.value = true;
-    data.clear();
 
     getData();
   }

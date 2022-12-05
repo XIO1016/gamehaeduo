@@ -19,6 +19,16 @@ class searchDuoController extends GetxController {
   void onInit() {
     super.onInit();
   }
+  getDuoRefresh() async{
+    duoList([]);
+    page(0);
+    index(0);
+    duoNum(0);
+    Get.dialog(const Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+    await getDuo();
+    Get.back();
+  }
 
   getDuo() async {
     var getduo = await http.get(

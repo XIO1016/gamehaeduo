@@ -25,8 +25,10 @@ class searchDuoPage extends GetView<searchDuoController> {
               padding: const EdgeInsets.all(20.0),
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => MessagePage(),
-                      arguments:[ controller.duoList[controller.index.value],null]);
+                  Get.to(() => MessagePage(), arguments: [
+                    controller.duoList[controller.index.value],
+                    null
+                  ]);
                 },
                 child: Container(
                   width: Get.width,
@@ -59,6 +61,13 @@ class searchDuoPage extends GetView<searchDuoController> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+              onPressed: () {
+                controller.getDuoRefresh();
+              },
+              icon: Icon(Icons.refresh,color: Colors.black,))
+        ],
         title: const Padding(
           padding: EdgeInsets.all(20.0),
           child: Text(
