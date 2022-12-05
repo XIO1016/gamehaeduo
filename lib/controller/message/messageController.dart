@@ -234,8 +234,8 @@ class MessageController extends GetxController {
     if (acceptDuoResponse['code'] == 1000) {
       Map result = acceptDuoResponse['result'];
       log(result.toString());
-      messageRoomList[roomid]!.duo.status = 1;
-      duoState(1);
+      messageRoomList[roomid]!.duo.status = 2;
+      duoState(2);
     } else {
       showDialog(
           context: Get.context!,
