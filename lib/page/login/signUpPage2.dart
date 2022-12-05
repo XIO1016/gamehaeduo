@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
-import 'package:cau_gameduo/page/app.dart';
+import 'package:cau_gameduo/page/login/loginPage.dart';
 import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +21,10 @@ class SignUpPage2 extends GetView<SignUpController> {
             ? GestureDetector(
                 onTap: () {
                   controller.SignUpId();
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) => LoginPage())); //회원가입 한 후 로그인 페이지로 이동?
                 },
                 child: Container(
                   width: Get.width,
