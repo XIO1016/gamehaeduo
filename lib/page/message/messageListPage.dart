@@ -166,7 +166,7 @@ class MessageListPage extends GetView<MessageController> {
                         applyButton(
                           '신청 진행중',
                         )
-                      else if (controller.isPlayer.value!=true)
+                      else if (controller.isPlayer.value==true)
                         applyButton(
                           '듀오 신청하기',
                         )

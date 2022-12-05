@@ -11,6 +11,8 @@ import '../../components/SizedBox.dart';
 import 'package:cau_gameduo/page/myPage/settingPage.dart';
 import 'dart:math' as math;
 
+import '../../controller/login/SignUpController.dart';
+
 class MyPage extends GetView<MyPageController> {
   const MyPage({Key? key}) : super(key: key);
 
@@ -37,7 +39,7 @@ class MyPage extends GetView<MyPageController> {
                           height: 80,
                           color: Colors.grey,
                           child: Image.network(
-                            controller.myprofile.image,
+                            profile.image,
                             fit: BoxFit.fitWidth,
                           ),
                         ),
@@ -48,19 +50,19 @@ class MyPage extends GetView<MyPageController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            controller.myprofile.nick,
+                            profile.nick,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Sbox(0, 5),
-                          (controller.myprofile.price == -1)
+                          (profile.price == -1)
                               ? SizedBox()
                               : Row(
                                   children: [
                                     Text(
-                                      controller.myprofile.price.toString(),
+                                      profile.price.toString(),
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,

@@ -230,9 +230,13 @@ class SignUpController extends GetxController {
                 message: '이미 사용중인 아이디입니다.',
                 okCallback: () {
                   Get.back();
+                  Get.back();
                 },
                 okmessage: '확인',
-                cancelCallback: Get.back,
+                cancelCallback:  () {
+                  Get.back();
+                  Get.back();
+                },
               ));
     } else {
       checkIdDup(true);

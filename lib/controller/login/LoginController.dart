@@ -60,6 +60,8 @@ class LoginController extends GetxController {
       profile.image = result['profilePhotoUrl']!;
       profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
       profile.nick = result['nickname']!;
+      log('eeeeeeeeeeeeeeeeeee');
+      log(profile.nick);
       profile.price = result['point'];
 
       if (profileRe['code'] == 1000) {
@@ -86,10 +88,12 @@ class LoginController extends GetxController {
         });
         MessageController.to.getAllRooms();
         MyPageController.to.getRequestDuoNum();
+        // MyPageController.to.getProfile();
         RequestDuoController.to.getRequestDuo();
         RequestDuoController.to.getRequestedDuo();
         profileController.to.getReviews();
-        profileController.to.getProfile();
+        // profileController.to.getProfile();
+
 
         await homePageController.to.gethomePageduoProfile();
         await homePageController.to.gethomePageduoProfileVertical();

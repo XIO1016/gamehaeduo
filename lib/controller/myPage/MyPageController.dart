@@ -15,12 +15,12 @@ class MyPageController extends GetxController {
   void toggle() => on.value = on.value ? false : true;
 int requestedDuoNum=0;
   int requestDuoNum=0;
-
-  Profile1 myprofile = profileController.to.myprofile;
+  late Profile1 myprofile;
+  // Profile1 myprofile = profileController.to.myprofile;
   @override
   void onInit() {
     super.onInit();
-    getProfile();
+    // getProfile();
   }
 
   Future getProfile() async {
