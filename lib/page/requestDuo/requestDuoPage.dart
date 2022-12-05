@@ -341,7 +341,9 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                     Sbox(0, 8),
                     Row(
                       children: [
-                        Expanded(
+                        (request.duo.rank=='')?
+                        SizedBox()
+                        :Expanded(
                           child: Row(
                             children: [
                               tierImage(request.duo.rank),

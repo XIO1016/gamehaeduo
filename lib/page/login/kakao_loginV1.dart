@@ -45,6 +45,7 @@ class KakaoLogin {
           log(re.toString());
           if (re['code'] == 1000) {
             if (re['result']['isMember']) {
+
               var login = await http.post(Uri.parse(urlBase + 'api/login'),
                   headers: <String, String>{
                     "content-type": "application/json",
@@ -55,7 +56,9 @@ class KakaoLogin {
               Map<String, dynamic> re1 = jsonDecode(utf8.decode(login.bodyBytes));
 
               if (login.statusCode == 200) {
-                Map result = jsonDecode(utf8.decode(re1['result'].bodyBytes));
+
+                Map result = re1['result'];
+                log(result.toString());
                 userId = result['userId']!.toString();
                 jwtaccessToken = result['jwtAccessToken']!;
 
@@ -69,11 +72,12 @@ class KakaoLogin {
 
                 log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
+                // log(profileRe.toString());
                 profile.isOn = (result['status'] == 'Active') ? true : false;
 
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
-                profile.nick = utf8.decode(result['nickname'].bodyBytes);
+                profile.nick = result['nickname'];
 
                 profile.price= result['point'];
 

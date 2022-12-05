@@ -193,18 +193,18 @@ class SignUpController extends GetxController {
     Map re = jsonDecode(signup.body);
     log(re.toString());
     if (signup.statusCode == 200) {
-      profile = Profile1(
-          price: 0,
-          image: re['profilePhotoUrl'],
-          isPlayer: re['isPlayer'],
-          nick: re['nickname'],
-          tier: '',
-          position: [],
-          playStyle: '',
-          introduce: '',
-          isOn: true,
-          star: 0,
-          reviews: []);
+      // profile = Profile1(
+      //     price: 0,
+      //     image: re['profilePhotoUrl'],
+      //     isPlayer: re['isPlayer'],
+      //     nick: re['nickname'],
+      //     tier: '',
+      //     position: [],
+      //     playStyle: '',
+      //     introduce: '',
+      //     isOn: true,
+      //     star: 0,
+      //     reviews: []);
       Get.back();
       Get.back();
       Get.back();
