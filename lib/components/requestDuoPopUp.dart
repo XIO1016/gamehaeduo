@@ -1,6 +1,9 @@
+import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import 'package:cau_gameduo/model/request.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../model/duo.dart';
 
 void CancelRequestPopUp(BuildContext context) {
   showDialog<String>(
@@ -65,7 +68,7 @@ void CancelRequestPopUp(BuildContext context) {
   );
 }
 
-void CancelOngoingPopUp(BuildContext context, String name, Future f) {
+void CancelOngoingPopUp(BuildContext context, String name, Duo duo) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -115,7 +118,7 @@ void CancelOngoingPopUp(BuildContext context, String name, Future f) {
         ),
         TextButton(
           onPressed: () {
-            f;
+            RequestDuoController.to.cancelDuo(duo);
             Get.back();
           },
           child: const Text(
@@ -131,7 +134,7 @@ void CancelOngoingPopUp(BuildContext context, String name, Future f) {
   );
 }
 
-void FinishOngoingPopUp(BuildContext context,String name, Future f) {
+void FinishOngoingPopUp(BuildContext context,String name, Duo duo) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -181,7 +184,7 @@ void FinishOngoingPopUp(BuildContext context,String name, Future f) {
         ),
         TextButton(
           onPressed: () {
-            f;
+            RequestDuoController.to.finishDuo(duo);
             Navigator.pop(context, 'OK');
           },
           child: const Text(
@@ -262,7 +265,7 @@ void AcceptRequestPopUp(BuildContext context,String name, Future f) {
   );
 }
 
-void RejectRequestPopUp(BuildContext context,String name, Future f) {
+void RejectRequestPopUp(BuildContext context,String name, Duo duo) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -312,7 +315,7 @@ void RejectRequestPopUp(BuildContext context,String name, Future f) {
         ),
         TextButton(
           onPressed: () {
-            f;
+            RequestDuoController.to.finishDuo(duo);
             Navigator.pop(context, 'OK');},
           child: const Text(
             '거절',

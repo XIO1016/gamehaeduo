@@ -54,7 +54,7 @@ class KakaoLogin {
                   body:
                       jsonEncode(<String, String>{'accessToken': accessToken}));
               Map<String, dynamic> re1 = jsonDecode(utf8.decode(login.bodyBytes));
-
+log(re1.toString());
               if (login.statusCode == 200) {
 
                 Map result = re1['result'];
@@ -72,7 +72,7 @@ class KakaoLogin {
 
                 log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
-                // log(profileRe.toString());
+                log(profileRe.toString());
                 profile.isOn = (result['status'] == 'Active') ? true : false;
 
                 profile.image = result['profilePhotoUrl']!;

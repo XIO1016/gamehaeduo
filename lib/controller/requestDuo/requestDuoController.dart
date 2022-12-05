@@ -151,6 +151,7 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestDuoStatus[duo.duoId] = duo.status;
+      log(requestDuoStatus[duo.duoId].toString());
       requestDuo.add(request);
       request1Duo.add(request);
       if (request.duo.status == 0 || request.duo.status == 2) {
@@ -161,6 +162,7 @@ class RequestDuoController extends GetxController {
     }
     // log(request1Duo.toString());
     requestDuoNum(result.length);
+
   }
 
   cancelDuo(Duo duo) async {
@@ -182,7 +184,7 @@ class RequestDuoController extends GetxController {
     Map cancelDuoResponse = jsonDecode(utf8.decode(cancelDuoRequest.bodyBytes));
     if (cancelDuoResponse['code'] == 1000) {
       Map result = cancelDuoResponse['result'];
-      // log(result.toString());
+      log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
         requestDuoStatus[duo.duoId]= 4;
       }
@@ -273,10 +275,10 @@ class RequestDuoController extends GetxController {
       Map result= acceptDuoResponse['result'];
       log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
-        requestDuoStatus[duo.duoId]= 1;
+        requestDuoStatus[duo.duoId]= 2;
       }
       else{
-        requestedDuoStatus[duo.duoId]= 1;
+        requestedDuoStatus[duo.duoId]= 2;
 
       }
       duo.status=1;
@@ -303,28 +305,21 @@ class RequestDuoController extends GetxController {
       log(r);
       if (requestUser == true) {
         //신청 요청중
-        duoState(0);
-        log(duoState.value.toString());
-
         return 0;
       }
-      duoState(1);
       return 1; //수락하기
     } else if (r == 'PROCEEDING') {
-      duoState(2);
       return 2; //듀오 진행중
-    } else if (r == 'COMPLETE') {
+    } else if (r == 'FINISH') {
       if (reviewWritten == true) {
         return 6;
       }
       //듀오 완료됨ee
-      duoState(-1);
       return 3;
     } else if (r == 'CANCEL') {
-      duoState(-1);
       return 4;
     } else {
-      duoState(-1);
+
       return 5; //듀오 거절
     }
   }

@@ -243,7 +243,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
     var duostatus= status[request.duo.duoId];
     return Container(
       width: Get.width - 20,
-      height: (duostatus == 2) ? 200 : 150,
+      height: (duostatus == 2||duostatus==1) ? 200 : 150,
       padding: EdgeInsets.all(12),
       margin: EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -363,7 +363,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                             ? OutlinedButton(
                                 onPressed: () {
                                   CancelOngoingPopUp(context, request.duo.name,
-                                      controller.cancelDuo(request.duo));
+                                     request.duo);
                                 },
                                 style: OutlinedButton.styleFrom(
                                   shape: const RoundedRectangleBorder(
@@ -381,7 +381,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                 ),
                               )
                             : SizedBox(),
-                        (duostatus == 3)
+                        (duostatus == 3&&i==1)
                             ? OutlinedButton(
                                 onPressed: () {
                                   log(request.duo.duoId.toString());
@@ -471,11 +471,11 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             OutlinedButton(
               onPressed: () {
                 if (text1=='거절') {
-                  RejectRequestPopUp(Get.context!,request.duo.name,controller.cancelDuo(request.duo));
+                  RejectRequestPopUp(Get.context!,request.duo.name,request.duo);
                 }
                 else{
                   CancelOngoingPopUp(Get.context!, request.duo.name,
-                      controller.cancelDuo(request.duo));
+                     request.duo);
                 }
               },
               style: OutlinedButton.styleFrom(
@@ -499,7 +499,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                 }
                 else{
                   FinishOngoingPopUp(Get.context!, request.duo.name,
-                      controller.finishDuo(request.duo));
+                     request.duo);
                 }
 
               },

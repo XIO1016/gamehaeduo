@@ -164,7 +164,7 @@ class MessageListPage extends GetView<MessageController> {
                         )
                       else if (controller.duoState.value == 2)
                         applyButton(
-                          '신청 진행중',
+                          '듀오 진행중',
                         )
                       else if (controller.isPlayer.value==true)
                         applyButton(

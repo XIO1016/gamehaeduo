@@ -145,7 +145,7 @@ class BecomePlayerController extends GetxController {
       var re = jsonDecode(value);
 
       log(response.toString());
-      if (response.statusCode == 1000) {
+      if (response.statusCode == 200) {
         profile.image = re['result']['profile_photo_url'];
         profile.isPlayer = true;
         profile.playStyle = playStyleController.text;
