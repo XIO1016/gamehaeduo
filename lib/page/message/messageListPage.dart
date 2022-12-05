@@ -154,23 +154,22 @@ class MessageListPage extends GetView<MessageController> {
                               ],
                             ),
                       Sbox(0, 13),
-                      if (controller.isPlayer.value)
-                        if (controller.duoState.value == 0)
-                          applyButton(
-                            '신청 요청중', //신청 수락하기
-                          )
-                        else if (controller.duoState.value == 1)
-                          applyButton(
-                            '신청 수락하기',
-                          )
-                        else if (controller.duoState.value == 2)
-                          applyButton(
-                            '신청 진행중',
-                          )
-                        else
-                          applyButton(
-                            '듀오 신청하기',
-                          )
+                      if (controller.duoState.value == 0)
+                        applyButton(
+                          '신청 요청중', //신청 수락하기
+                        )
+                      else if (controller.duoState.value == 1)
+                        applyButton(
+                          '신청 수락하기',
+                        )
+                      else if (controller.duoState.value == 2)
+                        applyButton(
+                          '신청 진행중',
+                        )
+                      else if (controller.isPlayer.value!=true)
+                        applyButton(
+                          '듀오 신청하기',
+                        )
                     ],
                   )
                 ],
