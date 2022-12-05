@@ -172,6 +172,44 @@ class SignUpController extends GetxController {
     }
   }
 
+  Future SignUpId() async {
+    Get.dialog(Center(child: CircularProgressIndicator()),
+        barrierDismissible: false);
+
+    var signup = await http.post(Uri.parse(urlBase + 'api/signUp-id'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'id': idController.text,
+          'password': pwController.text,
+          'nickname': nickController.text,
+          'top': (isSelected[0].value) ? 1 : 0,
+          'jungle': (isSelected[1].value) ? 1 : 0,
+          'mid': (isSelected[2].value) ? 1 : 0,
+          'ad': (isSelected[3].value) ? 1 : 0,
+          'supporter': (isSelected[4].value) ? 1 : 0,
+        }));
+    Map re = jsonDecode(signup.body);
+    log(re.toString());
+    if (signup.statusCode == 200) {
+      profile = Profile1(
+          price: 0,
+          image: re['profilePhotoUrl'],
+          isPlayer: re['isPlayer'],
+          nick: re['nickname'],
+          tier: '',
+          position: [],
+          playStyle: '',
+          introduce: '',
+          isOn: true,
+          star: 0,
+          reviews: []);
+      Get.back();
+      Get.to(App());
+    }
+  }
+
   Future checkIdDuplicated() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);

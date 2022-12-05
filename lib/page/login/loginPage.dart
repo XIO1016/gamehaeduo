@@ -8,9 +8,10 @@ import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 
 import '../../components/SizedBox.dart';
 
-class LoginPage extends GetView<LoginController> {
-  final kakaoLogin = KakaoLogin();
 
+class LoginPage extends GetView<LoginController> {
+
+  final kakaoLogin = KakaoLogin();
   @override
   Widget build(BuildContext context) {
     return Obx(
