@@ -16,6 +16,7 @@ import '../app.dart';
 class MessageListPage extends GetView<MessageController> {
   Duo duo = Get.arguments[0];
   int roomid = Get.arguments[1];
+  int duoIdx = Get.arguments[2];
 
   @override
   Widget build(BuildContext context) {
@@ -210,7 +211,7 @@ class MessageListPage extends GetView<MessageController> {
     return OutlinedButton(
       onPressed: () {
         if (controller.duoState.value == -1) {
-          controller.applyDuo(roomid, duo);
+          controller.applyDuo(roomid, duoIdx);
         }
         if (controller.duoState.value == 1) {
           controller.acceptDuo(roomid, duo);

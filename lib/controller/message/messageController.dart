@@ -128,6 +128,8 @@ class MessageController extends GetxController {
 
     Map result = response['result'];
     Map duoProfileRe = result['duoProfile'];
+    int duoIdx= result['duoIdx']??-1;
+    log(duoIdx.toString());
     List message = result['message'];
     List messages = [];
     // log(result['duoStatus']??'null');
@@ -170,12 +172,12 @@ class MessageController extends GetxController {
     DuomessagList[duo.duoId] = messages;
     loading(false);
     Get.back();
-    Get.to(() => MessageListPage(), arguments: [duo, roomid]);
+    Get.to(() => MessageListPage(), arguments: [duo, roomid,duoIdx]);
   }
 
-  applyDuo(int roomid, Duo duo) async {
+  applyDuo(int roomid, int duoIdx) async {
     MyPageController.to.getRequestDuoNum();
-    log(duo.status.toString());
+
     var applyDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo'),
       headers: <String, String>{
@@ -186,7 +188,7 @@ class MessageController extends GetxController {
       body: jsonEncode(
         <String, dynamic>{
           'userIdx': userId,
-          'playerIdx': duo.duoId,
+          'playerIdx': duoIdx,
         },
       ),
     );
