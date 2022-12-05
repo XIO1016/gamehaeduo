@@ -211,10 +211,10 @@ class MessageListPage extends GetView<MessageController> {
     return OutlinedButton(
       onPressed: () {
         if (controller.duoState.value == -1) {
-          controller.applyDuo(roomid, duoIdx);
+          controller.applyDuo(roomid, duo);
         }
         if (controller.duoState.value == 1) {
-          controller.acceptDuo(roomid, duo);
+          controller.acceptDuo(roomid, duoIdx);
         }
       },
       style: OutlinedButton.styleFrom(

@@ -175,7 +175,7 @@ class MessageController extends GetxController {
     Get.to(() => MessageListPage(), arguments: [duo, roomid,duoIdx]);
   }
 
-  applyDuo(int roomid, int duoIdx) async {
+  applyDuo(int roomid, Duo duo) async {
     MyPageController.to.getRequestDuoNum();
 
     var applyDuoRequest = await http.post(
@@ -188,7 +188,7 @@ class MessageController extends GetxController {
       body: jsonEncode(
         <String, dynamic>{
           'userIdx': userId,
-          'playerIdx': duoIdx,
+          'playerIdx': duo.duoId,
         },
       ),
     );
@@ -215,7 +215,7 @@ class MessageController extends GetxController {
     }
   }
 
-  acceptDuo(int roomid, Duo duo) async {
+  acceptDuo(int roomid,  int duoIdx) async {
     var acceptDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/accept'),
       headers: <String, String>{
@@ -226,7 +226,7 @@ class MessageController extends GetxController {
       body: jsonEncode(
         <String, dynamic>{
           'userIdx': userId,
-          'duoIdx': duo.duoId,
+          'duoIdx': duoIdx,
         },
       ),
     );
