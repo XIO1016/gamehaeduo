@@ -128,48 +128,48 @@ class SignUpController extends GetxController {
           }));
     }
 
-    Map re = jsonDecode(signup.body);
-    var result= re['message'];
-    log(re.toString());
-    if (signup.statusCode == 200) {
-      profile = Profile1(
-          price: result['point'],
-          image: result['profilePhotoUrl'],
-          isPlayer: result['isPlayer'],
-          nick: result['nickname'],
-          tier: '',
-          position: [],
-          playStyle: '',
-          introduce: '',
-          isOn: true,
-          star: 0,
-          reviews: []);
-      jwtaccessToken= result['jwtRefreshToken'];
-      if (result['top'] == 1)
-        profile.position.add('탑');
-      if (result['jungle'] == 1)
-        profile.position.add('정글');
-      if (result['mid'] == 1)
-        profile.position.add('미드');
-      if (result['ad'] == 1)
-        profile.position.add('원딜');
-      if (result['supporter'] == 1)
-        profile.position.add('서포터');
+    // Map re = jsonDecode(signup.body);
+    // var result= re['message'];
+    // log(re.toString());
+    // if (signup.statusCode == 200) {
+    //   profile = Profile1(
+    //       price: result['point'],
+    //       image: result['profilePhotoUrl'],
+    //       isPlayer: result['isPlayer'],
+    //       nick: result['nickname'],
+    //       tier: '',
+    //       position: [],
+    //       playStyle: '',
+    //       introduce: '',
+    //       isOn: true,
+    //       star: 0,
+    //       reviews: []);
+    //   jwtaccessToken= result['jwtRefreshToken'];
+    //   if (result['top'] == 1)
+    //     profile.position.add('탑');
+    //   if (result['jungle'] == 1)
+    //     profile.position.add('정글');
+    //   if (result['mid'] == 1)
+    //     profile.position.add('미드');
+    //   if (result['ad'] == 1)
+    //     profile.position.add('원딜');
+    //   if (result['supporter'] == 1)
+    //     profile.position.add('서포터');
 
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        searchDuoController.to.getDuo();
-      });
-      MessageController.to.getAllRooms();
-      MyPageController.to.getRequestDuoNum();
-      RequestDuoController.to.getRequestDuo();
-      RequestDuoController.to.getRequestedDuo();
-      profileController.to.getReviews();
-
-      await homePageController.to.gethomePageduoProfile();
-      await homePageController.to.gethomePageduoProfileVertical();
+      // WidgetsBinding.instance.addPostFrameCallback((_) {
+      //   searchDuoController.to.getDuo();
+      // });
+      // MessageController.to.getAllRooms();
+      // MyPageController.to.getRequestDuoNum();
+      // RequestDuoController.to.getRequestDuo();
+      // RequestDuoController.to.getRequestedDuo();
+      // profileController.to.getReviews();
+      //
+      // await homePageController.to.gethomePageduoProfile();
+      // await homePageController.to.gethomePageduoProfileVertical();
       Get.back();
       Get.to(App());
-    }
+
   }
 
   Future SignUpId() async {
