@@ -10,10 +10,11 @@ import 'package:get/get.dart';
 import '../../components/SizedBox.dart';
 
 class SignUpPage2 extends GetView<SignUpController> {
-  const SignUpPage2({Key? key}) : super(key: key);
+  int i = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    controller.type(i);
     return Obx(
       () => Scaffold(
         bottomSheet: (controller.checkNickDup.value == true &&
@@ -142,6 +143,7 @@ class SignUpPage2 extends GetView<SignUpController> {
                 nonSelected(4)
               ],
             ),
+            Sbox(0,80)
           ]),
         ),
       ),

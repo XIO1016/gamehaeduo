@@ -87,6 +87,8 @@ class homePageController extends GetxController {
         duoList.add(a);
         // log(duoList[i].image.toString());
       }
+
+
     }
   }
 

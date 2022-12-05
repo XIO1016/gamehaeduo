@@ -1,10 +1,12 @@
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/components/tierImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import '../../components/requestDuoPopUp.dart';
 import '../../components/SizedBox.dart';
+import '../../components/tierImage.dart';
 import '../../model/request.dart';
 import '../review/reviewPage.dart';
 import 'dart:developer';
@@ -342,11 +344,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                         Expanded(
                           child: Row(
                             children: [
-                              Image.asset(
-                                "images/ranked_emblems/Emblem_Platinum.png",
-                                width: 18,
-                                height: 18,
-                              ),
+                              tierImage(request.duo.rank),
                               Sbox(3, 0),
                               Text(
                                 request.duo.rank,
@@ -414,35 +412,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
           ),
           (duostatus == 2) ? buttons('취소', '완료',request) : Container(),
           (duostatus == 1) ? buttons('거절', '수락',request) : Container()
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     OutlinedButton(
-          //       onPressed:(){CancelOngoingPopUp(context);},
-          //       child: Text('취소',
-          //         style: TextStyle(
-          //           color: Colors.black,
-          //           fontSize: 16,
-          //         ),),
-          //       style: OutlinedButton.styleFrom(
-          //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-          //           side: BorderSide(color: Colors.black, width: 0.2),
-          //           padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-          //       ),),
-          //     ElevatedButton(
-          //       onPressed:(){FinishOngoingPopUp(context);},
-          //       child: Text('완료',
-          //         style: TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 16,
-          //         ),),
-          //       style: OutlinedButton.styleFrom(
-          //           shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-          //           backgroundColor: maincolor,
-          //           padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)
-          //       ),),
-          //   ],
-          // )
+
         ],
       ),
     );

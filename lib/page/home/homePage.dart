@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/home/homePageController.dart';
 import '../../components/SizedBox.dart';
+import '../../components/tierImage.dart';
 
 class homePage extends GetView<homePageController> {
   @override
@@ -59,7 +60,7 @@ class homePage extends GetView<homePageController> {
                       SizedBox(
                         height: 220,
                         child: ListView.builder(
-                          itemCount: 10,
+                          itemCount: controller.duoList.length,
                           scrollDirection: Axis.horizontal,
                           physics: const BouncingScrollPhysics(),
                           itemBuilder: (context, index) =>
@@ -106,12 +107,7 @@ class homePage extends GetView<homePageController> {
                                           mainAxisAlignment: MainAxisAlignment
                                               .center,
                                           children: [
-                                            Image.asset(
-                                              //랭크 사진
-                                              "images/point.png",
-                                              width: 18,
-                                              height: 18,
-                                            ),
+                                            tierImage(controller.duoList[index].rank),
                                             Sbox(5, 0),
                                             Text(
                                               controller.duoList[index].rank,
@@ -212,12 +208,9 @@ class homePage extends GetView<homePageController> {
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              Image.asset(
-                                                                //랭크 사진
-                                                                "images/point.png",
-                                                                width: 20,
-                                                                height: 20,
-                                                              ),
+                                                             tierImage( controller
+                                                                 .duoList2[index]
+                                                                 .rank),
                                                               Text('  ' +
                                                                   controller
                                                                       .duoList2[index]

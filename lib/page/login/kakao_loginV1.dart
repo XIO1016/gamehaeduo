@@ -112,16 +112,16 @@ class KakaoLogin {
                 }
               }
             }
-            // else {
-            //   var duologin = await http.post(Uri.parse(urlBase + 'api/login'),
-            //       headers: <String, String>{
-            //         "content-type": "application/json",
-            //         "accept": "application/json",
-            //       },
-            //       body:
-            //           jsonEncode(<String, String>{'accessToken': accessToken}));
-            //   Get.to(SignUpPage(), arguments: duologin);
-            // }
+            else {
+              // var duologin = await http.post(Uri.parse(urlBase + 'api/login'),
+              //     headers: <String, String>{
+              //       "content-type": "application/json",
+              //       "accept": "application/json",
+              //     },
+              //     body:
+              //         jsonEncode(<String, String>{'accessToken': accessToken}));
+              Get.to(SignUpPage2(), arguments: [0]);
+            }
           } else if (userCheck.statusCode == 2001) {
             log('RESEND PLEASE');
           } else {

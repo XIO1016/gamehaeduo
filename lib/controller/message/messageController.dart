@@ -72,9 +72,13 @@ class MessageController extends GetxController {
     loading(false);
   }
 
-  sendMessage(Duo duo,int roomid) async {
+  sendMessage(Duo duo,dynamic roomid) async {
     Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
+    int roomidx=0;
+    if (roomid!=null){
+      roomidx= roomid;
+    }
     var sendMessage = await http.post(
       Uri.parse('${urlBase}api/note/send'),
       headers: <String, String>{
@@ -84,7 +88,7 @@ class MessageController extends GetxController {
       },
       body: jsonEncode(
         <String, dynamic>{
-          'noteRoomIdx': 0,
+          'noteRoomIdx': roomidx,
           'noteMessage': contentController.text,
           'senderIdx': userId,
           'receiverIdx': duo.duoId,
@@ -116,8 +120,7 @@ class MessageController extends GetxController {
     // WidgetsBinding.instance.addPostFrameCallback((_) {
     //   loading(true);
     // });
-    Get.dialog(const Center(child: CircularProgressIndicator()),
-        barrierDismissible: false);
+
 
 messageList = [];
     var getAllMessage = await http.get(
@@ -259,29 +262,29 @@ Get.to(() => MessageListPage(), arguments: [duo, roomid]);
     log(r);
     if (r == 'WAITING') {
       log(r);
-      if (requestUser==true){//신청 요청중
+      if (requestUser == true) {
+        //신청 요청중
         duoState(0);
         log(duoState.value.toString());
 
         return 0;
-
       }
       duoState(1);
-      return 1;//수락하기
+      return 1; //수락하기
     } else if (r == 'PROCEEDING') {
       duoState(2);
-      return 2;//듀오 진행중
+      return 2; //듀오 진행중
     } else if (r == 'COMPLETE') {
+
       //듀오 완료됨ee
       duoState(-1);
-      return -1;
+      return 3;
     } else if (r == 'CANCEL') {
       duoState(-1);
-      return -1;
-
+      return 4;
     } else {
       duoState(-1);
-      return -1; //듀오 거절
+      return 5; //듀오 거절
     }
   }
 }

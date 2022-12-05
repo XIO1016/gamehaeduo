@@ -149,7 +149,7 @@ void FinishOngoingPopUp(BuildContext context,String name, Future f) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
-                    text: TextSpan(children: const <TextSpan>[
+                    text: TextSpan(children:  <TextSpan>[
                       TextSpan(
                           text: name,
                           style: TextStyle(

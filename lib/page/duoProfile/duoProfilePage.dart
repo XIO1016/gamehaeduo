@@ -16,12 +16,15 @@ class duoProfilePage extends GetView<duoProfilePageController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.initial(duo.duoId);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.initial(duo.duoId);
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.to(() => MessagePage(), arguments: duo);
+          Get.to(() => MessagePage(), arguments: [duo,null]);
         },
         backgroundColor: maincolor,
         child: Icon(Icons.mail),
@@ -221,15 +224,16 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                 itemBuilder: (_, index) {
                                   if (index < controller.reviewList.length) {
                                     return Container(
-                                      height: 100,
+                                      height: 120,
                                       child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
                                               Container(
-                                                color: Colors.grey,
-                                                width: 32,
-                                                height: 32,
+                                                width: 40,
+                                                height: 40,
+                                                child:Image.network(controller.reviewList[index].image),
                                               ),
                                               Sbox(10, 0),
                                               Column(
@@ -289,8 +293,10 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                   }
                                   if (controller.isRequesting.value ||
                                       controller.isLoading.value) {
+                                    controller.getData();
                                     return const Center(
                                         child: RefreshProgressIndicator());
+
                                   }
                                   return Container(
                                     padding: const EdgeInsets.all(10.0),

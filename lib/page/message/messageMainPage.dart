@@ -14,10 +14,13 @@ class MessageMainPage extends GetView<MessageController> {
   Widget build(BuildContext context) {
     // controller.getAllRooms();
     return Obx(() {
-      if (controller.loading.value){
-       Get.dialog(const Center(child: CircularProgressIndicator()),
-            barrierDismissible: false);
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (controller.loading.value){
+          Get.dialog(const Center(child: CircularProgressIndicator()),
+              barrierDismissible: false);
+        }
+      });
+
       return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -55,6 +58,8 @@ class MessageMainPage extends GetView<MessageController> {
   Widget MessageListProfile(MessageRoom room) {
     return GestureDetector(
       onTap: () {
+        Get.dialog(const Center(child: CircularProgressIndicator()),
+            barrierDismissible: false);
         WidgetsBinding.instance.addPostFrameCallback((_) {
           controller.getAllMessages(room.roomId, room.duo);
         });

@@ -141,7 +141,7 @@ class CardView extends StatelessWidget {
       child: Card(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 380, child: Image.network(duo.image)),
+            SizedBox(height: 350, child: Image.network(duo.image)),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -205,23 +205,25 @@ class CardView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            duo.price.toString(),
-                            style: const TextStyle(
-                              fontSize: 18,
-                            ),
-                          ),
-                          Sbox(5, 0),
-                          SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: Image.asset('images/point.png'))
-                        ],
-                      )
+
                     ],
                   ),
+                  Sbox(0, 8),
+                  Row(
+                    children: [
+                      Text(
+                        duo.price.toString(),
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Sbox(5, 0),
+                      SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: Image.asset('images/point.png'))
+                    ],
+                  )
                 ],
               ),
             ),

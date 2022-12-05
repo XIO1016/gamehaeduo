@@ -16,46 +16,36 @@ class SignUpPage1 extends GetView<SignUpController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-          () => Scaffold(
-            bottomSheet: (controller.pwCheckController.text.length > 0 &&
-                controller.idController.text.length > 0 &&
-                controller.pwController.text.length > 0)
-              ? GestureDetector(
-              onTap: () {
-            if(controller.pwCheckController.text != controller.pwCheckController.text){
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('비밀번호를 다시 확인해주세요.'),
-                          ],
-                        ),
-                      ),
-                    );});
-            }else{
+      () => Scaffold(
+        bottomSheet: (controller.isFinish.value)
+            ? GestureDetector(
+                onTap: () {
+                  if (controller.pwController.text !=
+                      controller.pwCheckController.text) {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: Text('비밀번호를 다시 확인해주세요.'),
+                          );
+                        });
+                  } else {
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SignUpPage2()));
-
-            }
-          },
-          child: Container(
-            width: Get.width,
-            height: 60,
-            color: maincolor,
-            child: const Center(
-              child: Text(
-                '다음',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-            ),
-          ),
-        )
+                    Get.to(SignUpPage2(), arguments: 1);
+                  }
+                },
+                child: Container(
+                  width: Get.width,
+                  height: 60,
+                  color: maincolor,
+                  child: const Center(
+                    child: Text(
+                      '다음',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ),
+                ),
+              )
             : Container(
                 width: Get.width,
                 height: 60,
@@ -95,6 +85,9 @@ class SignUpPage1 extends GetView<SignUpController> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        onChanged: (value){
+                          controller.writeFinish();
+                        },
                         cursorColor: maincolor,
                         controller: controller.idController,
                         decoration: InputDecoration(
@@ -143,6 +136,10 @@ class SignUpPage1 extends GetView<SignUpController> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        onChanged: (value){
+                          controller.writeFinish();
+                        },
+
                         obscureText: true,
                         cursorColor: maincolor,
                         controller: controller.pwController,
@@ -170,6 +167,10 @@ class SignUpPage1 extends GetView<SignUpController> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        onChanged: (value){
+                          controller.writeFinish();
+                        },
+
                         obscureText: true,
                         cursorColor: maincolor,
                         controller: controller.pwCheckController,
@@ -201,5 +202,4 @@ class SignUpPage1 extends GetView<SignUpController> {
       ),
     );
   }
-
 }

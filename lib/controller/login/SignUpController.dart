@@ -10,6 +10,13 @@ import '../../components/messagePopUp.dart';
 import '../../http/url.dart';
 import '../../model/profile.dart';
 import '../../page/app.dart';
+import 'package:cau_gameduo/controller/message/messageController.dart';
+import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
+import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
+import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
+import 'package:cau_gameduo/controller/home/homePageController.dart';
+import 'package:cau_gameduo/controller/myPage/profileController.dart';
+
 
 Profile1 profile = Profile1(
     image: '',
@@ -25,9 +32,10 @@ Profile1 profile = Profile1(
     price: -1);
 
 class SignUpController extends GetxController {
+  RxInt type = 0.obs;
   RxBool checkNickDup = false.obs;
   RxBool checkIdDup = false.obs;
-  RxBool pwCheck=false.obs;
+  RxBool pwCheck = false.obs;
   List position = ['탑', '정글', '미드', '원딜', '서폿'];
   RxList isSelected =
       [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
@@ -35,6 +43,7 @@ class SignUpController extends GetxController {
   TextEditingController idController = TextEditingController();
   TextEditingController pwController = TextEditingController();
   TextEditingController pwCheckController = TextEditingController();
+  RxBool isFinish = false.obs;
 
   Future checkDuplicated() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
@@ -86,28 +95,48 @@ class SignUpController extends GetxController {
   Future SignUp() async {
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
+    late var signup;
+    if (type.value == 1) {
+      signup = await http.post(Uri.parse(urlBase + 'api/signUp'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            'accessToken': accessToken,
+            'nickname': nickController.text,
+            'top': (isSelected[0].value) ? 1 : 0,
+            'jungle': (isSelected[1].value) ? 1 : 0,
+            'mid': (isSelected[2].value) ? 1 : 0,
+            'ad': (isSelected[3].value) ? 1 : 0,
+            'supporter': (isSelected[4].value) ? 1 : 0,
+          }));
+    } else {
+      signup = await http.post(Uri.parse(urlBase + 'api/signUp-id'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          },
+          body: jsonEncode(<String, dynamic>{
+            'id': idController.text,
+            'password':pwController.text,
+            'accessToken': accessToken,
+            'nickname': nickController.text,
+            'top': (isSelected[0].value) ? 1 : 0,
+            'jungle': (isSelected[1].value) ? 1 : 0,
+            'mid': (isSelected[2].value) ? 1 : 0,
+            'ad': (isSelected[3].value) ? 1 : 0,
+            'supporter': (isSelected[4].value) ? 1 : 0,
+          }));
+    }
 
-    var signup = await http.post(Uri.parse(urlBase + 'api/signUp'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: jsonEncode(<String, dynamic>{
-          'accessToken': accessToken,
-          'nickname': nickController.text,
-          'top': (isSelected[0].value) ? 1 : 0,
-          'jungle': (isSelected[1].value) ? 1 : 0,
-          'mid': (isSelected[2].value) ? 1 : 0,
-          'ad': (isSelected[3].value) ? 1 : 0,
-          'supporter': (isSelected[4].value) ? 1 : 0,
-        }));
     Map re = jsonDecode(signup.body);
+    var result= re['message'];
     log(re.toString());
     if (signup.statusCode == 200) {
       profile = Profile1(
-          price: 0,
-          image: re['profilePhotoUrl'],
-          isPlayer: re['isPlayer'],
-          nick: re['nickname'],
+          price: result['point'],
+          image: result['profilePhotoUrl'],
+          isPlayer: result['isPlayer'],
+          nick: result['nickname'],
           tier: '',
           position: [],
           playStyle: '',
@@ -115,6 +144,29 @@ class SignUpController extends GetxController {
           isOn: true,
           star: 0,
           reviews: []);
+      jwtaccessToken= result['jwtRefreshToken'];
+      if (result['top'] == 1)
+        profile.position.add('탑');
+      if (result['jungle'] == 1)
+        profile.position.add('정글');
+      if (result['mid'] == 1)
+        profile.position.add('미드');
+      if (result['ad'] == 1)
+        profile.position.add('원딜');
+      if (result['supporter'] == 1)
+        profile.position.add('서포터');
+
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        searchDuoController.to.getDuo();
+      });
+      MessageController.to.getAllRooms();
+      MyPageController.to.getRequestDuoNum();
+      RequestDuoController.to.getRequestDuo();
+      RequestDuoController.to.getRequestedDuo();
+      profileController.to.getReviews();
+
+      await homePageController.to.gethomePageduoProfile();
+      await homePageController.to.gethomePageduoProfileVertical();
       Get.back();
       Get.to(App());
     }
@@ -124,25 +176,25 @@ class SignUpController extends GetxController {
     Get.dialog(Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
     var checkdup = await http.get(
-        Uri.parse(
-            urlBase + '/api/id/dupli?id=${idController.text}'),
+        Uri.parse(urlBase + 'api/id/dupli?id=${idController.text}'),
         headers: {
           "content-type": "application/json",
           "accept": "application/json",
         });
     Map re = jsonDecode(checkdup.body);
+    log(checkdup.statusCode.toString());
     if (re['isSuccess'] == false) {
       checkIdDup(false);
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-            message: '이미 사용중인 아이디입니다.',
-            okCallback: () {
-              Get.back();
-            },
-            okmessage: '확인',
-            cancelCallback: Get.back,
-          ));
+                message: '이미 사용중인 아이디입니다.',
+                okCallback: () {
+                  Get.back();
+                },
+                okmessage: '확인',
+                cancelCallback: Get.back,
+              ));
     } else {
       checkIdDup(true);
       Get.back();
@@ -150,10 +202,7 @@ class SignUpController extends GetxController {
   }
 
   String? validateId(String value) {
-    RegExp regex =
-    RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$"
-
-    );
+    RegExp regex = RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$");
     if (value.isEmpty) {
       return '아이디를 입력해주세요';
     } else {
@@ -166,10 +215,7 @@ class SignUpController extends GetxController {
   }
 
   String? validatePassword(String value) {
-    RegExp regex =
-    RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$"
-
-    );
+    RegExp regex = RegExp(r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d\w\W]{6,10}$");
     if (value.isEmpty) {
       return '비밀번호를 입력해주세요';
     } else {
@@ -182,16 +228,21 @@ class SignUpController extends GetxController {
   }
 
   String? validatePasswordCheck(String value) {
-
     if (value.isEmpty) {
       return '비밀번호를 입력해주세요';
     } else {
-      if (value!=pwController.text) {
+      if (value != pwController.text) {
         return '비밀번호가 일치하지 않습니다!';
       } else {
         pwCheck(true);
         return null;
       }
     }
+  }
+
+  writeFinish() {
+    isFinish(pwCheckController.text.isNotEmpty &&
+        checkIdDup.value &&
+        pwController.text.isNotEmpty);
   }
 }

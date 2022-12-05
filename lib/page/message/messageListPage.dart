@@ -211,10 +211,10 @@ class MessageListPage extends GetView<MessageController> {
   Widget applyButton(String text) {
     return OutlinedButton(
       onPressed: () {
-        if (duo.status == -1) {
+        if (controller.duoState.value == -1) {
           controller.applyDuo(roomid, duo);
         }
-        if (duo.status == 1) {
+        if (controller.duoState.value == 1) {
           controller.acceptDuo(roomid, duo);
         }
       },

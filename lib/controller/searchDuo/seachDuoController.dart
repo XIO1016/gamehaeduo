@@ -40,7 +40,9 @@ class searchDuoController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         });
     Map response = jsonDecode(utf8.decode(getduo.bodyBytes));
+    // log('searchduo');
     // log(response.toString());
+
     if (response['isSuccess']) {
       List result = jsonDecode(jsonEncode(response['result']));
 
