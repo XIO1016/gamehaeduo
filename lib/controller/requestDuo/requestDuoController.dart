@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -163,6 +164,7 @@ class RequestDuoController extends GetxController {
   }
 
   cancelDuo(Duo duo) async {
+    MyPageController.to.getRequestDuoNum();
     var cancelDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/cancel'),
       headers: <String, String>{
@@ -251,6 +253,7 @@ class RequestDuoController extends GetxController {
     }
   }
   acceptDuo(Duo duo) async{
+
     var acceptDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/accept'),
       headers: <String, String>{
@@ -295,7 +298,7 @@ class RequestDuoController extends GetxController {
     }
   }
   int duoStatus(String r, bool requestUser, bool reviewWritten) {
-    log(r);
+
     if (r == 'WAITING') {
       log(r);
       if (requestUser == true) {

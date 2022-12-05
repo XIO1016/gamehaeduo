@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
+import '../../components/tierImage.dart';
 import '../../model/duo.dart';
 import '../../model/message.dart';
 import '../app.dart';
@@ -76,6 +77,8 @@ class MessageListPage extends GetView<MessageController> {
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       Sbox(0, 5),
+                      (duo.rank=='')?
+                      SizedBox():
                       Row(
                         children: [
                           const Text(
@@ -85,12 +88,9 @@ class MessageListPage extends GetView<MessageController> {
                             ),
                           ),
                           Sbox(10, 0),
-                          Image.asset(
-                            "images/point.png",
-                            width: 20,
-                            height: 20,
-                          ),
+                          tierImage(duo.rank),
                           Sbox(5, 0),
+
                           Text(
                             duo.rank,
                             style: const TextStyle(
@@ -144,6 +144,7 @@ class MessageListPage extends GetView<MessageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
+                      (duo.price==-1)?SizedBox():
                       Row(
                         children: [
                           Image.asset(
@@ -152,7 +153,9 @@ class MessageListPage extends GetView<MessageController> {
                             height: 20,
                           ),
                           Sbox(5, 0),
-                          Text(duo.price.toString()),
+
+                          Text(duo.price.toString())
+                          ,
                         ],
                       ),
                       Sbox(0, 13),

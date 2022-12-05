@@ -11,6 +11,7 @@ import '../../model/duo.dart';
 import '../../model/message.dart';
 import '../../model/messageRoom.dart';
 import '../../page/message/messageListPage.dart';
+import '../myPage/MyPageController.dart';
 
 class MessageController extends GetxController {
   static MessageController get to => Get.find<MessageController>();
@@ -145,7 +146,7 @@ messageList = [];
             ? -1
             : duoStatus(result['duoStatus'], result['requestUser']),
         name: duo.name,
-        rank: duoProfileRe['tier'],
+        rank: duoProfileRe['tier']??'',
         position: [],
         image: duo.image,
         playStyle: '',
@@ -181,6 +182,7 @@ Get.to(() => MessageListPage(), arguments: [duo, roomid]);
   }
 
   applyDuo(int roomid, Duo duo) async {
+    MyPageController.to.getRequestDuoNum();
     log(duo.status.toString());
     var applyDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo'),

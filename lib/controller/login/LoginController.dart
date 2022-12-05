@@ -37,7 +37,8 @@ class LoginController extends GetxController {
           'id': idController.text,
           'password': pwController.text,
         }));
-    Map re = jsonDecode(login.body);
+    Map<String, dynamic> re = jsonDecode(utf8.decode(login.bodyBytes));
+
     log(re.toString());
     if (login.statusCode == 200) {
       Map result = re['result'];
@@ -88,6 +89,7 @@ class LoginController extends GetxController {
         RequestDuoController.to.getRequestDuo();
         RequestDuoController.to.getRequestedDuo();
         profileController.to.getReviews();
+        profileController.to.getProfile();
 
         await homePageController.to.gethomePageduoProfile();
         await homePageController.to.gethomePageduoProfileVertical();

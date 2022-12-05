@@ -160,7 +160,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                             alignment: Alignment.centerRight,
                             child: DropdownButtonHideUnderline(
                               child: Container(
-                                width: 85,
+                                width: 90,
                                 child: DropdownButton<RxString>(
                                     onChanged: (newValue) {
                                       controller.requestedSelected(

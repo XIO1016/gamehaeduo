@@ -40,6 +40,7 @@ int requestedDuoNum=0;
     Map result=response['result'];
     requestedDuoNum=result['requestedDuoNum'];
     requestDuoNum=result['requestDuoNum'];
+    profile.price= result['point'];
 
   }
 }

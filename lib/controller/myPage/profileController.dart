@@ -21,6 +21,7 @@ class profileController extends GetxController {
   var hasMore = false.obs;
   var isRequesting = true.obs; //다음 데이터 유무
   Rx<ScrollController> scrollController = ScrollController().obs;
+
   @override
   void onInit() {
     getProfile();
@@ -52,7 +53,10 @@ class profileController extends GetxController {
 
 
   Future getProfile() async {
-    myprofile = profile;
+
+
+      myprofile = profile;
+
   }
   getReviews() async{
     var getReviewsRe = await http.get(
