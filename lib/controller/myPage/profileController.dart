@@ -27,6 +27,7 @@ class profileController extends GetxController {
 
     scrollController.value.addListener(() {
       // print('offset = ${scrollController.value.position}');
+      // log(isRequesting.value.toString());
       if ((scrollController.value.position.pixels ==
           scrollController.value.position.maxScrollExtent) &&
           isRequesting.value) {
@@ -92,6 +93,15 @@ class profileController extends GetxController {
 
           reviewList.add(a);
           // log(duoList2[i].name.toString());
+        }
+        if (result.length<10) {
+          isRequesting(false);
+          isLoading(false);
+          reviewList.refresh();
+        }
+        if (result.length==10)
+        {
+          isRequesting(true);
         }
       }
     }
