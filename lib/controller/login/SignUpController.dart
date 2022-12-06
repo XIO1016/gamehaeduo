@@ -25,7 +25,7 @@ Profile1 profile = Profile1(
     position: [],
     playStyle: '',
     introduce: '',
-    isOn: true,
+    isOn: false,
     isPlayer: false,
     star: 0,
     reviews: [],

@@ -187,9 +187,13 @@ class RequestDuoController extends GetxController {
       log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
         requestDuoStatus[duo.duoId]= 4;
+        request2Duo.remove(duo);
+        request3Duo.add(duo);
       }
       else{
         requestedDuoStatus[duo.duoId]= 4;
+        requested3Duo.remove(duo);
+        requested4Duo.add(duo);
 
       }
       duo.status = 4;

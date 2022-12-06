@@ -10,6 +10,8 @@ import '../../page/login/kakao_loginV1.dart';
 import '../login/SignUpController.dart';
 
 class SettingController extends GetxController {
+
+  static SettingController get to => Get.find<SettingController>();
   RxBool on = profile.isOn.obs;
   onOff() async {
     if (on.value == false) {

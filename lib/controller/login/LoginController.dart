@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
+import 'package:cau_gameduo/controller/myPage/settingController.dart';
 import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/controller/home/homePageController.dart';
@@ -56,6 +57,7 @@ class LoginController extends GetxController {
       log(getprofile.statusCode.toString());
       Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
       profile.isOn = (result['status'] == 'Active') ? true : false;
+      SettingController.to.on(profile.isOn);
 
       profile.image = result['profilePhotoUrl']!;
       profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
