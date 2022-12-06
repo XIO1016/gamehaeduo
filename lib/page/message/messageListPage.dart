@@ -35,154 +35,160 @@ class MessageListPage extends GetView<MessageController> {
             style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
           ),
         ),
-        body: ListView(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(
-                  right: 20, left: 20, top: 10, bottom: 10),
-              decoration: const BoxDecoration(
-                border: Border(
-                  top: BorderSide(width: 1, color: Color(0xffEEE6E6)),
-                  bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+        body: RefreshIndicator(
+          onRefresh: () async {
+           
+            await controller.getAllMessages(roomid, duo);
+          },
+          child: ListView(
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                    right: 20, left: 20, top: 10, bottom: 10),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+                    bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
+                  ),
                 ),
-              ),
-              child: Row(
-                children: [
-                  //프로필 사진
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      width: 50,
-                      height: 50,
-                      color: const Color(0xffD9D9D9),
-                      child: Image.network(
-                        duo.image,
-                        fit: BoxFit.fitWidth,
+                child: Row(
+                  children: [
+                    //프로필 사진
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        width: 50,
+                        height: 50,
+                        color: const Color(0xffD9D9D9),
+                        child: Image.network(
+                          duo.image,
+                          fit: BoxFit.fitWidth,
+                        ),
                       ),
                     ),
-                  ),
-                  Sbox(15, 0),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        duo.name,
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      Sbox(0, 5),
-                      (duo.rank == '')
-                          ? const SizedBox()
-                          : Row(
-                              children: [
-                                const Text(
-                                  '티어',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                                Sbox(10, 0),
-                                tierImage(duo.rank),
-                                Sbox(5, 0),
-                                Text(
-                                  duo.rank,
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                      Sbox(0, 5),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const Text(
-                            '주포지션',
-                            style: TextStyle(
-                              fontSize: 12,
-                            ),
-                          ),
-                          Sbox(5, 0),
-                          Row(
-                            children: List.generate(
-                              duo.position.length,
-                              (index) => Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
+                    Sbox(15, 0),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          duo.name,
+                          style: const TextStyle(
+                              fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        Sbox(0, 5),
+                        (duo.rank == '')
+                            ? const SizedBox()
+                            : Row(
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(3),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: maincolor, width: 1.0),
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        duo.position[index],
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                  const Text(
+                                    '티어',
+                                    style: TextStyle(
+                                      fontSize: 12,
                                     ),
                                   ),
-                                  Sbox(5, 0)
+                                  Sbox(10, 0),
+                                  tierImage(duo.rank),
+                                  Sbox(5, 0),
+                                  Text(
+                                    duo.rank,
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                 ],
                               ),
+                        Sbox(0, 5),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              '주포지션',
+                              style: TextStyle(
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Expanded(child: Sbox(10, 0)),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      (duo.price == -1)
-                          ? const SizedBox()
-                          : Row(
-                              children: [
-                                Image.asset(
-                                  "images/point.png",
-                                  width: 20,
-                                  height: 20,
+                            Sbox(5, 0),
+                            Row(
+                              children: List.generate(
+                                duo.position.length,
+                                (index) => Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(3),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: maincolor, width: 1.0),
+                                        borderRadius: BorderRadius.circular(5),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          duo.position[index],
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ),
+                                    ),
+                                    Sbox(5, 0)
+                                  ],
                                 ),
-                                Sbox(5, 0),
-                                Text(duo.price.toString()),
-                              ],
+                              ),
                             ),
-                      Sbox(0, 13),
-                      if (controller.duoState.value == 0)
-                        applyButton(
-                          '신청 요청중', //신청 수락하기
-                        )
-                      else if (controller.duoState.value == 1)
-                        applyButton(
-                          '신청 수락하기',
-                        )
-                      else if (controller.duoState.value == 2)
-                        applyButton(
-                          '듀오 진행중',
-                        )
-                      else if (controller.isPlayer.value==true)
-                        applyButton(
-                          '듀오 신청하기',
-                        )
-                    ],
-                  )
-                ],
+                          ],
+                        ),
+                      ],
+                    ),
+                    Expanded(child: Sbox(10, 0)),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        (duo.price == -1)
+                            ? const SizedBox()
+                            : Row(
+                                children: [
+                                  Image.asset(
+                                    "images/point.png",
+                                    width: 20,
+                                    height: 20,
+                                  ),
+                                  Sbox(5, 0),
+                                  Text(duo.price.toString()),
+                                ],
+                              ),
+                        Sbox(0, 13),
+                        if (controller.duoState.value == 0)
+                          applyButton(
+                            '신청 요청중', //신청 수락하기
+                          )
+                        else if (controller.duoState.value == 1)
+                          applyButton(
+                            '신청 수락하기',
+                          )
+                        else if (controller.duoState.value == 2)
+                          applyButton(
+                            '듀오 진행중',
+                          )
+                        else if (controller.isPlayer.value==true)
+                          applyButton(
+                            '듀오 신청하기',
+                          )
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-            //쪽지
-            Column(
-              children: List.generate(
-                  controller.DuomessagList[duo.duoId]!.length,
-                  (index) => _MessageComponent(index)),
-            ),
-            const SizedBox(
-              height: 50,
-            )
-          ],
+              //쪽지
+              Column(
+                children: List.generate(
+                    controller.DuomessagList[duo.duoId]!.length,
+                    (index) => _MessageComponent(index)),
+              ),
+              const SizedBox(
+                height: 50,
+              )
+            ],
+          ),
         ),
         bottomSheet: GestureDetector(
           onTap: () {

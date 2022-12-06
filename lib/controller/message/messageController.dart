@@ -19,7 +19,6 @@ class MessageController extends GetxController {
   TextEditingController contentController = TextEditingController();
   RxBool iswritten = false.obs;
   RxInt duoState = (-1).obs;
-  List<Message> messageList = [];
   RxBool loading = false.obs;
   RxBool isPlayer = false.obs;
   RxInt messageRoomNum = 0.obs;
@@ -96,7 +95,8 @@ class MessageController extends GetxController {
     Map response = jsonDecode(utf8.decode(sendMessage.bodyBytes));
     Map result = response['result'];
     // log(result.toString());
-
+    Get.back();
+    Get.back();
 
     await getAllRooms();
     await getAllMessages(roomid, duo);
@@ -110,8 +110,6 @@ class MessageController extends GetxController {
   }
 
   getAllMessages(int roomid, Duo duo) async {
-
-    messageList = [];
     var getAllMessage = await http.get(
         Uri.parse(
             '${urlBase}api/note/room?roomId=$roomid&userIdx=$userId&duoIdx=${duo.duoId}'),
@@ -124,7 +122,7 @@ class MessageController extends GetxController {
 
     Map result = response['result'];
     Map duoProfileRe = result['duoProfile'];
-    int duoIdx= result['duoIdx']??-1;
+    int duoIdx = result['duoIdx'] ?? -1;
     log(duoIdx.toString());
     List message = result['message'];
     List messages = [];
@@ -168,7 +166,8 @@ class MessageController extends GetxController {
     DuomessagList[duo.duoId] = messages;
     loading(false);
     Get.back();
-    Get.to(() => MessageListPage(), arguments: [duo, roomid,duoIdx]);
+    Get.back();
+    Get.to(() => MessageListPage(), arguments: [duo, roomid, duoIdx]);
   }
 
   applyDuo(int roomid, Duo duo) async {
@@ -212,7 +211,7 @@ class MessageController extends GetxController {
     }
   }
 
-  acceptDuo(int roomid,  int duoIdx) async {
+  acceptDuo(int roomid, int duoIdx) async {
     var acceptDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/accept'),
       headers: <String, String>{

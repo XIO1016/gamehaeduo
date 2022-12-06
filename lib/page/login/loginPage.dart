@@ -14,8 +14,7 @@ class LoginPage extends GetView<LoginController> {
   final kakaoLogin = KakaoLogin();
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Scaffold(
+    return  Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
           child: Padding(
@@ -251,7 +250,7 @@ class LoginPage extends GetView<LoginController> {
             ),
           ),
         ),
-      ),
+
     );
   }
 }
