@@ -15,6 +15,7 @@ var isLoading = false.obs; //로딩중
 var isRequesting = true.obs; //다음 데이터 유무
 Rx<ScrollController> scrollController = ScrollController().obs;
 RxInt duoid= 0.obs;
+
 @override
 void onInit() {
   scrollController.value.addListener(() {
@@ -63,7 +64,7 @@ getReviews() async{
   if (response['isSuccess']) {
     List result =
     jsonDecode(jsonEncode(response['result']))['reviews'];
-    if (result.length == 0) {
+    if (result.isEmpty) {
       isRequesting(false);
       isLoading(false);
       reviewList.refresh();

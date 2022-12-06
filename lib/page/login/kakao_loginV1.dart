@@ -33,7 +33,7 @@ class KakaoLogin {
 
           Get.dialog(const Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
-          var userCheck = await http.post(Uri.parse(urlBase + 'api/userCheck'),
+          var userCheck = await http.post(Uri.parse('${urlBase}api/userCheck'),
               headers: {
                 "content-type": "application/json",
                 "accept": "application/json",
@@ -47,7 +47,7 @@ class KakaoLogin {
           log(re.toString());
           if (re['code'] == 1000) {
             if (re['result']['isMember']) {
-              var login = await http.post(Uri.parse(urlBase + 'api/login'),
+              var login = await http.post(Uri.parse('${urlBase}api/login'),
                   headers: <String, String>{
                     "content-type": "application/json",
                     "accept": "application/json",
@@ -64,7 +64,7 @@ class KakaoLogin {
                 jwtaccessToken = result['jwtAccessToken']!;
 
                 var getprofile = await http.get(
-                    Uri.parse(urlBase + 'api/player/profile?userIdx=$userId'),
+                    Uri.parse('${urlBase}api/player/profile?userIdx=$userId'),
                     headers: <String, String>{
                       "content-type": "application/json",
                       "accept": "application/json",
@@ -92,16 +92,21 @@ class KakaoLogin {
                   // log(profileRe['result']['playerProfileStatus'].toString());
                   profile.isOn = (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
                   SettingController.to.on(profile.isOn);
-                  if (profileRe['result']['top'] == 1)
+                  if (profileRe['result']['top'] == 1) {
                     profile.position.add('탑');
-                  if (profileRe['result']['jungle'] == 1)
+                  }
+                  if (profileRe['result']['jungle'] == 1) {
                     profile.position.add('정글');
-                  if (profileRe['result']['mid'] == 1)
+                  }
+                  if (profileRe['result']['mid'] == 1) {
                     profile.position.add('미드');
-                  if (profileRe['result']['ad'] == 1)
+                  }
+                  if (profileRe['result']['ad'] == 1) {
                     profile.position.add('원딜');
-                  if (profileRe['result']['supporter'] == 1)
+                  }
+                  if (profileRe['result']['supporter'] == 1) {
                     profile.position.add('서포터');
+                  }
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     searchDuoController.to.getDuo();
@@ -153,7 +158,7 @@ class KakaoLogin {
 
           Get.dialog(const Center(child: CircularProgressIndicator()),
               barrierDismissible: false);
-          var userCheck = await http.post(Uri.parse(urlBase + 'api/userCheck'),
+          var userCheck = await http.post(Uri.parse('${urlBase}api/userCheck'),
               headers: {
                 "content-type": "application/json",
                 "accept": "application/json",
@@ -167,7 +172,7 @@ class KakaoLogin {
           log(re.toString());
           if (re['code'] == 1000) {
             if (re['result']['isMember']) {
-              var login = await http.post(Uri.parse(urlBase + 'api/login'),
+              var login = await http.post(Uri.parse('${urlBase}api/login'),
                   headers: <String, String>{
                     "content-type": "application/json",
                     "accept": "application/json",
@@ -184,7 +189,7 @@ class KakaoLogin {
                 jwtaccessToken = result['jwtAccessToken']!;
 
                 var getprofile = await http.get(
-                    Uri.parse(urlBase + 'api/player/profile?userIdx=$userId'),
+                    Uri.parse('${urlBase}api/player/profile?userIdx=$userId'),
                     headers: <String, String>{
                       "content-type": "application/json",
                       "accept": "application/json",
@@ -213,16 +218,21 @@ class KakaoLogin {
                     profile.star = profileRe['result']['rating'];
                   }
 
-                  if (profileRe['result']['top'] == 1)
+                  if (profileRe['result']['top'] == 1) {
                     profile.position.add('탑');
-                  if (profileRe['result']['jungle'] == 1)
+                  }
+                  if (profileRe['result']['jungle'] == 1) {
                     profile.position.add('정글');
-                  if (profileRe['result']['mid'] == 1)
+                  }
+                  if (profileRe['result']['mid'] == 1) {
                     profile.position.add('미드');
-                  if (profileRe['result']['ad'] == 1)
+                  }
+                  if (profileRe['result']['ad'] == 1) {
                     profile.position.add('원딜');
-                  if (profileRe['result']['supporter'] == 1)
+                  }
+                  if (profileRe['result']['supporter'] == 1) {
                     profile.position.add('서포터');
+                  }
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     searchDuoController.to.getDuo();

@@ -25,7 +25,7 @@ class homePageController extends GetxController {
   @override
   void onInit() {
     scrollController.value.addListener(() {
-      print('offset = ${scrollController.value.position}');
+      // print('offset = ${scrollController.value.position}');
       if ((scrollController.value.position.pixels ==
               scrollController.value.position.maxScrollExtent) &&
           isRequesting.value) {
@@ -108,7 +108,7 @@ class homePageController extends GetxController {
     if (response['isSuccess']) {
       List result =
           jsonDecode(jsonEncode(response['result']))['homePartnerDTO'];
-      if (result.length == 0) {
+      if (result.isEmpty) {
         isRequesting(false);
         isLoading(false);
         duoList2.refresh();

@@ -88,7 +88,7 @@ class homePage extends GetView<homePageController> {
                                         BorderRadius.circular(20),
                                         // Image border
                                         child: SizedBox.fromSize(
-                                          size: Size.fromRadius(60),
+                                          size: const Size.fromRadius(60),
                                           child: Image.network(
                                             //프로필 사진
                                             controller.duoList[index].image,

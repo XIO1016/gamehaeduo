@@ -3,16 +3,13 @@ import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 import '../../components/messagePopUp.dart';
 import '../../http/url.dart';
 import 'dart:convert';
 import 'dart:developer';
-
 import '../../model/duo.dart';
-import '../login/SignUpController.dart';
+
 
 class ReviewController extends GetxController {
 
@@ -46,7 +43,7 @@ class ReviewController extends GetxController {
     Map writeReviewResponse = jsonDecode(utf8.decode(writeReviewRe.bodyBytes));
     log(writeReviewResponse.toString());
     if (writeReviewResponse['code'] == 1000) {
-      Map result = writeReviewResponse['result'];
+      // Map result = writeReviewResponse['result'];
       // log(result.toString());
       RequestDuoController.to.getRequestDuoRefresh();
     } else {

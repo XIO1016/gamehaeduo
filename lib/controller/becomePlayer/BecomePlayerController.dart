@@ -1,6 +1,5 @@
 import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -76,37 +75,17 @@ class BecomePlayerController extends GetxController {
         (isSelectedGender.value[0].value || isSelectedGender.value[1].value));
     log(isSelectedGender.value[0].value.toString());
   }
-  // //포지션
-  // List position = ['탑', '정글', '미드', '원딜', '서폿'];
-  // RxList isSelectedPosition =
-  //     [false.obs, false.obs, false.obs, false.obs, false.obs].obs;
-  //
-  // Future checkPosition(var i) async {
-  //   //여러개 선택 가능
-  //   if (isSelectedPosition[i] == true) {
-  //     isSelectedPosition[i](false);
-  //   } else {
-  //     isSelectedPosition[i](true);
-  //   }
-  // }
-  //
-  // //닉네임
-  // TextEditingController nickController = TextEditingController();
-  //
-  // RxBool checkNickDup = false.obs;
-  // Future checkDuplicated() async {
-  //   checkNickDup(true);
-  // }
+
 
   Future postPlayer() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
     log('진행중');
     log(selectedImagePath.toString());
 
-    var player = await http.MultipartRequest(
+    var player = http.MultipartRequest(
       'POST',
-      Uri.parse(urlBase + 'api/player'),
+      Uri.parse('${urlBase}api/player'),
     );
 
     player.headers.addAll({
@@ -141,7 +120,7 @@ class BecomePlayerController extends GetxController {
     // log(player.fields.values.toString());
     log(player.files.toString());
     await response.stream.bytesToString().then((value) {
-      print(value);
+      // print(value);
       var re = jsonDecode(value);
 
       log(response.toString());

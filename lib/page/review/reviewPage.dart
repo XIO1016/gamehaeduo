@@ -1,6 +1,5 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/review/reviewController.dart';
@@ -33,7 +32,7 @@ class ReviewPage extends GetView<ReviewController> {
         body: ListView(
           children: [
             Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
                   ClipRRect(
@@ -57,7 +56,7 @@ class ReviewPage extends GetView<ReviewController> {
                             fontWeight: FontWeight.bold,
                             fontSize: 15,
                           )),
-                      TextSpan(
+                      const TextSpan(
                           text: '님과의 듀오 후기를 남겨주세요!',
                           style: TextStyle(fontSize: 15, color: Colors.black)),
                     ]),
@@ -69,8 +68,8 @@ class ReviewPage extends GetView<ReviewController> {
                     direction: Axis.horizontal,
                     allowHalfRating: true,
                     itemCount: 5,
-                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => Icon(
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => const Icon(
                       Icons.star,
                       color: Colors.amber,
                     ),
@@ -117,7 +116,7 @@ class ReviewPage extends GetView<ReviewController> {
             : Container(
                 width: Get.width,
                 height: 60,
-                color: Color(0xffE9E9E9),
+                color: const Color(0xffE9E9E9),
                 child: const Center(
                   child: Text(
                     '작성하기',

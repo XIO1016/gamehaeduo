@@ -35,11 +35,11 @@ class profilePage extends GetView<profileController> {
                 Container(
                   width: Get.width,
                   height: 380,
+                  color: Colors.grey,
                   child: Image.network(
                     controller.myprofile.image,
                     fit: BoxFit.fitWidth,
                   ),
-                  color: Colors.grey,
                 ),
                 Positioned(
                   top: 340,
@@ -83,7 +83,7 @@ class profilePage extends GetView<profileController> {
                             Sbox(10, 0),
                             Text(
                               controller.myprofile.nick,
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -104,7 +104,7 @@ class profilePage extends GetView<profileController> {
                                     ),
                                     Text(
                                       controller.myprofile.tier,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     )
@@ -143,7 +143,7 @@ class profilePage extends GetView<profileController> {
                       }),
                     ),
                     Sbox(0, 20),
-                    Divider(thickness: 1, height: 10, color: Color(0xffE2E2E2)),
+                    const Divider(thickness: 1, height: 10, color: Color(0xffE2E2E2)),
                     Sbox(0, 30),
                     if (controller.myprofile.isPlayer)
                       Column(
@@ -157,7 +157,7 @@ class profilePage extends GetView<profileController> {
                           Sbox(0, 10),
                           Text(
                             controller.myprofile.playStyle,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.normal),
                           ),
                           Sbox(0, 30),
@@ -169,7 +169,7 @@ class profilePage extends GetView<profileController> {
                           Sbox(0, 10),
                           Text(
                             controller.myprofile.introduce,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.normal),
                           ),
                           Sbox(0, 50),
@@ -177,15 +177,15 @@ class profilePage extends GetView<profileController> {
                             children: [
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  child: Divider(height: 20, thickness: 1),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
+                                  child: const Divider(height: 20, thickness: 1),
                                 ),
                               ),
-                              Text('리뷰'),
+                              const Text('리뷰'),
                               Expanded(
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 10, right: 10),
-                                  child: Divider(height: 20, thickness: 1),
+                                  margin: const EdgeInsets.only(left: 10, right: 10),
+                                  child: const Divider(height: 20, thickness: 1),
                                 ),
                               ),
                             ],
@@ -196,13 +196,13 @@ class profilePage extends GetView<profileController> {
                               children: [
                                 Text(
                                   controller.myprofile.star.toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold),
                                 ),
                                 RatingBarIndicator(
                                   rating: controller.myprofile.star,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: Colors.amber,
                                   ),
@@ -219,14 +219,14 @@ class profilePage extends GetView<profileController> {
                                     itemBuilder: (_, index) {
                                       if (index <
                                           controller.reviewList.length) {
-                                        return Container(
+                                        return SizedBox(
                                           height: 120,
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
-                                                  Container(
+                                                  SizedBox(
                                                     width: 40,
                                                     height: 40,
                                                     child:Image.network(controller.reviewList[index].image),
@@ -240,7 +240,7 @@ class profilePage extends GetView<profileController> {
                                                         controller
                                                             .reviewList[index].nick,
                                                         style:
-                                                        TextStyle(fontSize: 13),
+                                                        const TextStyle(fontSize: 13),
                                                       ),
                                                       Row(
                                                         children: [
@@ -250,7 +250,7 @@ class profilePage extends GetView<profileController> {
                                                                 .rating,
                                                             itemBuilder:
                                                                 (context, index) =>
-                                                                Icon(
+                                                                const Icon(
                                                                   Icons.star,
                                                                   color: Colors.amber,
                                                                 ),
@@ -262,7 +262,7 @@ class profilePage extends GetView<profileController> {
                                                             controller
                                                                 .reviewList[index]
                                                                 .reviewTime,
-                                                            style: TextStyle(
+                                                            style: const TextStyle(
                                                                 fontSize: 10,
                                                                 color: Color(
                                                                     0xff9E9E9E)),
@@ -279,7 +279,7 @@ class profilePage extends GetView<profileController> {
                                                       text: controller
                                                           .reviewList[index]
                                                           .content,
-                                                      style: TextStyle(
+                                                      style: const TextStyle(
                                                           fontSize: 13,
                                                           color: Colors.black))),
                                               Sbox(0, 30)

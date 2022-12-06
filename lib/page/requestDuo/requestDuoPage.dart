@@ -21,7 +21,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60.0),
+          preferredSize: const Size.fromHeight(60.0),
           child: AppBar(
             elevation: 0.5,
             bottom: TabBar(
@@ -126,7 +126,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   child: Text('요청한 듀오가 없습니다'),
                                 )
                               : Padding(
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                   child: Column(
                                       children: List.generate(
                                           controller.requestDuoNum.value,
@@ -159,7 +159,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                           Align(
                             alignment: Alignment.centerRight,
                             child: DropdownButtonHideUnderline(
-                              child: Container(
+                              child: SizedBox(
                                 width: 90,
                                 child: DropdownButton<RxString>(
                                     onChanged: (newValue) {
@@ -213,7 +213,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   child: Text('요청 받은 듀오가 없습니다'),
                                 )
                               : Padding(
-                                  padding: EdgeInsets.all(12),
+                                  padding: const EdgeInsets.all(12),
                                   child: Column(
                                       children: List.generate(
                                           controller.requestedDuoNum.value,
@@ -245,8 +245,8 @@ class RequestDuoPage extends GetView<RequestDuoController> {
     return Container(
       width: Get.width - 20,
       height: (duostatus == 2||duostatus==1) ? 200 : 150,
-      padding: EdgeInsets.all(12),
-      margin: EdgeInsets.only(bottom: 12),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
@@ -255,7 +255,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 2,
             blurRadius: 2,
-            offset: Offset(3, 3), // changes position of shadow
+            offset: const Offset(3, 3), // changes position of shadow
           ),
         ],
       ),
@@ -273,7 +273,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: Container(
+                child: SizedBox(
                   width: 70,
                   height: 70,
                   child: Image.network(
@@ -343,7 +343,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                     Row(
                       children: [
                         (request.duo.rank=='')?
-                        SizedBox()
+                        const SizedBox()
                         :Expanded(
                           child: Row(
                             children: [
@@ -381,7 +381,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                         (duostatus == 3&&i==1)
                             ? OutlinedButton(
                                 onPressed: () {
@@ -405,7 +405,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   ),
                                 ),
                               )
-                            : SizedBox(),
+                            : const SizedBox(),
                       ],
                     ),
                   ],
@@ -483,11 +483,11 @@ class RequestDuoPage extends GetView<RequestDuoController> {
               style: OutlinedButton.styleFrom(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
-                  side: BorderSide(color: Colors.black, width: 0.2),
-                  padding: EdgeInsets.only(bottom: 5, left: 25, right: 25)),
+                  side: const BorderSide(color: Colors.black, width: 0.2),
+                  padding: const EdgeInsets.only(bottom: 5, left: 25, right: 25)),
               child: Text(
                 text1,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 16,
                 ),
@@ -513,7 +513,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                       const EdgeInsets.only(bottom: 5, left: 25, right: 25)),
               child: Text(
                 text2,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                 ),

@@ -10,12 +10,7 @@ import '../../components/messagePopUp.dart';
 import '../../http/url.dart';
 import '../../model/profile.dart';
 import '../../page/app.dart';
-import 'package:cau_gameduo/controller/message/messageController.dart';
-import 'package:cau_gameduo/controller/myPage/MyPageController.dart';
-import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
-import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
-import 'package:cau_gameduo/controller/home/homePageController.dart';
-import 'package:cau_gameduo/controller/myPage/profileController.dart';
+
 
 
 Profile1 profile = Profile1(
@@ -46,11 +41,11 @@ class SignUpController extends GetxController {
   RxBool isFinish = false.obs;
 
   Future checkDuplicated() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
     var checkdup = await http.get(
         Uri.parse(
-            urlBase + 'api/nickname/dupli?nickname=${nickController.text}'),
+            '${urlBase}api/nickname/dupli?nickname=${nickController.text}'),
         headers: {
           "content-type": "application/json",
           "accept": "application/json",
@@ -93,11 +88,11 @@ class SignUpController extends GetxController {
   }
 
   Future SignUp() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
     late var signup;
     if (type.value == 1) {
-      signup = await http.post(Uri.parse(urlBase + 'api/signUp'),
+      signup = await http.post(Uri.parse('${urlBase}api/signUp'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -111,7 +106,7 @@ class SignUpController extends GetxController {
             'supporter': (isSelected[4].value) ? 1 : 0,
           }));
     } else {
-      signup = await http.post(Uri.parse(urlBase + 'api/signUp-id'),
+      signup = await http.post(Uri.parse('${urlBase}api/signUp-id'),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
           },
@@ -128,55 +123,16 @@ class SignUpController extends GetxController {
           }));
     }
 
-    // Map re = jsonDecode(signup.body);
-    // var result= re['message'];
-    // log(re.toString());
-    // if (signup.statusCode == 200) {
-    //   profile = Profile1(
-    //       price: result['point'],
-    //       image: result['profilePhotoUrl'],
-    //       isPlayer: result['isPlayer'],
-    //       nick: result['nickname'],
-    //       tier: '',
-    //       position: [],
-    //       playStyle: '',
-    //       introduce: '',
-    //       isOn: true,
-    //       star: 0,
-    //       reviews: []);
-    //   jwtaccessToken= result['jwtRefreshToken'];
-    //   if (result['top'] == 1)
-    //     profile.position.add('탑');
-    //   if (result['jungle'] == 1)
-    //     profile.position.add('정글');
-    //   if (result['mid'] == 1)
-    //     profile.position.add('미드');
-    //   if (result['ad'] == 1)
-    //     profile.position.add('원딜');
-    //   if (result['supporter'] == 1)
-    //     profile.position.add('서포터');
-
-      // WidgetsBinding.instance.addPostFrameCallback((_) {
-      //   searchDuoController.to.getDuo();
-      // });
-      // MessageController.to.getAllRooms();
-      // MyPageController.to.getRequestDuoNum();
-      // RequestDuoController.to.getRequestDuo();
-      // RequestDuoController.to.getRequestedDuo();
-      // profileController.to.getReviews();
-      //
-      // await homePageController.to.gethomePageduoProfile();
-      // await homePageController.to.gethomePageduoProfileVertical();
       Get.back();
       Get.to(App());
 
   }
 
   Future SignUpId() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
 
-    var signup = await http.post(Uri.parse(urlBase + 'api/signUp-id'),
+    var signup = await http.post(Uri.parse('${urlBase}api/signUp-id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -193,18 +149,7 @@ class SignUpController extends GetxController {
     Map re = jsonDecode(signup.body);
     log(re.toString());
     if (signup.statusCode == 200) {
-      // profile = Profile1(
-      //     price: 0,
-      //     image: re['profilePhotoUrl'],
-      //     isPlayer: re['isPlayer'],
-      //     nick: re['nickname'],
-      //     tier: '',
-      //     position: [],
-      //     playStyle: '',
-      //     introduce: '',
-      //     isOn: true,
-      //     star: 0,
-      //     reviews: []);
+
       Get.back();
       Get.back();
       Get.back();
@@ -212,10 +157,10 @@ class SignUpController extends GetxController {
   }
 
   Future checkIdDuplicated() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
     var checkdup = await http.get(
-        Uri.parse(urlBase + 'api/id/dupli?id=${idController.text}'),
+        Uri.parse('${urlBase}api/id/dupli?id=${idController.text}'),
         headers: {
           "content-type": "application/json",
           "accept": "application/json",
@@ -227,7 +172,7 @@ class SignUpController extends GetxController {
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-                message: '이미 사용중인 아이디입니다.',
+                message: re['message'],
                 okCallback: () {
                   Get.back();
                   Get.back();

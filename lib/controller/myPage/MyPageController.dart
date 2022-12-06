@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:cau_gameduo/controller/myPage/profileController.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

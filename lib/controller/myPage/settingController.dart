@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:developer';
-
 import 'package:cau_gameduo/http/url.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,8 +12,9 @@ class SettingController extends GetxController {
   onOff() async {
     if (on.value == false) {
       on(true);
-    } else
+    } else {
       on(false);
+    }
 
     var changeStatus = await http.post(
         Uri.parse(

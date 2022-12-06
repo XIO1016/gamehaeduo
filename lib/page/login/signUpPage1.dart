@@ -25,7 +25,7 @@ class SignUpPage1 extends GetView<SignUpController> {
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
-                          return AlertDialog(
+                          return const AlertDialog(
                             content: Text('비밀번호를 다시 확인해주세요.'),
                           );
                         });

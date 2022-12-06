@@ -25,7 +25,7 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
           ),
         ),
         body: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -45,8 +45,8 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
                   items: [
                     for (var value in controller.tierList)
                       DropdownMenuItem(
-                        child: Text(value),
                         value: value.obs,
+                        child: Text(value),
                       ),
                   ]),
               Sbox(0, 30),
@@ -65,74 +65,6 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
                 ],
               ),
 
-              //---포지션
-              // Sbox(0, 30),
-              // const Text(
-              //   '포지션',
-              //   style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              // ),
-              // Sbox(0, 10),
-              // Row(
-              //   children: [
-              //     positionChoiceBox(0),
-              //     Sbox(10, 0),
-              //     positionChoiceBox(1),
-              //     Sbox(10, 0),
-              //     positionChoiceBox(2),
-              //     Sbox(10, 0),
-              //     positionChoiceBox(3),
-              //     Sbox(10, 0),
-              //     positionChoiceBox(4),
-              //   ],
-              // ),
-              // Sbox(0, 30),
-
-              //   //---닉네임
-              //     const Text(
-              //       '닉네임',
-              //       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w500),
-              //     ),
-              //       Sbox(0, 10),
-              //       Row(
-              //         children: [
-              //           Expanded(
-              //             child: TextFormField( // 할 일: 회원가입에서 저장한 닉네임 불러오기
-              //               cursorColor: maincolor,
-              //               controller: controller.nickController,
-              //               decoration: InputDecoration(
-              //                 focusedBorder: UnderlineInputBorder(
-              //                 borderSide: BorderSide(color: maincolor)),
-              //                 suffixIcon: (controller.checkNickDup.value)
-              //                     ? Icon(
-              //                   Icons.check,
-              //                   color: maincolor,
-              //                 )
-              //                     : null,
-              //                 hintText: "영어, 한글, 숫자 조합 2-10자리",
-              //                 hintStyle: const TextStyle(
-              //                     fontSize: 15, color: Color(0xff727272)),
-              //               ),
-              //             ),
-              //           ),
-              //           Sbox(10, 0),
-              //           GestureDetector(
-              //             onTap: () {
-              //               controller.checkDuplicated();
-              //               },
-              //             child: Container(
-              //               width: 80,
-              //               height: 43,
-              //               decoration: BoxDecoration(
-              //                   border: Border.all(
-              //                       width: 1.5,
-              //                       color: (controller.checkNickDup.value)
-              //                           ? maincolor
-              //                           : const Color(0xffAFAFAF))),
-              //               child: const Center(child: Text('중복확인')),
-              //             ),
-              //           ),
-              //         ],
-              //       ),
             ],
           ),
         ),
@@ -189,35 +121,11 @@ class BecomePlayerPage2 extends GetView<BecomePlayerController> {
             fontSize: 16,
             color: (controller.isSelectedGender[i] == true)
                 ? maincolor
-                : Color(0xffB4B4B4),
+                : const Color(0xffB4B4B4),
           ),
         )),
       ),
     );
   }
 
-  //포지션 선택 상자
-  // Widget positionChoiceBox(int i) {
-  //   return GestureDetector(
-  //     onTap: () => controller.checkPosition(i),
-  //     child: Container(
-  //       width: Get.width / 5 - 30,
-  //       height: 50,
-  //       decoration: (controller.isSelectedPosition[i] == true)
-  //           ? BoxDecoration(
-  //               color: Colors.white, border: Border.all(color: maincolor))
-  //           : const BoxDecoration(color: Color(0xffF4F4F4)),
-  //       child: Center(
-  //           child: Text(
-  //         controller.position[i],
-  //         style: TextStyle(
-  //           fontSize: 16,
-  //           color: (controller.isSelectedPosition[i] == true)
-  //               ? maincolor
-  //               : const Color(0xffB4B4B4),
-  //         ),
-  //       )),
-  //     ),
-  //   );
-  // }
 }

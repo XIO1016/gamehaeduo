@@ -1,6 +1,3 @@
-import 'package:cau_gameduo/model/message.dart';
-import 'package:cau_gameduo/page/message/messageListPage.dart';
-import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -27,7 +24,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
           Get.to(() => MessagePage(), arguments: [duo,null]);
         },
         backgroundColor: maincolor,
-        child: Icon(Icons.mail),
+        child: const Icon(Icons.mail),
       ),
       appBar: AppBar(
         title: const Text(
@@ -82,19 +79,10 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                     ),
                     Row(
                       children: [
-                        // (controller.myprofile.isOn)
-                        //     ? Container(
-                        //         width: 20,
-                        //         height: 20,
-                        //         decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(100),
-                        //             color: Colors.lightGreenAccent),
-                        //       )
-                        //     : Container(),
                         Sbox(10, 0),
                         Text(
                           duo.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                       ],
@@ -223,14 +211,14 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                 itemCount: controller.reviewList.length + 1,
                                 itemBuilder: (_, index) {
                                   if (index < controller.reviewList.length) {
-                                    return Container(
+                                    return SizedBox(
                                       height: 120,
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
                                             children: [
-                                              Container(
+                                              SizedBox(
                                                 width: 40,
                                                 height: 40,
                                                 child:Image.network(controller.reviewList[index].image),
@@ -244,7 +232,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                                     controller
                                                         .reviewList[index].nick,
                                                     style:
-                                                        TextStyle(fontSize: 13),
+                                                        const TextStyle(fontSize: 13),
                                                   ),
                                                   Row(
                                                     children: [
@@ -254,7 +242,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                                             .rating,
                                                         itemBuilder:
                                                             (context, index) =>
-                                                                Icon(
+                                                                const Icon(
                                                           Icons.star,
                                                           color: Colors.amber,
                                                         ),
@@ -266,7 +254,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                                         controller
                                                             .reviewList[index]
                                                             .reviewTime,
-                                                        style: TextStyle(
+                                                        style: const TextStyle(
                                                             fontSize: 10,
                                                             color: Color(
                                                                 0xff9E9E9E)),
@@ -283,7 +271,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
                                                   text: controller
                                                       .reviewList[index]
                                                       .content,
-                                                  style: TextStyle(
+                                                  style: const TextStyle(
                                                       fontSize: 13,
                                                       color: Colors.black))),
                                           Sbox(0, 30)

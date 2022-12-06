@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/controller/login/SignUpController.dart';
-import 'package:cau_gameduo/page/login/loginPage.dart';
-import 'package:cau_gameduo/page/home/homePage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

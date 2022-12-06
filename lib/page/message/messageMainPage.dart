@@ -1,13 +1,10 @@
-import 'package:cau_gameduo/components/Color.dart';
+
 import 'package:cau_gameduo/model/messageRoom.dart';
-import 'package:cau_gameduo/page/message/messageListPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
-import '../../model/duo.dart';
+
 
 class MessageMainPage extends GetView<MessageController> {
   @override
@@ -81,7 +78,7 @@ class MessageMainPage extends GetView<MessageController> {
               child: Container(
                 width: 50,
                 height: 50,
-                color: Color(0xffD9D9D9),
+                color: const Color(0xffD9D9D9),
                 child: Image.network(
                   room.duo.image,
                   fit: BoxFit.fitWidth,
@@ -104,15 +101,15 @@ class MessageMainPage extends GetView<MessageController> {
                       ),
                       Text(
                         room.currentMessageTime,
-                        style: TextStyle(
-                            color: const Color(0xffACA6A6), fontSize: 10),
+                        style: const TextStyle(
+                            color: Color(0xffACA6A6), fontSize: 10),
                       ),
                     ],
                   ),
                   Sbox(0, 8),
                   Text(
                     room.currentMessage,
-                    style: TextStyle(fontSize: 13),
+                    style: const TextStyle(fontSize: 13),
                   ),
                 ],
               ),

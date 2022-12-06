@@ -82,13 +82,7 @@ class LoginPage extends GetView<LoginController> {
                               focusedBorder: OutlineInputBorder(
                                   borderSide:
                                       BorderSide(width: 2, color: maincolor)),
-                              prefixIcon: (controller
-                                      .checkNickDup.value) //이거 빼면 오류남...!
-                                  ? Icon(
-                                      Icons.check,
-                                      color: maincolor,
-                                    )
-                                  : const Icon(
+                              prefixIcon: const Icon(
                                       Icons.https,
                                     ),
                               hintText: "비밀번호",
@@ -107,21 +101,21 @@ class LoginPage extends GetView<LoginController> {
                             onPressed: () {
                               controller.Login();
                             },
-                            child: Text(
+                            style: OutlinedButton.styleFrom(
+                                minimumSize: const Size(0, 60),
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5))),
+                                backgroundColor: maincolor,
+                                padding: const EdgeInsets.only(
+                                    bottom: 5, left: 25, right: 25)),
+                            child: const Text(
                               '로그인',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 16,
                               ),
                             ),
-                            style: OutlinedButton.styleFrom(
-                                minimumSize: Size(0, 60),
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                backgroundColor: maincolor,
-                                padding: EdgeInsets.only(
-                                    bottom: 5, left: 25, right: 25)),
                           ),
                         ),
                       ],
@@ -130,7 +124,7 @@ class LoginPage extends GetView<LoginController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('아직 계정이 없으신가요? ',
+                        const Text('아직 계정이 없으신가요? ',
                             style: TextStyle(color: Colors.grey)),
                         TextButton(
                           child: Text('회원가입',
@@ -141,20 +135,20 @@ class LoginPage extends GetView<LoginController> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SignUpPage1()));
+                                    builder: (context) => const SignUpPage1()));
                           },
                         )
                       ],
                     ),
                     Sbox(0, 10),
                     Stack(alignment: Alignment.center, children: [
-                      Divider(color: Color(0xffF4F4F4), thickness: 1.0),
+                      const Divider(color: Color(0xffF4F4F4), thickness: 1.0),
                       Container(
                         width: 50,
                         height: 30,
                         color: Colors.white,
                       ),
-                      Text('또는', style: TextStyle(color: Color(0xffC4C4C4))),
+                      const Text('또는', style: TextStyle(color: Color(0xffC4C4C4))),
                     ]),
                     Sbox(0, 30),
                     Row(
@@ -162,7 +156,7 @@ class LoginPage extends GetView<LoginController> {
                         Expanded(
                           child: GestureDetector(
                               child: Container(
-                                padding: EdgeInsets.all(10.0),
+                                padding: const EdgeInsets.all(10.0),
                                 // width: 300,
                                 height: 50,
                                 decoration: const BoxDecoration(

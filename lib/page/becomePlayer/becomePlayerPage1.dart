@@ -31,7 +31,7 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
         body: ListView(children: [
           Padding(
             //**나중에 FORM으로 감싸기
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -151,7 +151,7 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BecomePlayerPage2()));
+                          builder: (context) => const BecomePlayerPage2()));
                 },
                 child: Container(
                   width: Get.width,
@@ -168,7 +168,7 @@ class BecomePlayerPage1 extends GetView<BecomePlayerController> {
             : Container(
                 width: Get.width,
                 height: 60,
-                color: Color(0xffE9E9E9),
+                color: const Color(0xffE9E9E9),
                 child: const Center(
                   child: Text(
                     '다음',

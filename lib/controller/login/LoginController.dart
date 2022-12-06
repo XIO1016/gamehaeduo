@@ -27,10 +27,10 @@ class LoginController extends GetxController {
 
 
   Future Login() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
+    Get.dialog(const Center(child: CircularProgressIndicator()),
         barrierDismissible: false);
 
-    var login = await http.post(Uri.parse(urlBase + 'api/login-id'),
+    var login = await http.post(Uri.parse('${urlBase}api/login-id'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -47,7 +47,7 @@ class LoginController extends GetxController {
       jwtaccessToken = result['jwtAccessToken']!;
 
       var getprofile = await http.get(
-          Uri.parse(urlBase + 'api/player/profile?userIdx=$userId'),
+          Uri.parse('${urlBase}api/player/profile?userIdx=$userId'),
           headers: <String, String>{
             "content-type": "application/json",
             "accept": "application/json",
@@ -122,37 +122,4 @@ class LoginController extends GetxController {
   }
 
 
-
-
-
-
-  RxBool checkNickDup=false.obs; //오류나서 임시로
-  Future checkDuplicated() async {
-    Get.dialog(Center(child: CircularProgressIndicator()),
-        barrierDismissible: false);
-    var checkdup = await http.get(
-        Uri.parse(
-            urlBase + 'api/nickname/dupli?nickname=${nickController.text}'),
-        headers: {
-          "content-type": "application/json",
-          "accept": "application/json",
-        });
-    Map re = jsonDecode(checkdup.body);
-    if (re['isSuccess'] == false) {
-      checkNickDup(false);
-      showDialog(
-          context: Get.context!,
-          builder: (context) => MessagePopup(
-            message: re['message'],
-            okCallback: () {
-              Get.back();
-            },
-            okmessage: '확인',
-            cancelCallback: Get.back,
-          ));
-    } else {
-      checkNickDup(true);
-      Get.back();
-    }
-  }
 }

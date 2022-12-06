@@ -1,16 +1,13 @@
 import 'dart:developer';
 
 import 'package:cau_gameduo/components/Color.dart';
-import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/page/message/messagePage.dart';
 import 'package:cau_gameduo/controller/message/messageController.dart';
 import '../../components/SizedBox.dart';
 import '../../components/tierImage.dart';
 import '../../model/duo.dart';
-import '../../model/message.dart';
 import '../app.dart';
 
 class MessageListPage extends GetView<MessageController> {
@@ -57,7 +54,7 @@ class MessageListPage extends GetView<MessageController> {
                     child: Container(
                       width: 50,
                       height: 50,
-                      color: Color(0xffD9D9D9),
+                      color: const Color(0xffD9D9D9),
                       child: Image.network(
                         duo.image,
                         fit: BoxFit.fitWidth,
@@ -76,7 +73,7 @@ class MessageListPage extends GetView<MessageController> {
                       ),
                       Sbox(0, 5),
                       (duo.rank == '')
-                          ? SizedBox()
+                          ? const SizedBox()
                           : Row(
                               children: [
                                 const Text(
@@ -142,7 +139,7 @@ class MessageListPage extends GetView<MessageController> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       (duo.price == -1)
-                          ? SizedBox()
+                          ? const SizedBox()
                           : Row(
                               children: [
                                 Image.asset(
@@ -222,7 +219,7 @@ class MessageListPage extends GetView<MessageController> {
       ),
       child: Text(
         text, //듀요 신청중/듀오 진행중
-        style: TextStyle(color: Colors.black),
+        style: const TextStyle(color: Colors.black),
       ),
     );
   }
@@ -237,7 +234,7 @@ class MessageListPage extends GetView<MessageController> {
         bottom: BorderSide(width: 1, color: Color(0xffEEE6E6)),
       )),
       child: ListTile(
-        contentPadding: EdgeInsets.all(0),
+        contentPadding: const EdgeInsets.all(0),
         title: Padding(
           padding: const EdgeInsets.only(bottom: 5.0),
           child: Row(
@@ -261,14 +258,14 @@ class MessageListPage extends GetView<MessageController> {
               Text(
                 //message.datetime,
                 messageList[i].timestamp,
-                style: TextStyle(color: const Color(0xffACA6A6), fontSize: 10),
+                style: const TextStyle(color: Color(0xffACA6A6), fontSize: 10),
               ),
             ],
           ),
         ),
         subtitle: Text(
           messageList[i].content,
-          style: TextStyle(fontSize: 13),
+          style: const TextStyle(fontSize: 13),
         ),
       ),
     );

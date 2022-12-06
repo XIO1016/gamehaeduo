@@ -15,7 +15,7 @@ void CancelRequestPopUp(BuildContext context) {
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
 
-          return Container(
+          return SizedBox(
             height: height / 8,
             width: width,
             child: Center(
@@ -23,7 +23,7 @@ void CancelRequestPopUp(BuildContext context) {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RichText(
-                    text: TextSpan(children: const <TextSpan>[
+                    text: const TextSpan(children: <TextSpan>[
                       TextSpan(
                           text: '전주비빔밥',
                           style: TextStyle(
@@ -36,7 +36,7 @@ void CancelRequestPopUp(BuildContext context) {
                               fontSize: 15, color: Color(0xff9D9D9D))),
                     ]),
                   ),
-                  Text('취소 하시겠습니까?',
+                  const Text('취소 하시겠습니까?',
                       style: TextStyle(fontSize: 15, color: Color(0xff9D9D9D))),
                 ],
               ),
@@ -78,7 +78,7 @@ void CancelOngoingPopUp(BuildContext context, String name, Duo duo,Request reque
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
 
-          return Container(
+          return SizedBox(
             height: height / 8,
             width: width,
             child: Center(
@@ -89,17 +89,17 @@ void CancelOngoingPopUp(BuildContext context, String name, Duo duo,Request reque
                     text: TextSpan(children: <TextSpan>[
                       TextSpan(
                           text: name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: Color(0xff5D5D5D))),
-                      TextSpan(
+                      const TextSpan(
                           text: '님과 진행중인 듀오를',
                           style: TextStyle(
                               fontSize: 15, color: Color(0xff9D9D9D))),
                     ]),
                   ),
-                  Text('취소 하시겠습니까?',
+                  const Text('취소 하시겠습니까?',
                       style: TextStyle(fontSize: 15, color: Color(0xff9D9D9D))),
                 ],
               ),
@@ -144,7 +144,7 @@ void FinishOngoingPopUp(BuildContext context,String name, Duo duo,Request reques
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
 
-          return Container(
+          return SizedBox(
             height: height / 8,
             width: width,
             child: Center(
@@ -155,17 +155,17 @@ void FinishOngoingPopUp(BuildContext context,String name, Duo duo,Request reques
                     text: TextSpan(children:  <TextSpan>[
                       TextSpan(
                           text: name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: Color(0xff5D5D5D))),
-                      TextSpan(
+                      const TextSpan(
                           text: '님과 진행중인 듀오를',
                           style: TextStyle(
                               fontSize: 15, color: Color(0xff9D9D9D))),
                     ]),
                   ),
-                  Text('완료 하시겠습니까?',
+                  const Text('완료 하시겠습니까?',
                       style: TextStyle(fontSize: 15, color: Color(0xff9D9D9D))),
                 ],
               ),
@@ -210,7 +210,7 @@ void AcceptRequestPopUp(BuildContext context,String name, Duo duo,Request reques
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
 
-          return Container(
+          return SizedBox(
             height: height / 8,
             width: width,
             child: Center(
@@ -221,17 +221,17 @@ void AcceptRequestPopUp(BuildContext context,String name, Duo duo,Request reques
                     text: TextSpan(children:  <TextSpan>[
                       TextSpan(
                           text: name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: Color(0xff5D5D5D))),
-                      TextSpan(
+                      const TextSpan(
                           text: '님의 듀오 요청을',
                           style: TextStyle(
                               fontSize: 15, color: Color(0xff9D9D9D))),
                     ]),
                   ),
-                  Text('수락 하시겠습니까?',
+                  const Text('수락 하시겠습니까?',
                       style: TextStyle(fontSize: 15, color: Color(0xff9D9D9D))),
                 ],
               ),
@@ -275,7 +275,7 @@ void RejectRequestPopUp(BuildContext context,String name, Duo duo,Request reques
           var height = MediaQuery.of(context).size.height;
           var width = MediaQuery.of(context).size.width;
 
-          return Container(
+          return SizedBox(
             height: height / 8,
             width: width,
             child: Center(
@@ -286,17 +286,17 @@ void RejectRequestPopUp(BuildContext context,String name, Duo duo,Request reques
                     text: TextSpan(children:  <TextSpan>[
                       TextSpan(
                           text: name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: Color(0xff5D5D5D))),
-                      TextSpan(
+                      const TextSpan(
                           text: '님의 듀오 요청을',
                           style: TextStyle(
                               fontSize: 15, color: Color(0xff9D9D9D))),
                     ]),
                   ),
-                  Text('거절 하시겠습니까?',
+                  const Text('거절 하시겠습니까?',
                       style: TextStyle(fontSize: 15, color: Color(0xff9D9D9D))),
                 ],
               ),

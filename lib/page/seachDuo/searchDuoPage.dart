@@ -2,8 +2,6 @@ import 'dart:developer';
 
 import 'package:cau_gameduo/controller/searchDuo/seachDuoController.dart';
 import 'package:cau_gameduo/page/duoProfile/duoProfilePage.dart';
-import 'package:cau_gameduo/page/message/messageListPage.dart';
-import 'package:cau_gameduo/page/message/messageMainPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
@@ -19,7 +17,7 @@ class searchDuoPage extends GetView<searchDuoController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomSheet: (controller.duoNum.value == 0)
-          ? SizedBox()
+          ? const SizedBox()
           : Container(
               color: Colors.white,
               padding: const EdgeInsets.all(20.0),
@@ -66,7 +64,7 @@ class searchDuoPage extends GetView<searchDuoController> {
               onPressed: () {
                 controller.getDuoRefresh();
               },
-              icon: Icon(Icons.refresh,color: Colors.black,))
+              icon: const Icon(Icons.refresh,color: Colors.black,))
         ],
         title: const Padding(
           padding: EdgeInsets.all(20.0),
@@ -82,7 +80,7 @@ class searchDuoPage extends GetView<searchDuoController> {
         () => Column(
           children: [
             if (controller.duoNum.value == 0)
-              Center(child: const Text('듀오가 없어요'))
+              const Center(child: Text('듀오가 없어요'))
             else
               Container(
                 color: Colors.white,

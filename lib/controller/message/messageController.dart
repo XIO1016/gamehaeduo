@@ -110,16 +110,11 @@ class MessageController extends GetxController {
   }
 
   getAllMessages(int roomid, Duo duo) async {
-    //
-    //
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   loading(true);
-    // });
 
     messageList = [];
     var getAllMessage = await http.get(
         Uri.parse(
-            '${urlBase}api/note/room?roomId=${roomid}&userIdx=$userId&duoIdx=${duo.duoId}'),
+            '${urlBase}api/note/room?roomId=$roomid&userIdx=$userId&duoIdx=${duo.duoId}'),
         headers: <String, String>{
           "content-type": "application/json",
           "accept": "application/json",

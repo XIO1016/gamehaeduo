@@ -22,7 +22,7 @@ class MyPage extends GetView<MyPageController> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: ListView(
           children: [
             Column(
@@ -55,19 +55,19 @@ class MyPage extends GetView<MyPageController> {
                         children: [
                           Text(
                             profile.nick,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Sbox(0, 5),
                           (controller.price.value == -1)
-                              ? SizedBox()
+                              ? const SizedBox()
                               : Row(
                                   children: [
                                     Text(
                                       controller.price.value.toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -83,7 +83,7 @@ class MyPage extends GetView<MyPageController> {
                         ],
                       ),
                       Expanded(child: Sbox(10, 0)),
-                      Icon(Icons.navigate_next, size: 50, color: Colors.grey),
+                      const Icon(Icons.navigate_next, size: 50, color: Colors.grey),
                       Sbox(10, 0),
                     ],
                   ),
@@ -95,15 +95,15 @@ class MyPage extends GetView<MyPageController> {
                   padding: const EdgeInsets.only(bottom: 20.0, top: 10.0),
                   decoration: BoxDecoration(
                     border: Border.all(color: maincolor),
-                    borderRadius: BorderRadius.all(Radius.circular(
-                            20.0) //                 <--- border radius here
+                    borderRadius: const BorderRadius.all(Radius.circular(
+                            20.0)
                         ),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.7),
                         spreadRadius: 0,
                         blurRadius: 5.0,
-                        offset: Offset(1, 1), // changes position of shadow
+                        offset: const Offset(1, 1), // changes position of shadow
                       ),
                     ],
                     color: Colors.white,
@@ -112,13 +112,13 @@ class MyPage extends GetView<MyPageController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap:()=>Get.to(()=>RequestDuoPage()),
+                        onTap:()=>Get.to(()=>const RequestDuoPage()),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                              Text(
                               controller.requestedDuoNum.value.toString(),
-                              style: TextStyle(fontSize: 50),
+                              style: const TextStyle(fontSize: 50),
                             ),
                             const Text(
                               "요청받은 듀오",
@@ -129,13 +129,13 @@ class MyPage extends GetView<MyPageController> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: ()=>Get.to(()=>RequestDuoPage()),
+                        onTap: ()=>Get.to(()=>const RequestDuoPage()),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                              Text(
                                controller.requestDuoNum.value.toString(),
-                              style: TextStyle(fontSize: 50),
+                              style: const TextStyle(fontSize: 50),
                             ),
                             const Text("요청한 듀오",
                                 style: TextStyle(
@@ -152,13 +152,13 @@ class MyPage extends GetView<MyPageController> {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     horizontalTitleGap: 0.0,
-                    leading: Icon(Icons.headphones),
-                    title: Text('플레이어 되기 (프로필 등록)',
+                    leading: const Icon(Icons.headphones),
+                    title: const Text('플레이어 되기 (프로필 등록)',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
-                    trailing: Icon(Icons.navigate_next),
+                    trailing: const Icon(Icons.navigate_next),
                     onTap: () {
-                      Get.to(BecomePlayerPage1());
+                      Get.to(const BecomePlayerPage1());
                     },
                   ),
                 ),
@@ -167,13 +167,13 @@ class MyPage extends GetView<MyPageController> {
                   child: ListTile(
                     contentPadding: EdgeInsets.zero,
                     horizontalTitleGap: 0.0,
-                    leading: Icon(Icons.settings),
-                    title: Text('설정',
+                    leading: const Icon(Icons.settings),
+                    title: const Text('설정',
                         style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w500)),
-                    trailing: Icon(Icons.navigate_next),
+                    trailing: const Icon(Icons.navigate_next),
                     onTap: () {
-                      Get.to(SettingPage());
+                      Get.to(const SettingPage());
                     },
                   ),
                 ),
