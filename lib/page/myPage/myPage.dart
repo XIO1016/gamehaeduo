@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cau_gameduo/components/Color.dart';
+import 'package:cau_gameduo/controller/myPage/profileController.dart';
 import 'package:cau_gameduo/page/becomePlayer/becomePlayerPage1.dart';
 import 'package:cau_gameduo/page/myPage/profilePage.dart';
 import 'package:cau_gameduo/page/requestDuo/requestDuoPage.dart';
@@ -29,7 +30,10 @@ class MyPage extends GetView<MyPageController> {
               children: [
                 Sbox(0, 10),
                 GestureDetector(
-                  onTap: () => Get.to(profilePage()),
+                  onTap: () {
+                    profileController.to.getProfile();
+                    Get.to(profilePage());
+                  },
                   child: Row(
                     children: [
                       ClipRRect(
@@ -57,12 +61,12 @@ class MyPage extends GetView<MyPageController> {
                             ),
                           ),
                           Sbox(0, 5),
-                          (profile.price == -1)
+                          (controller.price.value == -1)
                               ? SizedBox()
                               : Row(
                                   children: [
                                     Text(
-                                      profile.price.toString(),
+                                      controller.price.value.toString(),
                                       style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w500,
@@ -113,7 +117,7 @@ class MyPage extends GetView<MyPageController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                              Text(
-                              controller.requestedDuoNum.toString(),
+                              controller.requestedDuoNum.value.toString(),
                               style: TextStyle(fontSize: 50),
                             ),
                             const Text(
@@ -130,7 +134,7 @@ class MyPage extends GetView<MyPageController> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                              Text(
-                               controller.requestDuoNum.toString(),
+                               controller.requestDuoNum.value.toString(),
                               style: TextStyle(fontSize: 50),
                             ),
                             const Text("요청한 듀오",

@@ -68,7 +68,7 @@ void CancelRequestPopUp(BuildContext context) {
   );
 }
 
-void CancelOngoingPopUp(BuildContext context, String name, Duo duo) {
+void CancelOngoingPopUp(BuildContext context, String name, Duo duo,Request request) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -118,7 +118,7 @@ void CancelOngoingPopUp(BuildContext context, String name, Duo duo) {
         ),
         TextButton(
           onPressed: () {
-            RequestDuoController.to.cancelDuo(duo);
+            RequestDuoController.to.cancelDuo(duo,request);
             Get.back();
           },
           child: const Text(
@@ -134,7 +134,7 @@ void CancelOngoingPopUp(BuildContext context, String name, Duo duo) {
   );
 }
 
-void FinishOngoingPopUp(BuildContext context,String name, Duo duo) {
+void FinishOngoingPopUp(BuildContext context,String name, Duo duo,Request request) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -184,7 +184,7 @@ void FinishOngoingPopUp(BuildContext context,String name, Duo duo) {
         ),
         TextButton(
           onPressed: () {
-            RequestDuoController.to.finishDuo(duo);
+            RequestDuoController.to.finishDuo(duo,request);
             Navigator.pop(context, 'OK');
           },
           child: const Text(
@@ -200,7 +200,7 @@ void FinishOngoingPopUp(BuildContext context,String name, Duo duo) {
   );
 }
 
-void AcceptRequestPopUp(BuildContext context,String name, Future f) {
+void AcceptRequestPopUp(BuildContext context,String name, Duo duo,Request request) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -250,7 +250,7 @@ void AcceptRequestPopUp(BuildContext context,String name, Future f) {
         ),
         TextButton(
           onPressed: () {
-            f;
+            RequestDuoController.to.acceptDuo(duo,request);
             Navigator.pop(context, 'OK');},
           child: const Text(
             '수락',
@@ -265,7 +265,7 @@ void AcceptRequestPopUp(BuildContext context,String name, Future f) {
   );
 }
 
-void RejectRequestPopUp(BuildContext context,String name, Duo duo) {
+void RejectRequestPopUp(BuildContext context,String name, Duo duo,Request request) {
   showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -315,7 +315,7 @@ void RejectRequestPopUp(BuildContext context,String name, Duo duo) {
         ),
         TextButton(
           onPressed: () {
-            RequestDuoController.to.finishDuo(duo);
+            RequestDuoController.to.finishDuo(duo,request);
             Navigator.pop(context, 'OK');},
           child: const Text(
             '거절',

@@ -79,7 +79,7 @@ class RequestDuoController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         });
     Map response = jsonDecode(utf8.decode(getRequestedDuo.bodyBytes));
-    log(response.toString());
+    // log(response.toString());
     List result = response['result'];
 
     for (int i = 0; i < result.length; i++) {
@@ -107,6 +107,7 @@ class RequestDuoController extends GetxController {
       requested1Duo.add(request);
       if (request.duo.status == 1) {
         requested2Duo.add(request);
+        // log(requested2Duo.toString());
       }
       if (request.duo.status == 2) {
         requested3Duo.add(request);
@@ -127,7 +128,7 @@ class RequestDuoController extends GetxController {
           "jwtAccessToken": jwtaccessToken
         });
     Map response = jsonDecode(utf8.decode(getRequestDuo.bodyBytes));
-    log(response.toString());
+    // log(response.toString());
     List result = response['result'];
 
     for (int i = 0; i < result.length; i++) {
@@ -151,7 +152,7 @@ class RequestDuoController extends GetxController {
         requestTime: requestTime,
       );
       requestDuoStatus[duo.duoId] = duo.status;
-      log(requestDuoStatus[duo.duoId].toString());
+      // log(requestDuoStatus[duo.duoId].toString());
       requestDuo.add(request);
       request1Duo.add(request);
       if (request.duo.status == 0 || request.duo.status == 2) {
@@ -165,7 +166,7 @@ class RequestDuoController extends GetxController {
 
   }
 
-  cancelDuo(Duo duo) async {
+  cancelDuo(Duo duo,Request request) async {
     MyPageController.to.getRequestDuoNum();
     var cancelDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/cancel'),
@@ -187,13 +188,11 @@ class RequestDuoController extends GetxController {
       log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
         requestDuoStatus[duo.duoId]= 4;
-        request2Duo.remove(duo);
-        request3Duo.add(duo);
+        getRequestDuoRefresh();
       }
       else{
         requestedDuoStatus[duo.duoId]= 4;
-        requested3Duo.remove(duo);
-        requested4Duo.add(duo);
+        getRequestedDuoRefresh();
 
       }
       duo.status = 4;
@@ -214,7 +213,8 @@ class RequestDuoController extends GetxController {
     }
   }
 
-  finishDuo(Duo duo) async {
+  finishDuo(Duo duo,Request request) async {
+    MyPageController.to.getRequestDuoNum();
     var finishDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/finish'),
       headers: <String, String>{
@@ -236,10 +236,10 @@ class RequestDuoController extends GetxController {
       log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
         requestDuoStatus[duo.duoId]= 3;
-      }
+        getRequestDuoRefresh();}
       else{
         requestedDuoStatus[duo.duoId]= 3;
-
+        getRequestedDuoRefresh();
       }
       duo.status=3;
     } else {
@@ -258,7 +258,7 @@ class RequestDuoController extends GetxController {
               ));
     }
   }
-  acceptDuo(Duo duo) async{
+  acceptDuo(Duo duo,Request request) async{
 
     var acceptDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/accept'),
@@ -277,12 +277,14 @@ class RequestDuoController extends GetxController {
     Map acceptDuoResponse = jsonDecode(utf8.decode(acceptDuoRequest.bodyBytes));
     if(acceptDuoResponse['code']==1000){
       Map result= acceptDuoResponse['result'];
-      log(result.toString());
+      // log(result.toString());
       if (requestDuoStatus.containsKey(duo.duoId)){
         requestDuoStatus[duo.duoId]= 2;
+        getRequestDuoRefresh();
       }
       else{
         requestedDuoStatus[duo.duoId]= 2;
+        getRequestedDuoRefresh();
 
       }
       duo.status=1;
@@ -306,7 +308,7 @@ class RequestDuoController extends GetxController {
   int duoStatus(String r, bool requestUser, bool reviewWritten) {
 
     if (r == 'WAITING') {
-      log(r);
+      // log(r);
       if (requestUser == true) {
         //신청 요청중
         return 0;

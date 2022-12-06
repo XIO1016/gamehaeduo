@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cau_gameduo/controller/myPage/profileController.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +15,10 @@ class MyPageController extends GetxController {
   static MyPageController get to => Get.find<MyPageController>();
   RxBool on = false.obs;
   void toggle() => on.value = on.value ? false : true;
-int requestedDuoNum=0;
-  int requestDuoNum=0;
+RxInt requestedDuoNum=0.obs;
+  RxInt requestDuoNum=0.obs;
+
+  RxInt price = 0.obs;
   late Profile1 myprofile;
   // Profile1 myprofile = profileController.to.myprofile;
   @override
@@ -38,9 +42,11 @@ int requestedDuoNum=0;
         });
     Map response = jsonDecode(utf8.decode(getRequestDuoNumRequest.bodyBytes));
     Map result=response['result'];
-    requestedDuoNum=result['requestedDuoNum'];
-    requestDuoNum=result['requestDuoNum'];
+    requestedDuoNum(result['requestedDuoNum']);
+    requestDuoNum(result['requestDuoNum']);
     profile.price= result['point'];
+    price(profile.price);
+    // log(price.value.toString());
 
   }
 }

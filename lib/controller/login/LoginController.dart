@@ -56,11 +56,6 @@ class LoginController extends GetxController {
 
       log(getprofile.statusCode.toString());
       Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
-      profile.isOn = (result['status'] == 'A') ? true : false;
-      SettingController.to.on(profile.isOn);
-      log('isontest');
-      log(profile.isOn.toString());
-      log(SettingController.to.on.value.toString());
 
 
       profile.image = result['profilePhotoUrl']!;
@@ -75,6 +70,8 @@ class LoginController extends GetxController {
           profile.introduce = profileRe['result']['introduction'];
           profile.star = profileRe['result']['rating'];
         }
+        profile.isOn = (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
+        SettingController.to.on(profile.isOn);
 
         if (profileRe['result']['top'] == 1)
           profile.position.add('탑');
@@ -146,7 +143,7 @@ class LoginController extends GetxController {
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-            message: '이미 사용중인 닉네임입니다.',
+            message: re['message'],
             okCallback: () {
               Get.back();
             },

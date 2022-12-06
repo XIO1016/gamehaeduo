@@ -24,7 +24,7 @@ class profileController extends GetxController {
 
   @override
   void onInit() {
-    getProfile();
+
     scrollController.value.addListener(() {
       print('offset = ${scrollController.value.position}');
       if ((scrollController.value.position.pixels ==
@@ -46,7 +46,6 @@ class profileController extends GetxController {
 
   reload() async {
     isLoading.value = true;
-    data.clear();
 
     getData();
   }

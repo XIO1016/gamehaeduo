@@ -181,6 +181,7 @@ class homePageController extends GetxController {
         list[i].position.add('원딜');
       if (result['supporter'] == 1)
         list[i].position.add('서포터');
+
       Get.back();
       Get.to(() => duoProfilePage(), arguments: list[i]);
     }

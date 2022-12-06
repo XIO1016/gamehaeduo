@@ -8,6 +8,7 @@ import '../../components/Color.dart';
 import '../../components/SizedBox.dart';
 
 class profilePage extends GetView<profileController> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -219,28 +220,27 @@ class profilePage extends GetView<profileController> {
                                       if (index <
                                           controller.reviewList.length) {
                                         return Container(
-                                          height: 100,
+                                          height: 120,
                                           child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
                                                   Container(
-                                                    color: Colors.grey,
-                                                    width: 32,
-                                                    height: 32,
+                                                    width: 40,
+                                                    height: 40,
+                                                    child:Image.network(controller.reviewList[index].image),
                                                   ),
                                                   Sbox(10, 0),
                                                   Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
+                                                    CrossAxisAlignment.start,
                                                     children: [
                                                       Text(
                                                         controller
-                                                            .reviewList[index]
-                                                            .nick,
-                                                        style: TextStyle(
-                                                            fontSize: 13),
+                                                            .reviewList[index].nick,
+                                                        style:
+                                                        TextStyle(fontSize: 13),
                                                       ),
                                                       Row(
                                                         children: [
@@ -249,21 +249,19 @@ class profilePage extends GetView<profileController> {
                                                                 .reviewList[index]
                                                                 .rating,
                                                             itemBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    Icon(
-                                                              Icons.star,
-                                                              color:
-                                                                  Colors.amber,
-                                                            ),
+                                                                (context, index) =>
+                                                                Icon(
+                                                                  Icons.star,
+                                                                  color: Colors.amber,
+                                                                ),
                                                             itemCount: 5,
                                                             itemSize: 16.0,
                                                           ),
                                                           Sbox(10, 0),
                                                           Text(
-                                                              controller
-                                                                  .reviewList[index]
-                                                                  .reviewTime,
+                                                            controller
+                                                                .reviewList[index]
+                                                                .reviewTime,
                                                             style: TextStyle(
                                                                 fontSize: 10,
                                                                 color: Color(
@@ -278,13 +276,12 @@ class profilePage extends GetView<profileController> {
                                               Sbox(0, 10),
                                               RichText(
                                                   text: TextSpan(
-                                                      text:controller
-                                          .reviewList[index]
-                                          .content,
+                                                      text: controller
+                                                          .reviewList[index]
+                                                          .content,
                                                       style: TextStyle(
                                                           fontSize: 13,
-                                                          color:
-                                                              Colors.black))),
+                                                          color: Colors.black))),
                                               Sbox(0, 30)
                                             ],
                                           ),

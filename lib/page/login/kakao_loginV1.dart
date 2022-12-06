@@ -73,9 +73,9 @@ class KakaoLogin {
 
                 log(getprofile.statusCode.toString());
                 Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
-                log(profileRe.toString());
-                profile.isOn = (result['status'] == 'Active') ? true : false;
-                SettingController.to.on(profile.isOn);
+                // log(profileRe.toString());
+                // profile.isOn = (result['status'] == 'Active') ? true : false;
+
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
                 profile.nick = result['nickname'];
@@ -89,7 +89,9 @@ class KakaoLogin {
                     profile.introduce = profileRe['result']['introduction'];
                     profile.star = profileRe['result']['rating'];
                   }
-
+                  // log(profileRe['result']['playerProfileStatus'].toString());
+                  profile.isOn = (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
+                  SettingController.to.on(profile.isOn);
                   if (profileRe['result']['top'] == 1)
                     profile.position.add('탑');
                   if (profileRe['result']['jungle'] == 1)
@@ -117,7 +119,6 @@ class KakaoLogin {
                 }
               }
             } else {
-
               Get.to(SignUpPage2(), arguments: [0]);
             }
           } else if (userCheck.statusCode == 2001) {
@@ -126,16 +127,16 @@ class KakaoLogin {
             showDialog(
                 context: Get.context!,
                 builder: (context) => MessagePopup(
-                  message: re['message'],
-                  okCallback: () {
-                    Get.back();
-                    Get.back();
-                  },
-                  okmessage: '확인',
-                  cancelCallback: () {
-                    Get.back();
-                  },
-                ));
+                      message: re['message'],
+                      okCallback: () {
+                        Get.back();
+                        Get.back();
+                      },
+                      okmessage: '확인',
+                      cancelCallback: () {
+                        Get.back();
+                      },
+                    ));
             log('code');
 
             return false;
@@ -172,9 +173,9 @@ class KakaoLogin {
                     "accept": "application/json",
                   },
                   body:
-                  jsonEncode(<String, String>{'accessToken': accessToken}));
+                      jsonEncode(<String, String>{'accessToken': accessToken}));
               Map<String, dynamic> re1 =
-              jsonDecode(utf8.decode(login.bodyBytes));
+                  jsonDecode(utf8.decode(login.bodyBytes));
               log(re1.toString());
               if (login.statusCode == 200) {
                 Map result = re1['result'];
@@ -239,7 +240,6 @@ class KakaoLogin {
                 }
               }
             } else {
-
               Get.to(SignUpPage2(), arguments: [0]);
             }
           } else if (userCheck.statusCode == 2001) {

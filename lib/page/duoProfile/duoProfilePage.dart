@@ -31,7 +31,7 @@ class duoProfilePage extends GetView<duoProfilePageController> {
       ),
       appBar: AppBar(
         title: const Text(
-          '내 프로필',
+          '상세 프로필',
           style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
         ),
         elevation: 0,

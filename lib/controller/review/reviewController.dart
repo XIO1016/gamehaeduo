@@ -1,3 +1,4 @@
+import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import 'package:cau_gameduo/page/app.dart';
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
@@ -46,7 +47,8 @@ class ReviewController extends GetxController {
     log(writeReviewResponse.toString());
     if (writeReviewResponse['code'] == 1000) {
       Map result = writeReviewResponse['result'];
-      log(result.toString());
+      // log(result.toString());
+      RequestDuoController.to.getRequestDuoRefresh();
     } else {
       showDialog(
           context: Get.context!,

@@ -12,6 +12,7 @@ import '../../model/message.dart';
 import '../../model/messageRoom.dart';
 import '../../page/message/messageListPage.dart';
 import '../myPage/MyPageController.dart';
+import '../requestDuo/requestDuoController.dart';
 
 class MessageController extends GetxController {
   static MessageController get to => Get.find<MessageController>();
@@ -95,8 +96,8 @@ class MessageController extends GetxController {
     Map response = jsonDecode(utf8.decode(sendMessage.bodyBytes));
     Map result = response['result'];
     // log(result.toString());
-    Get.back();
-    Get.back();
+
+
     await getAllRooms();
     await getAllMessages(roomid, duo);
   }
@@ -198,6 +199,7 @@ class MessageController extends GetxController {
       log(result.toString());
       messageRoomList[roomid]!.duo.status = 0;
       duoState(0);
+      RequestDuoController.to.getRequestDuoRefresh();
     } else {
       showDialog(
           context: Get.context!,

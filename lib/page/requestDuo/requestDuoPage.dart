@@ -165,24 +165,25 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                     onChanged: (newValue) {
                                       controller.requestedSelected(
                                           newValue.toString());
-                                      if (newValue == '전체') {
+                                      if (newValue.toString() == '전체') {
                                         controller.requestedDuo(
                                             controller.requested1Duo);
                                         controller.requestedDuoNum(
                                             controller.requested1Duo.length);
-                                      } else if (newValue == '수락대기') {
+                                      } else if (newValue.toString() == '수락 대기') {
+                                        log(newValue.toString());
                                         controller.requestedDuo(
                                             controller.requested2Duo);
 
                                         controller.requestedDuoNum(
                                             controller.requested2Duo.length);
-                                      } else if (newValue == '진행중') {
+                                      } else if (newValue.toString() == '진행중') {
                                         controller.requestedDuo(
                                             controller.requested3Duo);
 
                                         controller.requestedDuoNum(
                                             controller.requested3Duo.length);
-                                      } else if (newValue == '과거') {
+                                      } else if (newValue.toString() == '과거') {
                                         controller.requestedDuo(
                                             controller.requested4Duo);
 
@@ -363,7 +364,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                             ? OutlinedButton(
                                 onPressed: () {
                                   CancelOngoingPopUp(context, request.duo.name,
-                                     request.duo);
+                                     request.duo,request);
                                 },
                                 style: OutlinedButton.styleFrom(
                                   shape: const RoundedRectangleBorder(
@@ -471,11 +472,12 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             OutlinedButton(
               onPressed: () {
                 if (text1=='거절') {
-                  RejectRequestPopUp(Get.context!,request.duo.name,request.duo);
+                  RejectRequestPopUp(Get.context!,request.duo.name,request.duo,request);
+
                 }
                 else{
                   CancelOngoingPopUp(Get.context!, request.duo.name,
-                     request.duo);
+                     request.duo,request);
                 }
               },
               style: OutlinedButton.styleFrom(
@@ -494,12 +496,12 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             ElevatedButton(
               onPressed: () {
                 if (text1=='거절') {
-                  AcceptRequestPopUp(Get.context!,request.duo.name, controller.acceptDuo(request.duo));
+                  AcceptRequestPopUp(Get.context!,request.duo.name, request.duo,request);
 
                 }
                 else{
                   FinishOngoingPopUp(Get.context!, request.duo.name,
-                     request.duo);
+                     request.duo,request);
                 }
 
               },

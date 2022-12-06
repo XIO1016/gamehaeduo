@@ -24,7 +24,9 @@ class MessagePage extends GetView<MessageController> {
           centerTitle: true,//dd
           leading: IconButton(
             icon: Icon(Icons.keyboard_arrow_left_rounded, color: blackcolor),
-            onPressed: () =>Get.offAll(MessageListPage()),
+            onPressed: () {
+              Get.back();
+            }
           ),
           titleSpacing: 0,
           elevation: 0,
