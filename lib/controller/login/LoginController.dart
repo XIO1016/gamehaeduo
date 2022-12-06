@@ -17,14 +17,11 @@ import '../../components/messagePopUp.dart';
 import '../../http/url.dart';
 import '../../page/app.dart';
 
-
 class LoginController extends GetxController {
-
   RxBool checkIdPw = false.obs;
   TextEditingController idController = TextEditingController();
   TextEditingController pwController = TextEditingController();
   TextEditingController nickController = TextEditingController();
-
 
   Future Login() async {
     Get.dialog(const Center(child: CircularProgressIndicator()),
@@ -57,7 +54,6 @@ class LoginController extends GetxController {
       log(getprofile.statusCode.toString());
       Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
 
-
       profile.image = result['profilePhotoUrl']!;
       profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
       profile.nick = result['nickname']!;
@@ -70,20 +66,17 @@ class LoginController extends GetxController {
           profile.introduce = profileRe['result']['introduction'];
           profile.star = profileRe['result']['rating'];
         }
-        profile.isOn = (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
+        profile.isOn =
+            (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
         SettingController.to.on(profile.isOn);
 
-        if (profileRe['result']['top'] == 1)
-          profile.position.add('탑');
-        if (profileRe['result']['jungle'] == 1)
-          profile.position.add('정글');
-        if (profileRe['result']['mid'] == 1)
-          profile.position.add('미드');
-        if (profileRe['result']['ad'] == 1)
-          profile.position.add('원딜');
-        if (profileRe['result']['supporter'] == 1)
-          profile.position.add('서포터');
-
+        if (profileRe['result']['top'] == 1) profile.position.add('탑');
+        if (profileRe['result']['jungle'] == 1) profile.position.add('정글');
+        if (profileRe['result']['mid'] == 1) profile.position.add('미드');
+        if (profileRe['result']['ad'] == 1) profile.position.add('원딜');
+        if (profileRe['result']['supporter'] == 1) profile.position.add('서포터');
+        var temp = profile.position.toSet();
+        profile.position = temp.toList();
         WidgetsBinding.instance.addPostFrameCallback((_) {
           searchDuoController.to.getDuo();
         });
@@ -95,31 +88,28 @@ class LoginController extends GetxController {
         profileController.to.getReviews();
         // profileController.to.getProfile();
 
-
         await homePageController.to.gethomePageduoProfile();
         await homePageController.to.gethomePageduoProfileVertical();
         Get.back();
         Get.to(App());
       }
-    }
-    else { //message: '아이디 비밀번호를 다시 확인해주세요.'
+    } else {
+      //message: '아이디 비밀번호를 다시 확인해주세요.'
 
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-            message: re['message'],
-            okCallback: () {
-              Get.back();
-              Get.back();
-            },
-            okmessage: '확인',
-            cancelCallback:  () {
-              Get.back();
-              Get.back();
-            },
-          ));
+                message: re['message'],
+                okCallback: () {
+                  Get.back();
+                  Get.back();
+                },
+                okmessage: '확인',
+                cancelCallback: () {
+                  Get.back();
+                  Get.back();
+                },
+              ));
     }
   }
-
-
 }

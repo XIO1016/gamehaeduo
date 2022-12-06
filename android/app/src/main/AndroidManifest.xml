@@ -1,6 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cau.cau_gameduo">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
         android:label="cau_gameduo"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">

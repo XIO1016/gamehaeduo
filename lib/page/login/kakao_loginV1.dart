@@ -90,7 +90,10 @@ class KakaoLogin {
                     profile.star = profileRe['result']['rating'];
                   }
                   // log(profileRe['result']['playerProfileStatus'].toString());
-                  profile.isOn = (profileRe['result']['playerProfileStatus'] == 'A') ? true : false;
+                  profile.isOn =
+                      (profileRe['result']['playerProfileStatus'] == 'A')
+                          ? true
+                          : false;
                   SettingController.to.on(profile.isOn);
                   if (profileRe['result']['top'] == 1) {
                     profile.position.add('탑');
@@ -107,6 +110,8 @@ class KakaoLogin {
                   if (profileRe['result']['supporter'] == 1) {
                     profile.position.add('서포터');
                   }
+                  var temp = profile.position.toSet();
+                  profile.position = temp.toList();
 
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     searchDuoController.to.getDuo();
@@ -233,7 +238,8 @@ class KakaoLogin {
                   if (profileRe['result']['supporter'] == 1) {
                     profile.position.add('서포터');
                   }
-
+                  var temp = profile.position.toSet();
+                  profile.position = temp.toList();
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     searchDuoController.to.getDuo();
                   });

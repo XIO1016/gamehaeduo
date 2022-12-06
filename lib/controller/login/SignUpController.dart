@@ -50,18 +50,24 @@ class SignUpController extends GetxController {
           "content-type": "application/json",
           "accept": "application/json",
         });
-    Map re = jsonDecode(checkdup.body);
+    Map re = jsonDecode(utf8.decode(checkdup.bodyBytes));
     if (re['isSuccess'] == false) {
       checkNickDup(false);
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-                message: '이미 사용중인 닉네임입니다.',
+                message:re['message'],
                 okCallback: () {
                   Get.back();
+                  Get.back();
+
                 },
                 okmessage: '확인',
-                cancelCallback: Get.back,
+                cancelCallback: () {
+                  Get.back();
+                  Get.back();
+
+                },
               ));
     } else {
       checkNickDup(true);
@@ -165,7 +171,7 @@ class SignUpController extends GetxController {
           "content-type": "application/json",
           "accept": "application/json",
         });
-    Map re = jsonDecode(checkdup.body);
+        Map re = jsonDecode(utf8.decode(checkdup.bodyBytes));
     log(checkdup.statusCode.toString());
     if (re['isSuccess'] == false) {
       checkIdDup(false);
