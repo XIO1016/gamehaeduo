@@ -30,7 +30,7 @@ class searchDuoPage extends GetView<searchDuoController> {
                 },
                 child: Container(
                   width: Get.width,
-                  height: 60,
+                  height: Get.height * 0.07,
                   decoration: BoxDecoration(
                       color: maincolor,
                       borderRadius: BorderRadius.circular(15)),
@@ -64,7 +64,10 @@ class searchDuoPage extends GetView<searchDuoController> {
               onPressed: () {
                 controller.getDuoRefresh();
               },
-              icon: const Icon(Icons.refresh,color: Colors.black,))
+              icon: const Icon(
+                Icons.refresh,
+                color: Colors.black,
+              ))
         ],
         title: const Padding(
           padding: EdgeInsets.all(20.0),
@@ -82,36 +85,38 @@ class searchDuoPage extends GetView<searchDuoController> {
             if (controller.duoNum.value == 0)
               const Center(child: Text('듀오가 없어요'))
             else
-              Container(
-                color: Colors.white,
-                width: 700,
-                height: 600,
-                child: LayoutBuilder(
-                  builder: (context, constraint) {
-                    return Swiper(
-                      loop: true,
-                      controller: controller.cardController,
-                      itemCount: controller.duoNum.value,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CardView(duo: controller.duoList[index]);
-                      },
-                      viewportFraction: 0.8,
-                      scale: 0.9,
-                      layout: SwiperLayout.TINDER,
-                      itemWidth: 500,
-                      itemHeight: 550,
-                      index: 1,
-                      onIndexChanged: (index) {
-                        controller.index(index);
-                        log(index.toString());
-                        if (index % 8 == 0) {
-                          log('update');
+              Center(
+                child: Container(
+                  color: Colors.white,
+                  width: Get.width - 30,
+                  height: Get.height * 0.79,
+                  child: LayoutBuilder(
+                    builder: (context, constraint) {
+                      return Swiper(
+                        loop: true,
+                        controller: controller.cardController,
+                        itemCount: controller.duoNum.value,
+                        itemBuilder: (BuildContext context, int index) {
+                          return CardView(duo: controller.duoList[index]);
+                        },
+                        viewportFraction: 0.9,
+                        scale: 0.8,
+                        layout: SwiperLayout.TINDER,
+                        itemWidth: 500,
+                        itemHeight: 540,
+                        index: 1,
+                        onIndexChanged: (index) {
+                          controller.index(index);
+                          log(index.toString());
+                          if (index % 8 == 0) {
+                            log('update');
 
-                          controller.getDuo();
-                        }
-                      },
-                    );
-                  },
+                            controller.getDuo();
+                          }
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
           ],
@@ -139,7 +144,7 @@ class CardView extends StatelessWidget {
       child: Card(
         child: Column(
           children: <Widget>[
-            SizedBox(height: 350, child: Image.network(duo.image)),
+            SizedBox(height: 300, child: Image.network(duo.image)),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -148,10 +153,10 @@ class CardView extends StatelessWidget {
                     child: Text(duo.name,
                         style: TextStyle(
                             color: blackcolor,
-                            fontSize: 20.0,
+                            fontSize: 18.0,
                             fontWeight: FontWeight.w700)),
                   ),
-                  Sbox(0, 16),
+                  Sbox(0, 10),
                   Row(
                     children: [
                       Text("티어      ",
@@ -164,7 +169,7 @@ class CardView extends StatelessWidget {
                               fontWeight: FontWeight.bold))
                     ],
                   ),
-                  Sbox(0, 10),
+                  Sbox(0, 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -203,7 +208,6 @@ class CardView extends StatelessWidget {
                           ),
                         ],
                       ),
-
                     ],
                   ),
                   Sbox(0, 8),

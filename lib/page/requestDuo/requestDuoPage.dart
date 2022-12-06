@@ -1,7 +1,6 @@
 import 'package:cau_gameduo/components/Color.dart';
 import 'package:cau_gameduo/components/tierImage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:cau_gameduo/controller/requestDuo/requestDuoController.dart';
 import '../../components/requestDuoPopUp.dart';
@@ -130,8 +129,10 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   child: Column(
                                       children: List.generate(
                                           controller.requestDuoNum.value,
-                                          (index) => requestBox(context,
-                                              controller.requestDuo[index],1))),
+                                          (index) => requestBox(
+                                              context,
+                                              controller.requestDuo[index],
+                                              1))),
                                 ),
                         ],
                       ),
@@ -170,7 +171,8 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                             controller.requested1Duo);
                                         controller.requestedDuoNum(
                                             controller.requested1Duo.length);
-                                      } else if (newValue.toString() == '수락 대기') {
+                                      } else if (newValue.toString() ==
+                                          '수락 대기') {
                                         log(newValue.toString());
                                         controller.requestedDuo(
                                             controller.requested2Duo);
@@ -217,8 +219,10 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                   child: Column(
                                       children: List.generate(
                                           controller.requestedDuoNum.value,
-                                          (index) => requestBox(context,
-                                              controller.requestedDuo[index],2))),
+                                          (index) => requestBox(
+                                              context,
+                                              controller.requestedDuo[index],
+                                              2))),
                                 ),
                         ],
                       ),
@@ -233,18 +237,17 @@ class RequestDuoPage extends GetView<RequestDuoController> {
     );
   }
 
-  Widget requestBox(BuildContext context, Request request,int i) {
-    var status ={};
-    if(i==1){
-      status= controller.requestDuoStatus;
-    }
-    else{
+  Widget requestBox(BuildContext context, Request request, int i) {
+    var status = {};
+    if (i == 1) {
+      status = controller.requestDuoStatus;
+    } else {
       status = controller.requestedDuoStatus;
     }
-    var duostatus= status[request.duo.duoId];
+    var duostatus = status[request.duo.duoId];
     return Container(
       width: Get.width - 20,
-      height: (duostatus == 2||duostatus==1) ? 200 : 150,
+      height: (duostatus == 2 || duostatus == 1) ? 200 : 155,
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -342,29 +345,29 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                     Sbox(0, 8),
                     Row(
                       children: [
-                        (request.duo.rank=='')?
-                        const SizedBox()
-                        :Expanded(
-                          child: Row(
-                            children: [
-                              tierImage(request.duo.rank),
-                              Sbox(3, 0),
-                              Text(
-                                request.duo.rank,
-                                style: const TextStyle(
-                                  color: Color(0xff14BC57),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 12,
+                        (request.duo.rank == '')
+                            ? const SizedBox()
+                            : Expanded(
+                                child: Row(
+                                  children: [
+                                    tierImage(request.duo.rank),
+                                    Sbox(3, 0),
+                                    Text(
+                                      request.duo.rank,
+                                      style: const TextStyle(
+                                        color: Color(0xff14BC57),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
                         (duostatus == 0)
                             ? OutlinedButton(
                                 onPressed: () {
                                   CancelOngoingPopUp(context, request.duo.name,
-                                     request.duo,request);
+                                      request.duo, request);
                                 },
                                 style: OutlinedButton.styleFrom(
                                   shape: const RoundedRectangleBorder(
@@ -382,7 +385,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
                                 ),
                               )
                             : const SizedBox(),
-                        (duostatus == 3&&i==1)
+                        (duostatus == 3 && i == 1)
                             ? OutlinedButton(
                                 onPressed: () {
                                   log(request.duo.duoId.toString());
@@ -413,9 +416,8 @@ class RequestDuoPage extends GetView<RequestDuoController> {
               ),
             ],
           ),
-          (duostatus == 2) ? buttons('취소', '완료',request) : Container(),
-          (duostatus == 1) ? buttons('거절', '수락',request) : Container()
-
+          (duostatus == 2) ? buttons('취소', '완료', request) : Container(),
+          (duostatus == 1) ? buttons('거절', '수락', request) : Container()
         ],
       ),
     );
@@ -459,7 +461,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
         ));
   }
 
-  Widget buttons(String text1, String text2,Request request) {
+  Widget buttons(String text1, String text2, Request request) {
     return Column(
       children: [
         const Divider(
@@ -471,20 +473,20 @@ class RequestDuoPage extends GetView<RequestDuoController> {
           children: [
             OutlinedButton(
               onPressed: () {
-                if (text1=='거절') {
-                  RejectRequestPopUp(Get.context!,request.duo.name,request.duo,request);
-
-                }
-                else{
-                  CancelOngoingPopUp(Get.context!, request.duo.name,
-                     request.duo,request);
+                if (text1 == '거절') {
+                  RejectRequestPopUp(
+                      Get.context!, request.duo.name, request.duo, request);
+                } else {
+                  CancelOngoingPopUp(
+                      Get.context!, request.duo.name, request.duo, request);
                 }
               },
               style: OutlinedButton.styleFrom(
                   shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10))),
                   side: const BorderSide(color: Colors.black, width: 0.2),
-                  padding: const EdgeInsets.only(bottom: 5, left: 25, right: 25)),
+                  padding:
+                      const EdgeInsets.only(bottom: 5, left: 25, right: 25)),
               child: Text(
                 text1,
                 style: const TextStyle(
@@ -495,15 +497,13 @@ class RequestDuoPage extends GetView<RequestDuoController> {
             ),
             ElevatedButton(
               onPressed: () {
-                if (text1=='거절') {
-                  AcceptRequestPopUp(Get.context!,request.duo.name, request.duo,request);
-
+                if (text1 == '거절') {
+                  AcceptRequestPopUp(
+                      Get.context!, request.duo.name, request.duo, request);
+                } else {
+                  FinishOngoingPopUp(
+                      Get.context!, request.duo.name, request.duo, request);
                 }
-                else{
-                  FinishOngoingPopUp(Get.context!, request.duo.name,
-                     request.duo,request);
-                }
-
               },
               style: OutlinedButton.styleFrom(
                   shape: const RoundedRectangleBorder(
