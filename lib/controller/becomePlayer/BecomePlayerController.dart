@@ -43,18 +43,18 @@ class BecomePlayerController extends GetxController {
   RxBool writeFinish2 = false.obs;
   //티어
   final tierList = [
-    '언랭크',
-    '아이언',
-    '브론즈',
-    '실버',
-    '골드',
-    '플래티넘',
-    '다이아',
-    '마스터',
-    '그랜드 마스터',
-    '챌린저'
+    'Unranked',
+    'Iron',
+    'Bronze',
+    'Silver',
+    'Gold',
+    'Platinum',
+    'Diamond',
+    'Master',
+    'Grand Master',
+    'Challenger'
   ].obs;
-  RxString selected = "언랭크".obs;
+  RxString selected = "Unranked".obs;
 
   //성별
   List gender = ['남자', '여자'];

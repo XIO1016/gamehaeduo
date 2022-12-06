@@ -41,7 +41,7 @@ class LoginController extends GetxController {
     Map<String, dynamic> re = jsonDecode(utf8.decode(login.bodyBytes));
 
     log(re.toString());
-    if (login.statusCode == 200) {
+    if (re['code'] == 1000) {
       Map result = re['result'];
       userId = result['userId']!.toString();
       jwtaccessToken = result['jwtAccessToken']!;
@@ -56,14 +56,16 @@ class LoginController extends GetxController {
 
       log(getprofile.statusCode.toString());
       Map profileRe = jsonDecode(utf8.decode(getprofile.bodyBytes));
-      profile.isOn = (result['status'] == 'Active') ? true : false;
+      profile.isOn = (result['status'] == 'A') ? true : false;
       SettingController.to.on(profile.isOn);
+      log('isontest');
+      log(profile.isOn.toString());
+      log(SettingController.to.on.value.toString());
+
 
       profile.image = result['profilePhotoUrl']!;
       profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
       profile.nick = result['nickname']!;
-      log('eeeeeeeeeeeeeeeeeee');
-      log(profile.nick);
       profile.price = result['point'];
 
       if (profileRe['code'] == 1000) {
@@ -103,17 +105,21 @@ class LoginController extends GetxController {
         Get.to(App());
       }
     }
-    else if (login.statusCode == 5004) { //message: '아이디 비밀번호를 다시 확인해주세요.'
-      checkIdPw(false);
+    else { //message: '아이디 비밀번호를 다시 확인해주세요.'
+
       showDialog(
           context: Get.context!,
           builder: (context) => MessagePopup(
-            message: '아이디 비밀번호를 다시 확인해주세요.',
+            message: re['message'],
             okCallback: () {
+              Get.back();
               Get.back();
             },
             okmessage: '확인',
-            cancelCallback: Get.back,
+            cancelCallback:  () {
+              Get.back();
+              Get.back();
+            },
           ));
     }
   }

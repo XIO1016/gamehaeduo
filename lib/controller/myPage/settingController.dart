@@ -12,7 +12,7 @@ import '../login/SignUpController.dart';
 class SettingController extends GetxController {
 
   static SettingController get to => Get.find<SettingController>();
-  RxBool on = profile.isOn.obs;
+  RxBool on = false.obs;
   onOff() async {
     if (on.value == false) {
       on(true);

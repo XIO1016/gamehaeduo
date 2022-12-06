@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import 'package:http/http.dart' as http;
+import '../../components/messagePopUp.dart';
 import '../../controller/login/SignUpController.dart';
 import '../../controller/myPage/settingController.dart';
 import '../../http/url.dart';
@@ -122,6 +123,21 @@ class KakaoLogin {
           } else if (userCheck.statusCode == 2001) {
             log('RESEND PLEASE');
           } else {
+            showDialog(
+                context: Get.context!,
+                builder: (context) => MessagePopup(
+                  message: re['message'],
+                  okCallback: () {
+                    Get.back();
+                    Get.back();
+                  },
+                  okmessage: '확인',
+                  cancelCallback: () {
+                    Get.back();
+                  },
+                ));
+            log('code');
+
             return false;
           }
 
@@ -179,6 +195,9 @@ class KakaoLogin {
                 log(profileRe.toString());
                 profile.isOn = (result['status'] == 'Active') ? true : false;
                 SettingController.to.on(profile.isOn);
+                log(profile.isOn.toString());
+
+                log(SettingController.to.on.value.toString());
                 profile.image = result['profilePhotoUrl']!;
                 profile.isPlayer = (result['isPlayer'] == 'N') ? false : true;
                 profile.nick = result['nickname'];
