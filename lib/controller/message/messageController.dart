@@ -171,7 +171,7 @@ class MessageController extends GetxController {
   }
 
   applyDuo(int roomid, Duo duo) async {
-    MyPageController.to.getRequestDuoNum();
+
 
     var applyDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo'),
@@ -193,6 +193,7 @@ class MessageController extends GetxController {
       log(result.toString());
       messageRoomList[roomid]!.duo.status = 0;
       duoState(0);
+      MyPageController.to.getRequestDuoNum();
       RequestDuoController.to.getRequestDuoRefresh();
     } else {
       showDialog(

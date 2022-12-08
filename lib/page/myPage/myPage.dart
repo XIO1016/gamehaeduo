@@ -19,7 +19,7 @@ class MyPage extends GetView<MyPageController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(()=> Scaffold(
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20),
@@ -182,7 +182,7 @@ class MyPage extends GetView<MyPageController> {
             Sbox(0, 20),
           ],
         ),
-      ),
+      ),)
     );
   }
 }

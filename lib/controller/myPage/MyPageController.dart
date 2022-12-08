@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cau_gameduo/page/login/kakao_loginV1.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,7 +45,7 @@ RxInt requestedDuoNum=0.obs;
     requestDuoNum(result['requestDuoNum']);
     profile.price= result['point'];
     price(profile.price);
-    // log(price.value.toString());
+    log(price.value.toString());
 
   }
 }

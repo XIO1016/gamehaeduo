@@ -167,7 +167,7 @@ class RequestDuoController extends GetxController {
   }
 
   cancelDuo(Duo duo,Request request) async {
-    MyPageController.to.getRequestDuoNum();
+
     var cancelDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/cancel'),
       headers: <String, String>{
@@ -196,6 +196,8 @@ class RequestDuoController extends GetxController {
 
       }
       duo.status = 4;
+      MyPageController.to.getRequestDuoNum();
+
     } else {
       showDialog(
           context: Get.context!,
@@ -214,7 +216,7 @@ class RequestDuoController extends GetxController {
   }
 
   finishDuo(Duo duo,Request request) async {
-    MyPageController.to.getRequestDuoNum();
+
     var finishDuoRequest = await http.post(
       Uri.parse('${urlBase}api/duo/finish'),
       headers: <String, String>{
@@ -242,6 +244,7 @@ class RequestDuoController extends GetxController {
         getRequestedDuoRefresh();
       }
       duo.status=3;
+      MyPageController.to.getRequestDuoNum();
     } else {
       showDialog(
           context: Get.context!,

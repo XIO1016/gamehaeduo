@@ -247,7 +247,7 @@ class RequestDuoPage extends GetView<RequestDuoController> {
     var duostatus = status[request.duo.duoId];
     return Container(
       width: Get.width - 20,
-      height: (duostatus == 2 || duostatus == 1) ? 200 : 155,
+      height: (duostatus == 2 || duostatus == 1) ? 200 : 160,
       padding: const EdgeInsets.all(12),
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
